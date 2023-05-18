@@ -6,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amigos Market</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <script src="assets/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <script src="/assets/js/index.js"></script>
 </head>
 
 <body>
@@ -27,10 +27,10 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link active" href="#">Features</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link active" href="#">Pricing</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -44,15 +44,12 @@
                         </ul>
                     </li>
                 </ul>
+                <ul class="navbar-nav ms-auto align-self-end">
+                    <li><span><ion-icon name="person-add-outline"></ion-icon></span><button data-bs-toggle="modal" data-bs-target="#loginModel" >Login/Register</button></li>
+                </ul>
             </div>
         </div>
     </nav>
-    <!--Vertical Nav-->
-    <div class="vert-menu">
-        <h1>
-            Hello
-        </h1>
-    </div>
     <!--   About    -->
     <div class="container">
         <div class="heading">
@@ -86,10 +83,165 @@
                 <li>Welcome bonuses and discounts</li>
             </ul>
         </div>
-        <div class="about">
+       
+    </div>
+    <!--  Carousel Section -->
+    <div class="pageCarousel container">
+        <div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="assets/img/caro-img1.jpg" class="d-block w-100" alt="Image 1">
+              </div>
+              <div class="carousel-item">
+                <img src="assets/img/caro-img2.jpg" class="d-block w-100" alt="Image 2">
+              </div>
+              <div class="carousel-item">
+                <img src="assets/img/caro-img3.jpg" class="d-block w-100" alt="Image 3">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+    
+    </div>
+    <div>
+        <div class="modal fade" id="loginModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="mod_title" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <h1 class="modal-title fs-5" id="mod_title2">AmigosMarket</h1>
+                    <div class="modal-header">
+                        <h3 class="modal-title fs-5" id="mod_title">Login/SignUp</h3> 
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form name="editForm" id="editForm" action="" class="was-validated needs-validation" novalidate onsubmit="editComputer(pro_id.value)">
+                        <div class="modal-body">
+                            <div class="form-floating  mb-2">
+                                <input list="computerType" class="form-control" placeholder="Enter Username"
+                                    aria-label="Username" id='ctype' name="ctype" required minlength="5" maxlength="12">
+                                <label for="ctype">User Name</label>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Provide A Username!
+                                </div>
+                            </div>
 
+                            
+                            <div class="form-floating  mb-2">
 
+                                <input type="text" class="form-control" placeholder="$ value" aria-label="Username"
+                                    aria-describedby="footer-form" id='pass' name="pass" required >
+                                <label>Price</label>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Provide password!
+                                </div>
+                            </div>
+                            <div>
+                                <h6>New Here? Get an Account <a href="#signUpModel" data-bs-toggle="modal" data-bs-target="#signUpModel" data-bs-dismiss="modal">Here</a></h6>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button type="submit" class="btn btn-primary" 
+                                data-bs-dismiss="modal" id="liveAlertBtn">Edit</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <div>
+        <div class="modal fade" id="signUpModel" tabindex="-1" aria-labelledby="modelSignUp" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="modelSignUp">Sign Up</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form name="editForm" id="editForm" action="" class="was-validated needs-validation" novalidate onsubmit="editComputer(pro_id.value)">
+                        <div class="modal-body">
+                            <div class="form-floating  mb-2">
+                                <input list="computerType" class="form-control" placeholder="First Name"
+                                    aria-label="Username" id='fname' required minlength="5" maxlength="12">
+                                <label for="ctype">First Name</label>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Provide A First Name!
+                                </div>
+                            </div>
+                            <div class="form-floating  mb-2">
+                                <input type="text" class="form-control" placeholder="Last Name" aria-label="Last Name"
+                                    aria-describedby="footer-form" id='lname'  required >
+                                <label>Last Name</label>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Provide A Last Name!
+                                </div>
+                            </div>
+                            <div class="form-floating  mb-2">
+                                <input type="text" class="form-control" placeholder="User Name" aria-label="User Name"
+                                    aria-describedby="footer-form" id='uname'  required >
+                                <label>User Name</label>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Provide User Name
+                                </div>
+                                <h6>!This name is used for Login purpose, Please Remember </h6>
+                            </div>
+                            <div class="form-floating  mb-2">
+                                <input type="text" class="form-control" placeholder="Password" aria-label="Password"
+                                    aria-describedby="footer-form" id='pass' required >
+                                <label>Pasword</label>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Required Field!
+                                </div>
+                            </div>
+                            <div class="form-floating  mb-2">
+                                <input type="text" class="form-control" placeholder="Confirm Password" aria-label="Confirm Password"
+                                    aria-describedby="footer-form" id='cpass' required >
+                                <label>Confirm Pasword</label>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Required Field!
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-success">Sign Up</button>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
