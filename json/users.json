@@ -1,0 +1,25 @@
+{
+  "Users": [
+    {
+      "id": 1,
+      "fname": "Amigo",
+      "lname": "Souls",
+      "uname": "Amisouaru",
+      "password": "Amisou12"
+    },
+    {
+      "fname": "SriHari",
+      "lname": "Kanth",
+      "uname": "srihari12",
+      "password": "Srihari@12",
+      "id": 2
+    },
+    {
+      "fname": "Ramya",
+      "lname": "Priya",
+      "uname": "remyaRocks",
+      "password": "remrempriya",
+      "id": 3
+    }
+  ]
+}

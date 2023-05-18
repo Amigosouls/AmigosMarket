@@ -6,10 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amigos Market</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <script src="assets/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/assets/css/styles.css">
-    <script src="/assets/js/index.js"></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/index.js"></script>
+
 </head>
 
 <body>
@@ -50,6 +52,7 @@
             </div>
         </div>
     </nav>
+    <div id="liveAlertPlaceholder"></div>
     <!--   About    -->
     <div class="container">
         <div class="heading">
@@ -120,7 +123,7 @@
                         <h3 class="modal-title fs-5" id="mod_title">Login/SignUp</h3> 
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form name="editForm" id="editForm" action="" class="was-validated needs-validation" novalidate onsubmit="editComputer(pro_id.value)">
+                    <form name="loginForm" id="loginForm" action="" class="was-validated needs-validation">
                         <div class="modal-body">
                             <div class="form-floating  mb-2">
                                 <input list="computerType" class="form-control" placeholder="Enter Username"
@@ -174,7 +177,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form name="editForm" id="editForm" action="" class="was-validated needs-validation" novalidate onsubmit="editComputer(pro_id.value)">
+                    <form name="signUpForm" id="signUpForm" action="" class="was-validated needs-validation" onsubmit="signUpUser()">
                         <div class="modal-body">
                             <div class="form-floating  mb-2">
                                 <input list="computerType" class="form-control" placeholder="First Name"
@@ -194,7 +197,7 @@
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
-                                <div class="invalid-feedback">
+                                <div class="invalid-feedback" >
                                     Provide A Last Name!
                                 </div>
                             </div>
@@ -208,7 +211,7 @@
                                 <div class="invalid-feedback">
                                     Provide User Name
                                 </div>
-                                <h6>!This name is used for Login purpose, Please Remember </h6>
+                                <h6 id="unameFeedback">!This name is used for Login purpose, Please Remember </h6>
                             </div>
                             <div class="form-floating  mb-2">
                                 <input type="text" class="form-control" placeholder="Password" aria-label="Password"
@@ -233,13 +236,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success" >Sign Up</button>
+                          </div>
+                        </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-success">Sign Up</button>
-                </div>
-              </div>
+               
             </div>
           </div>
     </div>
