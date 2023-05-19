@@ -3,7 +3,7 @@ body{
     color: #fff;
 }
 
-.container{
+.container-sm-2{
     background-color: rgb(77, 71, 71);
     border-radius: 10px;
     border-color: darkgray;
@@ -68,3 +68,36 @@ body{
   .modal-footer {
     background-color: #2565ae;
   }
+
+  .col-4{
+    height: auto;
+    width: 400px;
+    background-color: rgb(166, 230, 230);
+    margin-left: 100px;
+    animation: changebg 10s infinite;
+  }
+.col-4 h3{
+  color: indigo;
+}
+.marketNews{
+  text-align: center;
+  margin-top: 100px;
+  color: blueviolet;
+  
+}
+
+@keyframes changebg {
+  0% {background-color: #F5F0BB;}
+  25% {background-color: #DBDFAA;}
+  50% {background-color: #B3C890;}
+  75% {background-color: #73A9AD;}
+  100% {background-color: #FEA1A1;}
+}
+
+.footer{
+  background-color: #B3C890;
+  text-align: center;
+}
+.footer h5{
+  color: black;
+}

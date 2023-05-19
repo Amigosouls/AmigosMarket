@@ -47,71 +47,96 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto align-self-end">
-                    <li><span><ion-icon name="person-add-outline"></ion-icon></span><button data-bs-toggle="modal" data-bs-target="#loginModel" >Login/Register</button></li>
+                    <li><span><ion-icon name="person-add-outline"></ion-icon></span><button data-bs-toggle="modal"
+                            data-bs-target="#loginModel">Login/Register</button></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div id="liveAlertPlaceholder"></div>
     <!--   About    -->
-    <div class="container">
-        <div class="heading">
-            <h3>
-               <span><ion-icon name="chatbubble-ellipses-outline"></ion-icon></span> About Us:
-            </h3>
-            <p>
-                Money may make the world go around, as the song says. And most people in the world probably have handled
-                money, many of them on a daily basis. But despite its familiarity, probably few people could tell you
-                exactly what money is, or how it works. So, We
-            </p>
-            <p>
-                When a trader opens a buy position, they are essentially buying an asset from the market, and when they
-                close their position, they sell it back to the market. If someone buys an asset, then they are highly
-                likely to think that its price will rise and if they sell it, then the chances are they think its price
-                will fall in the not too distant future
-            </p>
-            <h3><span><ion-icon name="megaphone-outline"></ion-icon></span> What We Do:</h3>
-            <p>
-                In this market, we help the customers to buy products available in our market using the amount they have.
-                They can purchase for any item that can accomodate with the expense and money they have in their account. The users
-                have to register to the website inorder to buy and sell from the market. 
-            </p>
-            <h3><span><ion-icon name="sparkles-outline"></ion-icon></span> Our Goals:</h3>
-            <ul>
-                <li>Seamless market Service</li>
-                <li>Marketing Tips and Strategies</li>
-                <li>Customer Satisfaction</li>
-                <li>Lowest Possible Rates on Goods</li>
-                <li>Updates on Market performance</li>
-                <li>Welcome bonuses and discounts</li>
-            </ul>
+
+    <div class="container" id="liveAlertPlaceholder"></div>
+    <div class="container-sm-2">
+        <div class="row">
+            <div class="col-8">
+                <div class="heading">
+                    <h3>
+                        <span><ion-icon name="chatbubble-ellipses-outline"></ion-icon></span> About Us:
+                    </h3>
+                    <p>
+                        Money may make the world go around, as the song says. And most people in the world probably have
+                        handled
+                        money, many of them on a daily basis. But despite its familiarity, probably few people could
+                        tell
+                        you
+                        exactly what money is, or how it works. So, We
+                    </p>
+                    <p>
+                        When a trader opens a buy position, they are essentially buying an asset from the market, and
+                        when
+                        they
+                        close their position, they sell it back to the market. If someone buys an asset, then they are
+                        highly
+                        likely to think that its price will rise and if they sell it, then the chances are they think
+                        its
+                        price
+                        will fall in the not too distant future
+                    </p>
+                    <h3><span><ion-icon name="megaphone-outline"></ion-icon></span> What We Do:</h3>
+                    <p>
+                        In this market, we help the customers to buy products available in our market using the amount
+                        they
+                        have.
+                        They can purchase for any item that can accomodate with the expense and money they have in their
+                        account. The users
+                        have to register to the website inorder to buy and sell from the market.
+                    </p>
+                    <h3><span><ion-icon name="sparkles-outline"></ion-icon></span> Our Goals:</h3>
+                    <ul>
+                        <li>Seamless market Service</li>
+                        <li>Marketing Tips and Strategies</li>
+                        <li>Customer Satisfaction</li>
+                        <li>Lowest Possible Rates on Goods</li>
+                        <li>Updates on Market performance</li>
+                        <li>Welcome bonuses and discounts</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <h3>Stock Holders Details:</h3>
+                <marquee direction="up" behavior="scroll">
+                    <div class="marketNews"></div>
+                </marquee>
+            </div>
         </div>
-       
     </div>
     <!--  Carousel Section -->
     <div class="pageCarousel container">
-        <div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
+        <div id="carouselExampleRide" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="assets/img/caro-img1.jpg" class="d-block w-100" alt="Image 1">
-              </div>
-              <div class="carousel-item">
-                <img src="assets/img/caro-img2.jpg" class="d-block w-100" alt="Image 2">
-              </div>
-              <div class="carousel-item">
-                <img src="assets/img/caro-img3.jpg" class="d-block w-100" alt="Image 3">
-              </div>
+                <div class="carousel-item active">
+                    <img src="assets/img/caro-img-1.jpg" class="d-block w-100" alt="Image 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="assets/img/caro-img-2.jpg" class="d-block w-100" alt="Image 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="assets/img/caro-img-3.jpg" class="d-block w-100" alt="Image 3">
+                </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
             </button>
-          </div>
-    
+        </div>
+
     </div>
     <div>
         <div class="modal fade" id="loginModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -120,46 +145,47 @@
                 <div class="modal-content">
                     <h1 class="modal-title fs-5" id="mod_title2">AmigosMarket</h1>
                     <div class="modal-header">
-                        <h3 class="modal-title fs-5" id="mod_title">Login/SignUp</h3> 
+                        <h3 class="modal-title fs-5" id="mod_title">Login/SignUp</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form name="loginForm" id="loginForm" action="" class="was-validated needs-validation">
+                    <form name="loginForm" id="loginForm" action="" class="was-validated needs-validation"
+                        onsubmit="userLogin();return false;">
                         <div class="modal-body">
                             <div class="form-floating  mb-2">
-                                <input list="computerType" class="form-control" placeholder="Enter Username"
-                                    aria-label="Username" id='ctype' name="ctype" required minlength="5" maxlength="12">
-                                <label for="ctype">User Name</label>
+                                <input type="text" class="form-control" placeholder="Enter Username"
+                                    aria-label="Username" id='log_uname' required minlength="5" maxlength="12">
+                                <label for="log_uname">User Name</label>
                                 <div class="valid-feedback">
-                                    Looks good!
+                                    Cool!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Provide A Username!
+                                    Username is Required
                                 </div>
                             </div>
 
-                            
+
                             <div class="form-floating  mb-2">
 
-                                <input type="text" class="form-control" placeholder="$ value" aria-label="Username"
-                                    aria-describedby="footer-form" id='pass' name="pass" required >
-                                <label>Price</label>
+                                <input type="password" class="form-control" placeholder="$ value" aria-label="Username"
+                                    aria-describedby="footer-form" id='log_pass' name="pass" required>
+                                <label>Password</label>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Provide password!
+                                    Password is Must!
                                 </div>
                             </div>
                             <div>
-                                <h6>New Here? Get an Account <a href="#signUpModel" data-bs-toggle="modal" data-bs-target="#signUpModel" data-bs-dismiss="modal">Here</a></h6>
+                                <h6>New Here? Get an Account <a href="#signUpModel" data-bs-toggle="modal"
+                                        data-bs-target="#signUpModel" data-bs-dismiss="modal">Here</a></h6>
                             </div>
 
                         </div>
 
                         <div class="modal-footer">
 
-                            <button type="submit" class="btn btn-primary" 
-                                data-bs-dismiss="modal" id="liveAlertBtn">Edit</button>
+                            <button type="submit" class="btn btn-primary" id="">Login</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </form>
@@ -168,21 +194,22 @@
         </div>
     </div>
 
-    <div>
-        <div class="modal fade" id="signUpModel" tabindex="-1" aria-labelledby="modelSignUp" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
+    <button class="btn btn-primary" id="liveAlertBtn"> Hi</button>
+    <div class="modal fade" id="signUpModel" tabindex="-1" aria-labelledby="modelSignUp" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="modelSignUp">Sign Up</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-5" id="modelSignUp">Sign Up</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form name="signUpForm" id="signUpForm" action="" class="was-validated needs-validation" onsubmit="signUpUser()">
+                    <form name="signUpForm" id="signUpForm" action="" class="was-validated needs-validation"
+                        onsubmit="signUpUser()">
                         <div class="modal-body">
                             <div class="form-floating  mb-2">
                                 <input list="computerType" class="form-control" placeholder="First Name"
                                     aria-label="Username" id='fname' required minlength="5" maxlength="12">
-                                <label for="ctype">First Name</label>
+                                <label for="fname">First Name</label>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
@@ -192,18 +219,18 @@
                             </div>
                             <div class="form-floating  mb-2">
                                 <input type="text" class="form-control" placeholder="Last Name" aria-label="Last Name"
-                                    aria-describedby="footer-form" id='lname'  required >
+                                    aria-describedby="footer-form" id='lname' required>
                                 <label>Last Name</label>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
-                                <div class="invalid-feedback" >
+                                <div class="invalid-feedback">
                                     Provide A Last Name!
                                 </div>
                             </div>
                             <div class="form-floating  mb-2">
                                 <input type="text" class="form-control" placeholder="User Name" aria-label="User Name"
-                                    aria-describedby="footer-form" id='uname'  required >
+                                    aria-describedby="footer-form" id='uname' required>
                                 <label>User Name</label>
                                 <div class="valid-feedback">
                                     Looks good!
@@ -215,7 +242,7 @@
                             </div>
                             <div class="form-floating  mb-2">
                                 <input type="text" class="form-control" placeholder="Password" aria-label="Password"
-                                    aria-describedby="footer-form" id='pass' required >
+                                    aria-describedby="footer-form" id='pass' required>
                                 <label>Pasword</label>
                                 <div class="valid-feedback">
                                     Looks good!
@@ -225,8 +252,8 @@
                                 </div>
                             </div>
                             <div class="form-floating  mb-2">
-                                <input type="text" class="form-control" placeholder="Confirm Password" aria-label="Confirm Password"
-                                    aria-describedby="footer-form" id='cpass' required >
+                                <input type="text" class="form-control" placeholder="Confirm Password"
+                                    aria-label="Confirm Password" aria-describedby="footer-form" id='cpass' required>
                                 <label>Confirm Pasword</label>
                                 <div class="valid-feedback">
                                     Looks good!
@@ -238,14 +265,18 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success" >Sign Up</button>
-                          </div>
+                            <button type="submit" class="btn btn-success">Sign Up</button>
                         </div>
-                    </form>
                 </div>
-               
+                </form>
             </div>
-          </div>
+
+        </div>
+    </div>
+    <!--Footer-->
+    <div class="container-fluid footer">
+        <h5>Amigos Market</h5>
+        <h5>All Rights reserved</h5>
     </div>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
