@@ -1,5 +1,32 @@
+const successAlert = document.getElementById("successAlertBox");
+const successAlertBox = (message, type) => {
+  const wrapper = document.createElement('div')
+  wrapper.innerHTML = [
+    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+    `   <div>${message}</div>`,
+    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+    '</div>'
+  ].join('')
+
+  successAlert.append(wrapper);
+}
+
+const errorAlert = document.getElementById("errorAlertBox");
+const errorAlertBox = (message, type) => {
+  const wrapper = document.createElement('div')
+  wrapper.innerHTML = [
+    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+    `   <div>${message}</div>`,
+    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+    '</div>'
+  ].join('')
+
+  errorAlert.append(wrapper);
+}
+
 
 //prevents users from submitting from with errors
+
 
 (() => {
     'use strict'
@@ -56,13 +83,21 @@ function userLogin(){
             for (let values of jsonData) {
                 if(userName==values['uname'] && userpass==values['password'])
                 {
-                    console.log("success");
-                    alertBox("Success")
+                    successAlertBox("Success","success");
+                    $("#loginMenu").empty();
+                    $("#loginMenu").html(`<div class="dropdown">
+                        <button class="dropbtn"><ion-icon name="person-add-outline"></ion-icon>${values['uname']}</button>
+                        <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                        </div>
+                  </div>`)
                 }
             }
-           
+           errorAlertBox("Login Failed","danger")
         }
-        console.log("loginFailed");
+
     }
 }
 
@@ -94,16 +129,16 @@ $(document).ready(function(){
   });
   var count =0;
 
-// function to update stock market shares
+//function to update stock market shares
 
-//   setInterval(function(){
+  setInterval(function(){
     
-//     const comp_list =["A","AA","AAC","AACI","AADI","AADI","AAIC","AAL","AAL","AAN","AAPL","ABC","ABG"];
-//     getStockValue(comp_list[count]);    
-//         if(count==12){
-//             count=0;
-//         }
-//   },15000);
+    const comp_list =["A","AA","AAC","AACI","AADI","AADI","AAIC","AAL","AAL","AAN","AAPL","ABC","ABG"];
+    getStockValue(comp_list[count]);    
+        if(count==12){
+            count=0;
+        }
+  },15000);
 
   function getStockValue(comp_name){
         var stock_string = ""

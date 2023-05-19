@@ -9,8 +9,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <script src="assets/js/bootstrap.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="assets/css/styles.css">
-    <script src="assets/js/index.js"></script>
+
 
 </head>
 
@@ -46,7 +48,7 @@
                         </ul>
                     </li>
                 </ul>
-                <ul class="navbar-nav ms-auto align-self-end">
+                <ul class="navbar-nav ms-auto align-self-end" id="loginMenu">
                     <li><span><ion-icon name="person-add-outline"></ion-icon></span><button data-bs-toggle="modal"
                             data-bs-target="#loginModel">Login/Register</button></li>
                 </ul>
@@ -54,8 +56,9 @@
         </div>
     </nav>
     <!--   About    -->
+    <div id="successAlertBox">
 
-    <div class="container" id="liveAlertPlaceholder"></div>
+    </div>
     <div class="container-sm-2">
         <div class="row">
             <div class="col-8">
@@ -148,6 +151,7 @@
                         <h3 class="modal-title fs-5" id="mod_title">Login/SignUp</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <div id="errorAlertBox"></div>
                     <form name="loginForm" id="loginForm" action="" class="was-validated needs-validation"
                         onsubmit="userLogin();return false;">
                         <div class="modal-body">
@@ -194,7 +198,6 @@
         </div>
     </div>
 
-    <button class="btn btn-primary" id="liveAlertBtn"> Hi</button>
     <div class="modal fade" id="signUpModel" tabindex="-1" aria-labelledby="modelSignUp" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -278,8 +281,7 @@
         <h5>Amigos Market</h5>
         <h5>All Rights reserved</h5>
     </div>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="assets/js/index.js"></script>
 </body>
 
 </html>
