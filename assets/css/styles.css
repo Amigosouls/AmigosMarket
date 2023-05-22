@@ -3,7 +3,7 @@ body{
     color: #fff;
 }
 
-.container-sm-2{
+.container-lg{
     background-color: rgb(77, 71, 71);
     border-radius: 10px;
     border-color: darkgray;
@@ -31,6 +31,10 @@ body{
     margin-top: 15px;
     margin-right: 10px;
     font-weight:100px;
+}
+#loginMenu >h5{
+  padding-right: 50px;
+  padding-top: 20px;
 }
 
 @font-face {
@@ -141,3 +145,15 @@ body{
 .dropdown:hover .dropdown-content {display: block;}
 
 .dropdown:hover .dropbtn {border-color: #882d44;}
+
+
+.products{
+  margin-top: 40px;
+}
+.products h4{
+  color: aqua !important;
+}
+
+#prod_list ion-icon {
+  font-size: 24px;
+}
