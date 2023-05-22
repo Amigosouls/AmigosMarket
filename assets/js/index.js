@@ -1,3 +1,5 @@
+
+//function shows alert box for successful actions
 const successAlert = document.getElementById("successAlertBox");
 const successAlertBox = (message, type) => {
     const wrapper = document.createElement('div')
@@ -11,6 +13,7 @@ const successAlertBox = (message, type) => {
     successAlert.append(wrapper);
 }
 
+//function shows alert box for unsuccessful actions
 const errorAlert = document.getElementById("errorAlertBox");
 const errorAlertBox = (message, type) => {
     const wrapper = document.createElement('div')
@@ -48,7 +51,7 @@ const errorAlertBox = (message, type) => {
 })()
 
 
-
+//function for creating new user
 function signUpUser() {
     const firstName = document.getElementById('fname').value;
     const lastName = document.getElementById('lname').value;
@@ -64,13 +67,16 @@ function signUpUser() {
                 fname: firstName,
                 lname: lastName,
                 uname: userName,
-                password: password
+                password: password,
+                logged:0,
+                asset:5000
             }
         )
     );
-    successAlert("Account Create Successfully", "success");
+    successAlertBox("Account Created Successfully", "success");
 }
 
+// function for validating users while log in
 function userLogin() {
     const userName = document.getElementById('log_uname').value;
     const userpass = document.getElementById('log_pass').value;
@@ -83,12 +89,17 @@ function userLogin() {
             for (let values of jsonData) {
                 if (userName == values['uname'] && userpass == values['password']) {
                     const userXmlObj = new XMLHttpRequest();
-                    userXmlObj.open("POST", "http://localhost:3000/Users");
+                    userXmlObj.open("PUT", `http://localhost:3000/Users/${values['id']}`);
                     userXmlObj.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
                     userXmlObj.send(
                         JSON.stringify(
                             {
-                                logged: 1
+                                fname:values['fanme'],
+                                lname:values['lname'],
+                                uname:values['uname'],
+                                password:values['password'],
+                                asset:values['asset'],
+                                logged:1
                             }
                         )
                     );
@@ -103,7 +114,7 @@ function userLogin() {
 }
 $(document).ready(function () {
     var givenName = document.getElementById('uname').value;
-    $("#uname").on("click keypress", function () {
+    $("#uname").on("click keypress blur", function () {
         const xmlParser = new XMLHttpRequest();
         givenName = document.getElementById('uname').value;
         console.log(givenName);
@@ -129,14 +140,14 @@ var count = 0;
 
 //function to update stock market shares
 
-//   setInterval(function(){
+  setInterval(function(){
 
-//     const comp_list =["A","AA","AAC","AACI","AADI","AADI","AAIC","AAL","AAL","AAN","AAPL","ABC","ABG"];
-//     getStockValue(comp_list[count]);    
-//         if(count==12){
-//             count=0;
-//         }
-//   },15000);
+    const comp_list =["A","AA","AAC","AACI","AADI","AADI","AAIC","AAL","AAL","AAN","AAPL","ABC","ABG"];
+    getStockValue(comp_list[count]);    
+        if(count==12){
+            count=0;
+        }
+  },15000);
 
 function getStockValue(comp_name) {
     var stock_string = ""
