@@ -68,8 +68,8 @@ function signUpUser() {
                 lname: lastName,
                 uname: userName,
                 password: password,
-                logged:0,
-                asset:5000
+                logged: 0,
+                asset: 5000
             }
         )
     );
@@ -83,6 +83,7 @@ function userLogin() {
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("GET", "http://localhost:3000/Users");
     xmlParser.send();
+    var login = false
     xmlParser.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             const jsonData = JSON.parse(this.responseText);
@@ -94,24 +95,29 @@ function userLogin() {
                     userXmlObj.send(
                         JSON.stringify(
                             {
-                                fname:values['fanme'],
-                                lname:values['lname'],
-                                uname:values['uname'],
-                                password:values['password'],
-                                asset:values['asset'],
-                                logged:1
+                                fname: values['fname'],
+                                lname: values['lname'],
+                                uname: values['uname'],
+                                password: values['password'],
+                                asset: values['asset'],
+                                logged: 1
                             }
                         )
                     );
-                    window.location.replace("userhome.html")
+                    login = true
+                    window.location.replace("userhome.html");
+                    break;
                 }
 
             }
-            errorAlertBox("Login Failed", "danger")
+            if (!login) {
+                errorAlertBox("Login Failed", "danger");
+            }
         }
-    }
 
+    }
 }
+
 $(document).ready(function () {
     var givenName = document.getElementById('uname').value;
     $("#uname").on("click keypress blur", function () {
@@ -140,14 +146,14 @@ var count = 0;
 
 //function to update stock market shares
 
-  setInterval(function(){
+setInterval(function () {
 
-    const comp_list =["A","AA","AAC","AACI","AADI","AADI","AAIC","AAL","AAL","AAN","AAPL","ABC","ABG"];
-    getStockValue(comp_list[count]);    
-        if(count==12){
-            count=0;
-        }
-  },15000);
+    const comp_list = ["A", "AA", "AAC", "AACI", "AADI", "AADI", "AAIC", "AAL", "AAL", "AAN", "AAPL", "ABC", "ABG"];
+    getStockValue(comp_list[count]);
+    if (count == 12) {
+        count = 0;
+    }
+}, 15000);
 
 function getStockValue(comp_name) {
     var stock_string = ""

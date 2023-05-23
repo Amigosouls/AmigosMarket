@@ -81,13 +81,12 @@ function buyOrSellProducts(pro_id, action) {
             console.log(jsonData);
             for (const value of jsonData) {
                 if (value['logged'] == 1) {
-                    const xmlHttp = new XMLHttpRequest();
-                    xmlHttp.open("GET", `http://localhost:3000/Market_Products/${pro_id}`);
-                    xmlHttp.send();
-                    xmlHttp.onreadystatechange = function () {
-                        if (this.readyState == 4 && this.status == 200 && action == 'buy') {
+                    if (action == 'buy') {
+                        const xmlHttp = new XMLHttpRequest();
+                        xmlHttp.open("GET", `http://localhost:3000/Market_Products/${pro_id}`);
+                        xmlHttp.send();
+                        xmlHttp.onreadystatechange = function () {
                             const productData = JSON.parse(this.responseText);
-                            console.log(productData);
                             updateAmount(value['id'], pro_id, "-");
                             const xmlHttpMarket = new XMLHttpRequest();
                             xmlHttpMarket.open("POST", "http://localhost:3000/User_products");
@@ -105,22 +104,34 @@ function buyOrSellProducts(pro_id, action) {
                                 )
                             );
                             tradingTable();
+
                         }
-                        else if (this.readyState == 4 && this.status == 200 && action == 'sell') {
-                            updateAmount(value['id'], pro_id, "+");
+                    }
+                    else if (action == 'sell') {
+                        const xmlHttp = new XMLHttpRequest();
+                        xmlHttp.open("GET", `http://localhost:3000/User_products/${pro_id}`);
+                        xmlHttp.send();
+                        xmlHttp.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                const productData = JSON.parse(this.responseText);
+                                console.log(productData);
+                                updateAmount(value['id'], productData['pro_id'], "+");
+                            }
                             const xmlHttpMarket = new XMLHttpRequest();
-                            xmlHttpMarket.open("DELETE", `http://localhost:3000/User_products/?pro_id_like=${productData['id']}`);
+                            xmlHttpMarket.open("DELETE", `http://localhost:3000/User_products/${pro_id}`);
                             xmlHttpMarket.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
                             xmlHttpMarket.send(
                                 JSON.stringify(
                                     {
-                                        id:productData['id']
+                                        id: pro_id
                                     }
                                 )
                             );
                             tradingTable();
+
                         }
                     }
+                    break;
                 }
             }
         }
@@ -153,14 +164,14 @@ function updateAmount(user_id, pro_id, oper) {
                                     lname: jsonData['lname'],
                                     uname: jsonData['uname'],
                                     password: jsonData['password'],
-                                    asset: jsonData['asset']+productData['product_price'],
+                                    asset: jsonData['asset'] + productData['product_price'],
                                     logged: 1
                                 }
                             )
                         );
-                        $('#showAmount').text(`Trading Amount:${jsonData['asset']+productData['product_price']}`);
+                        $('#showAmount').text(`Trading Amount:${jsonData['asset'] + productData['product_price']}`);
                     }
-                    else if(oper == "-") {
+                    else if (oper == "-") {
                         userXmlObj.send(
                             JSON.stringify(
                                 {
@@ -168,12 +179,12 @@ function updateAmount(user_id, pro_id, oper) {
                                     lname: jsonData['lname'],
                                     uname: jsonData['uname'],
                                     password: jsonData['password'],
-                                    asset: jsonData['asset']-productData['product_price'],
+                                    asset: jsonData['asset'] - productData['product_price'],
                                     logged: 1
                                 }
                             )
                         );
-                        $('#showAmount').text(`Trading Amount:${jsonData['asset']-productData['product_price']}`);
+                        $('#showAmount').text(`Trading Amount:${jsonData['asset'] - productData['product_price']}`);
                     }
                 }
 
@@ -192,7 +203,6 @@ function tradingTable() {
         if (this.readyState == 4 && this.status == 200) {
             const jsonData = JSON.parse(this.responseText);
             for (const value of jsonData) {
-                console.log(value);
                 if (value['logged'] == 1) {
                     const xmlHttp = new XMLHttpRequest();
                     xmlHttp.open("GET", `http://localhost:3000/User_products`);
@@ -227,8 +237,8 @@ function tradingTable() {
         }
     }
 }
-function generateUsersList(){
-    
+function generateUsersList() {
+
 }
 
 function userLogout(user_id) {
