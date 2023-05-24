@@ -55,15 +55,15 @@
   <!--Tabs-->
   <ul class="nav nav-tabs navbar-light justify-content-center flex-column flex-sm-row" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab"
+      <button class="nav-link active tab_icon" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab"
         aria-controls="home" aria-selected="true">Go to market</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab"
+      <button class="nav-link tab_icon" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab"
         aria-controls="profile" aria-selected="false">My Items</button>
     </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab"
+    <li class="nav-item " role="presentation">
+      <button class="nav-link tab_icon" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab"
         aria-controls="contact" aria-selected="false">Request</button>
     </li>
   </ul>
@@ -71,7 +71,7 @@
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
       <div class="container products">
         <h4>Products</h4>
-        <table class="table table-light" id="prodTable">
+        <table class="table table-light mytable" id="prodTable">
           <thead>
             <tr>
               <th>Product ID</th>
@@ -89,7 +89,8 @@
     </div>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
       <div class="container" id='myItems'>
-        <table class="table table-light table-bordered table-striped">
+        <table class="table table-light table-bordered table-striped mytable">
+          <h4>My Items</h4>
           <thead>
             <tr>
               <th>Product ID</th>
@@ -107,7 +108,9 @@
     </div>
     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
       <div class="container" id='myRequests'>
-        <table class="table table-light table-bordered table-striped">
+        <h4>Requests</h4>
+        <table class="table table-light table-bordered table-striped mytable
+        ">
           <thead>
             <tr>
               <th>Request From</th>
@@ -147,10 +150,7 @@
             </tbody>
           </table>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+
       </div>
     </div>
   </div>

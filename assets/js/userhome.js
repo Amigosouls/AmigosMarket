@@ -1,4 +1,4 @@
-// 
+// alert boxes
 const successAlert = document.getElementById("successAlertBox");
 const successAlertBox = (message, type) => {
     const wrapper = document.createElement('div')
@@ -12,7 +12,7 @@ const successAlertBox = (message, type) => {
     successAlert.append(wrapper);
 }
 
-
+//function to update the navigation menu upon login and welcome the user
 $(document).ready(function () {
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("GET", "http://localhost:3000/Users");
@@ -44,6 +44,8 @@ $(document).ready(function () {
 
 })
 
+//function to show the products available in the market
+
 function showProducts() {
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("GET", "http://localhost:3000/Market_Products");
@@ -59,7 +61,7 @@ function showProducts() {
                 tdata += '<td>' + object["product_name"] + '</td>';
                 tdata += '<td>' + object["product_type"] + '</td>';
                 tdata += '<td>' + object["product_price"] + '</td>';
-                tdata += `<td><button type=button class="btn btn-warning"  onclick="buyProducts(${object["id"]})"><ion-icon name="checkmark-circle-outline" size="normal"></ion-icon>Get</button></td>`
+                tdata += `<td><button type=button class="btn btn-warning"  onclick="buyProducts(${object["id"]},'new')"><ion-icon name="checkmark-circle-outline" size="normal"></ion-icon>Get</button></td>`
                 tdata += '</tr>'
             }
 
@@ -71,7 +73,7 @@ function showProducts() {
 
 showProducts();
 
-function buyProducts(pro_id) {
+function buyProducts(pro_id,type) {
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("GET", "http://localhost:3000/Users");
     xmlParser.send();
@@ -101,7 +103,11 @@ function buyProducts(pro_id) {
                                     }
                                 )
                             );
-                            updateAmount(value['id'], product['id'], '-')
+                            if(type=='new')
+                            {
+                                updateAmount(value['id'], product['id'], '-')
+                            }
+                           
                             tradingTable();
                         }
 
@@ -214,6 +220,7 @@ function tradingTable() {
         }
     }
 }
+tradingTable()
 
 function showRequest() {
     const xmlParser = new XMLHttpRequest();
@@ -223,29 +230,33 @@ function showRequest() {
         if (this.readyState == 4 && this.status == 200) {
             const jsonData = JSON.parse(this.responseText);
             const xmlHttp = new XMLHttpRequest();
-            xmlHttp.open("GET", `http://localhost:3000/User_products`);
+            xmlHttp.open("GET", `http://localhost:3000/Request`);
             xmlHttp.send();
             xmlHttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     const productData = JSON.parse(this.responseText);
-                    var requestString = ""
+                    var requestString = "";
                     for (let values of jsonData) {
                         if (values['logged'] == 1) {
+
                             for (const product of productData) {
-                                if (values['id'] == product['user_id']) {
+                                if (values['id'] == product['request_to_user']) {
                                     requestString += `<tr>
                                     <td>${product['user_name']}</td>
                                     <td>${product['product_name']}</td>
                                     <td>${product['product_type']}</td>
                                     <td>${product['product_price']}</td>
-                                    <td>Accept</td>
-                                    <td>Reject</td>
+                                    <td><button class="btn btn-success" onclick="acceptRequest(${product['pro_id']},'${product['product_name']}',${product['product_price']})">Accept</button></td>
+                                    <td><button class="btn btn-danger" onclick="declineRequest(${product['id']})">Decline</button></td>
                                     </tr>`
                                 }
                             }
-                            $('request_list').html(requestString);
+                            if (requestString == "") {
+                                requestString = `<tr><td colspan=6>No request Available</td></tr>`
+                            }
+                            document.getElementById('request_list').innerHTML = requestString;
+                            break;
                         }
-                        break;
 
                     }
                 }
@@ -253,6 +264,39 @@ function showRequest() {
         }
     }
 }
+
+function declineRequest(pro_id) {
+    buyProducts(pro_id,'old')
+    const xmlParser = new XMLHttpRequest();
+    xmlParser.open("DELETE", `http://localhost:3000/Request/${pro_id}`);
+    xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlParser.send(
+        JSON.stringify(
+            {
+                id: pro_id
+
+            })
+    )
+    showRequest();
+}
+
+function acceptRequest(pro_id, pro_name, price) {
+    buyProducts(pro_id);
+    const xmlParser = new XMLHttpRequest();
+    xmlParser.open("DELETE", `http://localhost:3000/Request/${pro_id}`);
+    xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlParser.send(
+        JSON.stringify(
+            {
+                id: pro_id
+
+            }
+        )
+    )
+    successAlertBox(`Product Bought!  Name:${pro_name} Price:${price}`, 'success');
+    showRequest();
+}
+
 showRequest()
 //generate User list upon selling
 function generateUsers(pro_id) {
@@ -266,16 +310,17 @@ function generateUsers(pro_id) {
             for (const value of jsonData) {
                 users += `<tr>
                 <td>${value['uname']}</td>
-                <td><button onclick="sendRequest(${pro_id})">Request</button></td>
+                <td><button onclick="sendRequest(${pro_id},${value["id"]})" data-bs-dismiss="modal">Request</button></td>
                 </tr>`
             }
             $('#sendRequest').html(users);
         }
-        console.log(users);
     }
 }
 
-function sendRequest(pro_id) {
+//send request to users available in market
+
+function sendRequest(pro_id, user_id) {
     const xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", `http://localhost:3000/User_products/${pro_id}`);
     xmlHttp.send();
@@ -288,7 +333,9 @@ function sendRequest(pro_id) {
             requestXmlObj.send(
                 JSON.stringify(
                     {
-                        user_id: productData['user_id'],
+
+                        request_to_user: user_id,
+                        request_user_id: productData['user_id'],
                         user_name: productData['user_name'],
                         pro_id: productData['pro_id'],
                         product_name: productData['product_name'],
@@ -297,17 +344,30 @@ function sendRequest(pro_id) {
                     }
                 )
             );
+            successAlertBox(`Request Send to User ID:${productData['user_name']}`,'success')
         }
-        showRequest();
+        
     }
+   
+    const xmlParser = new XMLHttpRequest();
+    xmlParser.open("DELETE", `http://localhost:3000/User_products/${pro_id}`);
+    xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlParser.send(
+        JSON.stringify(
+            {
+                id: pro_id
+
+            }
+        )
+    )
+    tradingTable();
 
 
 }
 
-tradingTable()
+//function to logout the user from the session and redirect to home
 
 function userLogout(user_id) {
-
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("GET", `http://localhost:3000/Users/${user_id}`);
     xmlParser.send();
@@ -320,7 +380,7 @@ function userLogout(user_id) {
             userXmlObj.send(
                 JSON.stringify(
                     {
-                        fname: values['fanme'],
+                        fname: values['fname'],
                         lname: values['lname'],
                         uname: values['uname'],
                         password: values['password'],
