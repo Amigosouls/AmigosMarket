@@ -59,7 +59,7 @@ function showProducts() {
                 tdata += '<td>' + object["product_name"] + '</td>';
                 tdata += '<td>' + object["product_type"] + '</td>';
                 tdata += '<td>' + object["product_price"] + '</td>';
-                tdata += `<td><button type=button class="btn btn-warning" onclick="buyOrSellProducts(${object["id"]},'buy')"><ion-icon name="checkmark-circle-outline" size="normal"></ion-icon>Get</button></td>`
+                tdata += `<td><button type=button class="btn btn-warning"  onclick="buyProducts(${object["id"]})"><ion-icon name="checkmark-circle-outline" size="normal"></ion-icon>Get</button></td>`
                 tdata += '</tr>'
             }
 
@@ -71,72 +71,49 @@ function showProducts() {
 
 showProducts();
 
-function buyOrSellProducts(pro_id, action) {
+function buyProducts(pro_id) {
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("GET", "http://localhost:3000/Users");
     xmlParser.send();
     xmlParser.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             const jsonData = JSON.parse(this.responseText);
-            console.log(jsonData);
             for (const value of jsonData) {
                 if (value['logged'] == 1) {
-                    if (action == 'buy') {
-                        const xmlHttp = new XMLHttpRequest();
-                        xmlHttp.open("GET", `http://localhost:3000/Market_Products/${pro_id}`);
-                        xmlHttp.send();
-                        xmlHttp.onreadystatechange = function () {
-                            const productData = JSON.parse(this.responseText);
-                            updateAmount(value['id'], pro_id, "-");
-                            const xmlHttpMarket = new XMLHttpRequest();
-                            xmlHttpMarket.open("POST", "http://localhost:3000/User_products");
-                            xmlHttpMarket.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-                            xmlHttpMarket.send(
+                    const xmlObj = new XMLHttpRequest();
+                    xmlObj.open("GET", `http://localhost:3000/Market_Products/${pro_id}`);
+                    xmlObj.send();
+                    xmlObj.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            const product = JSON.parse(this.responseText);
+                            const xmlHttp = new XMLHttpRequest();
+                            xmlHttp.open("POST", "http://localhost:3000/User_products");
+                            xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                            xmlHttp.send(
                                 JSON.stringify(
                                     {
                                         user_id: value['id'],
                                         user_name: value['uname'],
-                                        pro_id: productData['id'],
-                                        product_name: productData['product_name'],
-                                        product_type: productData['product_type'],
-                                        product_price: productData['product_price']
+                                        pro_id: product['id'],
+                                        product_name: product['product_name'],
+                                        product_type: product['product_type'],
+                                        product_price: product['product_price']
                                     }
                                 )
                             );
+                            updateAmount(value['id'], product['id'], '-')
                             tradingTable();
-
                         }
-                    }
-                    else if (action == 'sell') {
-                        const xmlHttp = new XMLHttpRequest();
-                        xmlHttp.open("GET", `http://localhost:3000/User_products/${pro_id}`);
-                        xmlHttp.send();
-                        xmlHttp.onreadystatechange = function () {
-                            if (this.readyState == 4 && this.status == 200) {
-                                const productData = JSON.parse(this.responseText);
-                                console.log(productData);
-                                updateAmount(value['id'], productData['pro_id'], "+");
-                            }
-                            const xmlHttpMarket = new XMLHttpRequest();
-                            xmlHttpMarket.open("DELETE", `http://localhost:3000/User_products/${pro_id}`);
-                            xmlHttpMarket.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-                            xmlHttpMarket.send(
-                                JSON.stringify(
-                                    {
-                                        id: pro_id
-                                    }
-                                )
-                            );
-                            tradingTable();
 
-                        }
+
                     }
-                    break;
                 }
             }
+
         }
     }
 }
+
 
 //function to update data in json file and trading amount
 
@@ -218,7 +195,7 @@ function tradingTable() {
                                     <td>${products["product_name"]}</td>
                                     <td>${products["product_type"]}</td>
                                     <td>${products["product_price"]}</td>
-                                    <td><button class="btn btn-warning" onclick="buyOrSellProducts(${products['id']},'sell')" >Sell Item</button></td></tr>`
+                                    <td><button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#giveUsers" onclick="generateUsers(${products['id']})">Sell Item</button></td></tr>`
                                 }
 
                             }
@@ -237,9 +214,97 @@ function tradingTable() {
         }
     }
 }
-function generateUsersList() {
+
+function showRequest() {
+    const xmlParser = new XMLHttpRequest();
+    xmlParser.open("GET", "http://localhost:3000/Users");
+    xmlParser.send();
+    xmlParser.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const jsonData = JSON.parse(this.responseText);
+            const xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", `http://localhost:3000/User_products`);
+            xmlHttp.send();
+            xmlHttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    const productData = JSON.parse(this.responseText);
+                    var requestString = ""
+                    for (let values of jsonData) {
+                        if (values['logged'] == 1) {
+                            for (const product of productData) {
+                                if (values['id'] == product['user_id']) {
+                                    requestString += `<tr>
+                                    <td>${product['user_name']}</td>
+                                    <td>${product['product_name']}</td>
+                                    <td>${product['product_type']}</td>
+                                    <td>${product['product_price']}</td>
+                                    <td>Accept</td>
+                                    <td>Reject</td>
+                                    </tr>`
+                                }
+                            }
+                            $('request_list').html(requestString);
+                        }
+                        break;
+
+                    }
+                }
+            }
+        }
+    }
+}
+showRequest()
+//generate User list upon selling
+function generateUsers(pro_id) {
+    const xmlParser = new XMLHttpRequest();
+    xmlParser.open("GET", "http://localhost:3000/Users");
+    xmlParser.send();
+    xmlParser.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const jsonData = JSON.parse(this.responseText);
+            var users = ""
+            for (const value of jsonData) {
+                users += `<tr>
+                <td>${value['uname']}</td>
+                <td><button onclick="sendRequest(${pro_id})">Request</button></td>
+                </tr>`
+            }
+            $('#sendRequest').html(users);
+        }
+        console.log(users);
+    }
+}
+
+function sendRequest(pro_id) {
+    const xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", `http://localhost:3000/User_products/${pro_id}`);
+    xmlHttp.send();
+    xmlHttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const productData = JSON.parse(this.responseText);
+            const requestXmlObj = new XMLHttpRequest();
+            requestXmlObj.open("POST", `http://localhost:3000/Request`);
+            requestXmlObj.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            requestXmlObj.send(
+                JSON.stringify(
+                    {
+                        user_id: productData['user_id'],
+                        user_name: productData['user_name'],
+                        pro_id: productData['pro_id'],
+                        product_name: productData['product_name'],
+                        product_type: productData['product_type'],
+                        product_price: productData['product_price']
+                    }
+                )
+            );
+        }
+        showRequest();
+    }
+
 
 }
+
+tradingTable()
 
 function userLogout(user_id) {
 

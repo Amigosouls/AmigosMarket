@@ -23,8 +23,16 @@
       "uname": "srikanth",
       "password": "srihari",
       "asset": 3150,
-      "logged": 1,
+      "logged": 0,
       "id": 4
+    },
+    {
+      "lname": "Asish",
+      "uname": "david10",
+      "password": "david@123",
+      "asset": 1800,
+      "logged": 1,
+      "id": 5
     }
   ],
   "Market_Products": [
@@ -97,22 +105,60 @@
       "id": 9
     },
     {
-      "user_id": 4,
-      "user_name": "srikanth",
-      "pro_id": 5,
-      "product_name": "Vaccum Cleaner",
-      "product_type": "Appliance",
-      "product_price": 1450,
-      "id": 10
+      "user_id": 5,
+      "user_name": "david10",
+      "pro_id": 4,
+      "product_name": "Bed",
+      "product_type": "HouseHold",
+      "product_price": 600,
+      "id": 12
     },
     {
-      "user_id": 4,
-      "user_name": "srikanth",
-      "pro_id": 5,
-      "product_name": "Vaccum Cleaner",
-      "product_type": "Appliance",
-      "product_price": 1450,
-      "id": 11
+      "user_id": 5,
+      "user_name": "david10",
+      "pro_id": 4,
+      "product_name": "Bed",
+      "product_type": "HouseHold",
+      "product_price": 600,
+      "id": 13
+    },
+    {
+      "user_id": 5,
+      "user_name": "david10",
+      "pro_id": 3,
+      "product_name": "TV",
+      "product_type": "Electronics",
+      "product_price": 1000,
+      "id": 14
+    },
+    {
+      "user_id": 5,
+      "user_name": "david10",
+      "pro_id": 3,
+      "product_name": "TV",
+      "product_type": "Electronics",
+      "product_price": 1000,
+      "id": 15
+    },
+    {
+      "user_id": 5,
+      "user_name": "david10",
+      "pro_id": 4,
+      "product_name": "Bed",
+      "product_type": "HouseHold",
+      "product_price": 600,
+      "id": 16
+    }
+  ],
+  "Request": [
+    {
+      "user_id": 5,
+      "user_name": "david10",
+      "pro_id": 3,
+      "product_name": "TV",
+      "product_type": "Electronics",
+      "product_price": 1000,
+      "id": 2
     }
   ]
 }
