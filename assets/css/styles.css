@@ -178,6 +178,12 @@ body{
 }
 
 
-.table{
+.myTable{
   border-radius: 30px;
+}
+
+.alert{
+  font-family: tdfont;
+  font-size: x-large;
+  font-weight: bolder;
 }

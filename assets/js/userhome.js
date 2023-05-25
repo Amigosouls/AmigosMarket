@@ -1,3 +1,4 @@
+
 // alert boxes
 const successAlert = document.getElementById("successAlertBox");
 const successAlertBox = (message, type) => {
@@ -63,6 +64,9 @@ function showProducts() {
                 tdata += '<td>' + object["product_price"] + '</td>';
                 tdata += `<td><button type=button class="btn btn-warning"  onclick="buyProducts(${object["id"]},'new')"><ion-icon name="checkmark-circle-outline" size="normal"></ion-icon>Get</button></td>`
                 tdata += '</tr>'
+            }
+            if(tdata==''){
+                tdata="<td colspan='5'><tr>No Products are available</td></tr>";
             }
 
         }
@@ -247,7 +251,7 @@ function showRequest() {
                                     <td>${product['product_type']}</td>
                                     <td>${product['product_price']}</td>
                                     <td><button class="btn btn-success" onclick="acceptRequest(${product['pro_id']},'${product['product_name']}',${product['product_price']})">Accept</button></td>
-                                    <td><button class="btn btn-danger" onclick="declineRequest(${product['id']})">Decline</button></td>
+                                    <td><button class="btn btn-danger" onclick="declineRequest(${product['id']},'${product['username']}')">Decline</button></td>
                                     </tr>`
                                 }
                             }
@@ -265,7 +269,7 @@ function showRequest() {
     }
 }
 
-function declineRequest(pro_id) {
+function declineRequest(pro_id,u_name) {
     buyProducts(pro_id,'old')
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("DELETE", `http://localhost:3000/Request/${pro_id}`);
@@ -277,11 +281,12 @@ function declineRequest(pro_id) {
 
             })
     )
+    successAlertBox(`Delined request of User:${u_name}`,"danger")
     showRequest();
 }
 
 function acceptRequest(pro_id, pro_name, price) {
-    buyProducts(pro_id);
+    buyProducts(pro_id,"old");
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("DELETE", `http://localhost:3000/Request/${pro_id}`);
     xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -344,7 +349,7 @@ function sendRequest(pro_id, user_id) {
                     }
                 )
             );
-            successAlertBox(`Request Send to User ID:${productData['user_name']}`,'success')
+            successAlertBox(`Request Send to User ID:${productData['user_id']}`,'success')
         }
         
     }

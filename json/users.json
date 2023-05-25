@@ -30,7 +30,7 @@
       "uname": "david10",
       "password": "david@123",
       "asset": 3750,
-      "logged": 0,
+      "logged": 1,
       "id": 5
     },
     {
@@ -38,7 +38,7 @@
       "uname": "bane47",
       "password": "bane@123",
       "asset": 900,
-      "logged": 1,
+      "logged": 0,
       "id": 6
     }
   ],
@@ -112,15 +112,6 @@
       "id": 12
     },
     {
-      "user_id": 4,
-      "user_name": "srikanth",
-      "pro_id": 2,
-      "product_name": "Mobiles",
-      "product_type": "Electronics",
-      "product_price": 1250,
-      "id": 14
-    },
-    {
       "user_id": 5,
       "user_name": "david10",
       "pro_id": 4,
@@ -182,6 +173,15 @@
       "product_type": "HouseHold",
       "product_price": 600,
       "id": 23
+    },
+    {
+      "user_id": 5,
+      "user_name": "david10",
+      "pro_id": 2,
+      "product_name": "Mobiles",
+      "product_type": "Electronics",
+      "product_price": 1250,
+      "id": 24
     }
   ],
   "Request": [
@@ -204,16 +204,6 @@
       "product_type": "HouseHold",
       "product_price": 600,
       "id": 5
-    },
-    {
-      "request_to_user": 5,
-      "request_user_id": 6,
-      "user_name": "bane47",
-      "pro_id": 3,
-      "product_name": "TV",
-      "product_type": "Electronics",
-      "product_price": 1000,
-      "id": 10
     },
     {
       "request_to_user": 2,
@@ -244,6 +234,16 @@
       "product_type": "Electronics",
       "product_price": 1000,
       "id": 13
+    },
+    {
+      "request_to_user": 5,
+      "request_user_id": 4,
+      "user_name": "srikanth",
+      "pro_id": 2,
+      "product_name": "Mobiles",
+      "product_type": "Electronics",
+      "product_price": 1250,
+      "id": 14
     }
   ]
 }
