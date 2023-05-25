@@ -1,33 +1,120 @@
 body{
-    background-color: #212121;
+    background-color: #202020;
     color: #fff;
 }
-
 .container-lg{
-    background-color: rgb(77, 71, 71);
+    background-image: url(../img/container-bg.jpg);
+    background-position: center;
     border-radius: 10px;
-    border-color: darkgray;
+    border: 3px solid;
+    border-color: cyan;
     border-width: 10px;
     padding: 20px;
 }
 .pageCarousel{
     padding-inline: 100px;
-    background-color: cornflowerblue;
+    background-color:transparent;
 }
 .carousel-item >img{
     height: 500px;
     width:400px
 }
+.navbar,.about{
+  font-family: tdfont;
+}
+
+
+.about .container {
+  text-align: center;
+  max-width: 35%;
+}
+
+.about .container>p {
+  max-width: 100%;
+  line-height: 37px;
+  text-transform: uppercase;
+  color: #404142;
+  font-weight: 700;
+  font-size: 30px;
+  font-family: "Quicksand";
+}
+.heading {
+  background-image: url(../images/bg-main.png);
+  background-size: cover;
+  background-position: center;
+  font-family: "Quicksand";
+  font-weight: bolder;
+}
+
+.heading .col-lg-4>h3 {
+  color: beige;
+  font-weight: bolder;
+  font-size: 200%;
+}
+
+.heading .col-lg-4>h2 {
+  font-family: mainFont;
+  font-size: 100px;
+  color: #aab33c;
+}
+
+@media screen and (max-width: 768px) {
+  .tools .container img {
+      display: none;
+  }
+}
+
+.heading ul>button {
+  background-color: #aab33c;
+  border-style: none;
+  font-family: "Quicksand";
+  font-weight: bolder;
+}
+
+.heading .col-lg-4>button {
+  width: 235px;
+  height: 47px;
+  background-color: #aab33c;
+  border-style: none;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-weight: 700;
+  font-family: "Quicksand";
+  text-align: center;
+}
+
+@font-face {
+  font-family: mainFont;
+  src: url(../css/font.ttf);
+}
+
+@font-face {
+  font-family: Quicksand;
+  src: url(../css/Quicksand-VariableFont_wght.ttf);
+}
+
 
 .navbar-nav li >button{
     text-decoration: none;
-    color: aqua;
-    background-color: darkblue;
+    color: rgb(5, 5, 5);
+    background-color: rgb(0, 139, 58);
+    min-height: 70px;
+    font-size: 18px;
+    font-weight: bolder;
     height: 30px;
+    border-radius: 30px;
+    padding-bottom: 20px;
+    
+}
+.navbar-nav li:hover{
+  border: 3px solid cyan;
+  border-radius: 30px;
+
 }
 
 .navbar-nav span>ion-icon{
-    font-size: 20px;
+    font-size: 25px;
     margin-top: 15px;
     margin-right: 10px;
     font-weight:100px;
@@ -77,26 +164,27 @@ body{
     font-family: tdfont;
     height: auto;
     width: 400px;
-    background-color: rgb(166, 230, 230);
+    background-color: transparent;
+    background-position: center;
     margin-left: 100px;
-    animation: changebg 10s infinite;
+    border-radius: 20px;
   }
 .col-4 h3{
   color: indigo;
+  animation: changebg 10s infinite;
 }
 .marketNews{
   text-align: center;
   margin-top: 100px;
-  color: blueviolet;
-  
+  color: rgb(43, 226, 150);
 }
 
 @keyframes changebg {
-  0% {background-color: #F5F0BB;}
-  25% {background-color: #DBDFAA;}
-  50% {background-color: #B3C890;}
-  75% {background-color: #73A9AD;}
-  100% {background-color: #FEA1A1;}
+  0% {color: #F5F0BB;}
+  25% {color: #DBDFAA;}
+  50% {color: #B3C890;}
+  75% {color: #73A9AD;}
+  100% {color: #FEA1A1;}
 }
 
 .footer{
