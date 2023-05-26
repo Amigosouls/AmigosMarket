@@ -77,8 +77,7 @@ function showProducts() {
 
 showProducts();
 
-function buyProducts(
-    ,type) {
+function buyProducts(pro_id,type) {
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("GET", "http://localhost:3000/Users");
     xmlParser.send();
