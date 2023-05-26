@@ -1,29 +1,49 @@
-body{
-    background-color: #202020;
-    color: #fff;
+body {
+  background-color: #202020;
+  color: #fff;
 }
-.container-lg-1{
-    background-image: url(../img/container-bg.jpg);
-    background-position: center;
-    background-size: contain;
-    border-radius: 10px;
-    border: 3px solid;
-    border-color:limegreen;
-    border-width: 10px;
-    padding: 20px;
+
+.container-lg-1 {
+  background-image: url(../img/container-bg.jpg);
+  background-position: center;
+  background-size: contain;
+  border-radius: 10px;
+  border: 3px solid;
+  border-color: limegreen;
+  border-width: 10px;
+  padding: 20px;
 }
-.pageCarousel{
-    padding-inline: 100px;
-    background-color:transparent;
+
+.navbar .container-fluid img {
+  height: 80px;
+  width: 150px;
+  margin-top: 10px;
 }
-.carousel-item >img{
-    height: 500px;
-    width:400px
+
+.navbar .container-fluid {
+  height: 70px;
 }
-.navbar,.about{
+
+.navbar-nav {
+  justify-content: center;
+}
+
+.pageCarousel {
+  padding-inline: 100px;
+  background-color: transparent;
+}
+
+.carousel-item>img {
+  height: 500px;
+  width: 100%;
+}
+
+.navbar,
+.about {
   font-family: tdfont;
 }
-.col-6 img{
+
+.col-6 img {
   max-width: 400px;
   margin-left: 150px;
 }
@@ -37,6 +57,7 @@ body{
   font-size: 30px;
   font-family: "Quicksand";
 }
+
 .heading {
   background-image: url(../img/bg-main.jpg);
   background-size: cover;
@@ -59,7 +80,7 @@ body{
 
 @media screen and (max-width: 768px) {
   .tools .container img {
-      display: none;
+    display: none;
   }
 }
 
@@ -94,105 +115,130 @@ body{
 }
 
 
-.navbar-nav li >button{
-    text-decoration: none;
-    color: rgb(230, 224, 224);
-    background-color: #202020;
-    min-height: 70px;
-    font-size: 18px;
-    font-weight: bolder;
-    height: 30px;
-    border-radius: 30px;
-    padding-bottom: 20px;
-    
+.navbar-nav li>button {
+  text-decoration: none;
+  color: rgb(230, 224, 224);
+  background-color: #202020;
+  min-height: 70px;
+  font-size: 18px;
+  margin-top: 20px;
+  font-weight: bolder;
+  height: 30px;
+  border: 3px solid limegreen;
+  border-radius: 30px;
+  padding-bottom: 20px;
+
 }
 
-.navbar-nav li:hover{
+.navbar-nav li a {
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+.navbar-nav li a:hover {
   border: 3px solid limegreen;
   border-radius: 30px;
   color: limegreen !important;
 
 }
 
-.navbar-nav span>ion-icon{
-    font-size: 25px;
-    margin-top: 15px;
-    margin-right: 10px;
-    font-weight:100px;
+.navbar-nav span>ion-icon {
+  font-size: 25px;
+  margin-top: 15px;
+  margin-right: 10px;
+  font-weight: 100px;
 }
-#loginMenu >h5{
+
+#loginMenu>h5 {
   padding-right: 50px;
   padding-top: 20px;
 }
 
 @font-face {
-    font-family: tdfont;
-    src: url(../css/Quicksand-VariableFont_wght.ttf);
+  font-family: tdfont;
+  src: url(../css/Quicksand-VariableFont_wght.ttf);
 }
 
 .modal h1 {
-    font-family: tdfont;
-    text-align: center;
-    font-size: 30px !important;
-    color: rgb(60, 236, 7);
-    background-color: #3c99dc;
-  }
-  
-  .modal h3 {
-    font-family: tdfont;
-    font-size: 25px !important;
-    color: rgb(85, 233, 0);
-    font-weight: 600;
-  }
-  
-  .modal-header {
-    background-color: #3c99dc;
-    font-family: tdfont;
-    border-top-left-radius: 0px !important;
-    border-top-right-radius: 0px !important;
-  }
-  
-  .modal-body {
-    background-image: url();
-    color: rgb(30, 18, 100);
-  }
-  
-  .modal-footer {
-    background-color: #2565ae;
-  }
+  font-family: tdfont;
+  text-align: center;
+  font-size: 30px !important;
+  color: rgb(60, 236, 7);
+  background-color: #3c99dc;
+}
 
-  .col-4{
-    font-family: tdfont;
-    height: auto;
-    width: 400px;
-    background-color: transparent;
-    background-position: center;
-    margin-left: 100px;
-    border-radius: 20px;
-  }
-.col-4 h3{
+.modal h3 {
+  font-family: tdfont;
+  font-size: 25px !important;
+  color: rgb(85, 233, 0);
+  font-weight: 600;
+}
+
+.modal-header {
+  background-color: #3c99dc;
+  font-family: tdfont;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+}
+
+.modal-body {
+  background-image: url();
+  color: rgb(30, 18, 100);
+}
+
+.modal-footer {
+  background-color: #2565ae;
+}
+
+.col-4 {
+  font-family: tdfont;
+  height: auto;
+  width: 400px;
+  background-color: transparent;
+  background-position: center;
+  margin-left: 100px;
+  border-radius: 20px;
+}
+
+.col-4 h3 {
   color: indigo;
   animation: changebg 10s infinite;
 }
-.marketNews{
+
+.marketNews {
   text-align: center;
   margin-top: 100px;
   color: rgb(43, 226, 150);
 }
 
 @keyframes changebg {
-  0% {color: #F5F0BB;}
-  25% {color: #DBDFAA;}
-  50% {color: #B3C890;}
-  75% {color: #73A9AD;}
-  100% {color: #FEA1A1;}
+  0% {
+    color: #F5F0BB;
+  }
+
+  25% {
+    color: #DBDFAA;
+  }
+
+  50% {
+    color: #B3C890;
+  }
+
+  75% {
+    color: #73A9AD;
+  }
+
+  100% {
+    color: #FEA1A1;
+  }
 }
 
-.footer{
+.footer {
   background-color: #B3C890;
   text-align: center;
 }
-.footer h5{
+
+.footer h5 {
   color: black;
 }
 
@@ -201,77 +247,125 @@ body{
   color: rgb(233, 230, 225);
   font-family: tdfont;
   padding: 16px;
-  font-weight:bolder;
+  font-weight: bolder;
   font-size: 18px;
   border-radius: 20px;
-  border: 3px solid #2565ae;
+  border: 3px solid limegreen;
+  background-color: #202020;
 }
 
 .dropdown {
   position: relative;
   display: inline-block;
-  
+
 }
-.dropdown-content .btn{
+
+.dropdown-content .btn {
   color: #071920;
   font-weight: bolder;
 
 }
+
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f36f90;
+  background-color: #202020;
   font-weight: bolder;
   font-family: tdfont;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   width: 150px;
 }
 
 .dropdown-content button {
-  color: rgb(194, 125, 46);
+  color: white !important;
   padding: 12px 16px;
-  text-decoration: none;
   display: block;
   font-weight: 200px;
   font-family: tdfont;
+  border: 3px solid #202020;
+  border-radius: 30px;
 }
 
-.dropdown-content button:hover {background-color: #ddd;}
+ion-icon {
+  padding-right: 10px;
+}
 
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown-content ion-icon {
+  font-size: 25px;
+}
 
-.dropdown:hover .dropbtn {border-color: #882d44;}
+.dropdown-content button:hover {
+  border-color: limegreen;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  border-color: #882d44;
+}
 
 
-.products,#myItems,#myRequests{
+.products,
+#myItems,
+#myRequests {
   margin-top: 40px;
-  color: aqua !important;
+  color: limegreen !important;
 }
 
 #prod_list ion-icon {
   font-size: 24px;
 }
 
-.tab-content,.nav-tabs{
+.tab-content,
+.nav-tabs {
   font-family: tdfont;
   font-size: large;
 
 }
-.tab_icon{
+
+.tab_icon {
   text-decoration: none;
   font-weight: bolder;
-  color: rgb(229, 255, 0) !important;
-  background-color: #2479be !important;
+  color: rgb(245, 245, 244) !important;
+  background-color: #202020 !important;
 }
 
+.nav-tabs .nav-link.active {
+  border-radius: 30px;
+  border: 3px solid limegreen !important;
+}
 
-.myTable{
+.myTable {
   border-radius: 30px;
 }
 
-.alert{
+.alert {
   font-family: tdfont;
   font-size: x-large;
   font-weight: bolder;
+}
+
+.table {
+  background-image: url(../img/myProduct-bg.png);
+  color: #e8dfe9;
+  font-size: 20px;
+  font-weight: bolder;
+  background-position: center;
+  background-size: cover;
+}
+.tab-pane{
+  background-image: url(../img/caro-img-1.jpg);
+  background-size: cover;
+  background-position: bottom;
+}
+
+.transbox {
+  -webkit-backdrop-filter: blur(600px);
+  backdrop-filter: blur(600px);
+  padding: 20px;
+  margin: 30px;
+  font-weight: bold;
 }

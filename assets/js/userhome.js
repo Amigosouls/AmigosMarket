@@ -31,7 +31,7 @@ $(document).ready(function () {
                         <div class="dropdown-content">
                         <button class='btn'>Link 1</button>
                         <button class='btn'>Link 2</button>
-                        <button class="btn" onclick="userLogout(${value['id']})">Logout</button>
+                        <button class="btn" onclick="userLogout(${value['id']})"><ion-icon name="walk-outline"></ion-icon>Logout</button>
                         </div>
                         </div>
                   `)

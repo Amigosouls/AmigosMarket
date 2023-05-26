@@ -22,7 +22,7 @@
       "uname": "srikanth",
       "password": "srihari",
       "asset": 4450,
-      "logged": 1,
+      "logged": 0,
       "id": 4
     },
     {
@@ -30,7 +30,7 @@
       "uname": "david10",
       "password": "david@123",
       "asset": 3750,
-      "logged": 0,
+      "logged": 1,
       "id": 5
     },
     {
