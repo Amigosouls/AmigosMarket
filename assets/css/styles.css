@@ -1,12 +1,12 @@
 body {
   background-color: #202020;
   color: #fff;
+  background-image: url(../img/bg-main.jpg);
 }
-
 .container-lg-1 {
-  background-image: url(../img/container-bg.jpg);
-  background-position: center;
-  background-size: contain;
+  background-image: url(../img/myProduct-bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
   border-radius: 10px;
   border: 3px solid;
   border-color: limegreen;
@@ -198,6 +198,12 @@ body {
   color: limegreen;
 }
 
+.modal-body input,label{
+  color: black;
+  font-family: tdfont;
+  font-weight: bold;
+}
+
 .modal-footer {
   background-color: #202020;
 }
@@ -220,7 +226,8 @@ body {
 .marketNews {
   text-align: center;
   margin-top: 10px;
-  color: rgb(43, 226, 150);
+  color: #fff;
+  font-weight: bold;
 }
 
 @keyframes changebg {
@@ -286,7 +293,7 @@ body {
   font-family: tdfont;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  width: 150px;
+  width: 200px;
 }
 
 .dropdown-content button {
@@ -342,7 +349,7 @@ ion-icon {
   text-decoration: none;
   font-weight: bolder;
   color: rgb(245, 245, 244) !important;
-  background-color: #202020 !important;
+  background-color:transparent !important;
 }
 
 .nav-tabs .nav-link.active {
@@ -356,8 +363,12 @@ ion-icon {
 
 .alert {
   font-family: tdfont;
-  font-size: x-large;
+  font-size:20px;
   font-weight: bolder;
+  max-width: 40%;
+  text-align: center;
+  justify-content: center;
+  margin-left: 30%;
 }
 
 .table {

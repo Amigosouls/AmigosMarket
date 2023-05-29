@@ -4,7 +4,7 @@
       "lname": "Souls",
       "uname": "amisouaru",
       "password": "amigo12",
-      "asset": 1400,
+      "asset": 5107,
       "logged": 0,
       "id": 7
     },
@@ -12,51 +12,59 @@
       "lname": "Priya",
       "uname": "RamyaRam",
       "password": "remrem",
-      "asset": 900,
+      "asset": 4732,
       "logged": 0,
       "id": 8
     }
   ],
   "Market_Products": [
     {
-      "id": 1,
       "product_name": "Books",
       "product_type": "Stationary",
-      "product_price": 300
+      "product_price": 102,
+      "id": 1
     },
     {
-      "id": 2,
-      "product_name": "Mobiles",
-      "product_type": "Electronics",
-      "product_price": 1250
-    },
-    {
-      "id": 3,
       "product_name": "TV",
       "product_type": "Electronics",
-      "product_price": 1000
+      "product_price": 844,
+      "id": 2
     },
     {
-      "id": 4,
-      "product_name": "Bed",
+      "product_name": "Mobile",
+      "product_type": "Entertainment",
+      "product_price": 24,
+      "id": 3
+    },
+    {
+      "product_name": "Fridge",
       "product_type": "HouseHold",
-      "product_price": 600
+      "product_price": 260,
+      "id": 4
     },
     {
-      "id": 5,
-      "product_name": "Vaccum Cleaner",
-      "product_type": "Appliance",
-      "product_price": 1450
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 5
     }
   ],
   "User_products": [
     {
       "user_id": 7,
-      "pro_id": 3,
-      "product_name": "TV",
-      "product_type": "Electronics",
-      "product_price": 1000,
-      "id": 1
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 161,
+      "id": 2
+    },
+    {
+      "user_id": 8,
+      "pro_id": 4,
+      "product_name": "Fridge",
+      "product_type": "HouseHold",
+      "product_price": 268,
+      "id": 3
     }
   ],
   "Request": []

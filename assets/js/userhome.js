@@ -1,5 +1,4 @@
 
-
 // alert boxes
 const successAlert = document.getElementById("successAlertBox");
 const successAlertBox = (message, type) => {
@@ -26,12 +25,12 @@ $(document).ready(function () {
                 if (value['logged'] == 1) {
                     $("#loginMenu").empty();
                     $("#loginMenu").html(`
-                        <h5 id="showAmount">Trading Balance:${value['asset']}</h5>
+                        <h5 id="showAmount">Trading Balance : $ ${value['asset']}</h5>
                         <div class='dropdown'>
                         <button class="dropbtn"><ion-icon name="person-add-outline"></ion-icon>${value['uname']}</button>
                         <div class="dropdown-content">
-                        <button class='btn'>Link 1</button>
-                        <button class='btn'>Link 2</button>
+                        <button class='btn' id="notification" ><ion-icon name="mail-unread-outline"></ion-icon>Notification</button>
+                        <button class='btn'><ion-icon name="people-circle-outline"></ion-icon> Edit Profile</button>
                         <button class="btn" onclick="userLogout(${value['id']})"><ion-icon name="walk-outline"></ion-icon>Logout</button>
                         </div>
                         </div>
@@ -45,6 +44,63 @@ $(document).ready(function () {
     }
 
 })
+
+//features tab
+// $('#notification').click(function () {
+//     console.log("hi");
+//     $('#myTab').toggle();
+// })
+
+// $('#notification').on("click keypress",function(){
+//     console.log("hi");
+//     $('#myTab').toggle();
+// })
+$(document).ready(function(){
+    $("#notification").click(function(){
+      $("#home").toggle(function(){
+        $("#home-tab").text("notification")
+      });
+    });
+  });
+
+
+//the following fuction updates market product values periodically
+
+// var count = 0;
+// setInterval(function () {
+//     const pro_id = [1, 2, 3, 4, 5];
+//     updateProductPrice(pro_id[count])
+//     if (count == 4) {
+//         count = 0;
+//     }
+//     count++;
+//     showProducts();
+// }, 5000)
+
+//update market products price
+function updateProductPrice(pro_id) {
+    const xmlObj = new XMLHttpRequest();
+    xmlObj.open("GET", `http://localhost:3000/Market_Products/${pro_id}`);
+    xmlObj.send();
+    xmlObj.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const jsonData = JSON.parse(this.responseText);
+            const xmlParser = new XMLHttpRequest();
+            xmlParser.open("PUT", `http://localhost:3000/Market_products/${pro_id}`)
+            xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xmlParser.send(
+                JSON.stringify(
+                    {
+                        product_name: jsonData['product_name'],
+                        product_type: jsonData['product_type'],
+                        product_price: parseInt(Math.random() * 1500)
+                    })
+            )
+        }
+    }
+
+}
+
 
 //function to show the products available in the market
 
@@ -63,7 +119,7 @@ function showProducts() {
                 tdata += '<td>' + object["product_name"] + '</td>';
                 tdata += '<td>' + object["product_type"] + '</td>';
                 tdata += '<td>' + object["product_price"] + '</td>';
-                tdata += `<td><button type=button class="btn btn-warning"  onclick="buyProducts(${object["id"]},'new')"><ion-icon name="checkmark-circle-outline" size="normal"></ion-icon>Get</button></td>`
+                tdata += `<td><button type=button class="btn btn-warning"  onclick="buyProducts(${object["id"]},'new','${''}')"><ion-icon name="checkmark-circle-outline" size="normal"></ion-icon>Get</button></td>`
                 tdata += '</tr>'
             }
             if (tdata == '') {
@@ -93,14 +149,21 @@ function buyProducts(...args) {
                     xmlObj.onreadystatechange = function () {
                         if (this.readyState == 4 && this.status == 200) {
                             const product = JSON.parse(this.responseText);
-                            console.log('hi')
+                            if (args[1] == 'new') {
+                                if (value['asset'] < product['product_price']) {
+                                    successAlertBox(`Insufficient Trading balance, Available:${value['asset']}`, 'danger');
+                                    return (0);
+                                }
+                                updateAmount(value['id'], product['id'], '-')
+                            }
+
                             const xmlHttp = new XMLHttpRequest();
                             xmlHttp.open("POST", "http://localhost:3000/User_products");
                             xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
                             xmlHttp.send(
                                 JSON.stringify(
                                     {
-                                        user_id: args[2],
+                                        user_id: args[2] == '' ? value['id'] : args[2],
                                         pro_id: product['id'],
                                         product_name: product['product_name'],
                                         product_type: product['product_type'],
@@ -108,14 +171,10 @@ function buyProducts(...args) {
                                     }
                                 )
                             );
-                            if (args[1] == 'new') {
-                                updateAmount(value['id'], product['id'], '-')
-                            }
+                            successAlertBox(`Brought product:${product['product_name']} for price:${product['product_price']} `, 'success')
 
                             tradingTable();
                         }
-
-
                     }
                 }
             }
@@ -147,7 +206,7 @@ function updateAmount(user_id, pro_id, oper) {
                         userXmlObj.send(
                             JSON.stringify(
                                 {
-                                    fname: jsonData['fanme'],
+                                    fname: jsonData['fname'],
                                     lname: jsonData['lname'],
                                     uname: jsonData['uname'],
                                     password: jsonData['password'],
@@ -162,7 +221,7 @@ function updateAmount(user_id, pro_id, oper) {
                         userXmlObj.send(
                             JSON.stringify(
                                 {
-                                    fname: jsonData['fanme'],
+                                    fname: jsonData['fname'],
                                     lname: jsonData['lname'],
                                     uname: jsonData['uname'],
                                     password: jsonData['password'],
@@ -224,6 +283,8 @@ function tradingTable() {
 }
 tradingTable()
 
+//function updates the request table details
+
 function showRequest() {
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("GET", "http://localhost:3000/Users");
@@ -244,11 +305,11 @@ function showRequest() {
                             for (const product of productData) {
                                 if (values['id'] == product['request_to_user']) {
                                     requestString += `<tr>
-                                    
+                                    <td>${product['request_user_id']}
                                     <td>${product['product_name']}</td>
                                     <td>${product['product_type']}</td>
                                     <td>${product['product_price']}</td>
-                                    <td><button class="btn btn-success" onclick="acceptRequest(${product['pro_id']},'${product['product_name']}',${product['product_price']},${product['id']})">Accept</button></td>
+                                    <td><button class="btn btn-success" onclick="acceptRequest(${product['pro_id']},${product['id']},${product['request_user_id']})">Accept</button></td>
                                     <td><button class="btn btn-danger" onclick="declineRequest(${product['pro_id']},${product['id']},${product['request_user_id']})">Decline</button></td>
                                     </tr>`
                                 }
@@ -267,8 +328,9 @@ function showRequest() {
     }
 }
 
-function declineRequest(pro_id,req_id,req_uid) {
-    buyProducts(pro_id, 'old',req_uid)
+function declineRequest(pro_id, req_id, req_uid) {
+    buyProducts(pro_id, 'old', req_uid)
+    updateAmount(req_id, pro_id, "+")
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("DELETE", `http://localhost:3000/Request/${req_id}`);
     xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -281,7 +343,7 @@ function declineRequest(pro_id,req_id,req_uid) {
     successAlertBox(`Delined request of User:${req_uid}`, "danger")
     showRequest();
 }
-function acceptRequest(pro_id, pro_name, price, req_id) {
+function acceptRequest(pro_id, req_id, req_to_uid) {
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("DELETE", `http://localhost:3000/Request/${req_id}`);
     xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -293,9 +355,10 @@ function acceptRequest(pro_id, pro_name, price, req_id) {
         )
     )
 
-    buyProducts(pro_id, 'new');
-    successAlertBox(`Product Bought!  Name:${pro_name} Price:${price}`, 'success');
+    buyProducts(pro_id, 'new', '');
+    updateAmount(req_to_uid, pro_id, '+')
     showRequest();
+    tradingTable();
 }
 
 showRequest()
