@@ -81,9 +81,9 @@ function userLogin() {
     const userName = document.getElementById('log_uname').value;
     const userpass = document.getElementById('log_pass').value;
     const xmlParser = new XMLHttpRequest();
+    var login=false;
     xmlParser.open("GET", "http://localhost:3000/Users");
     xmlParser.send();
-    var login = false
     xmlParser.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             const jsonData = JSON.parse(this.responseText);
@@ -104,23 +104,28 @@ function userLogin() {
                             }
                         )
                     );
-                    login = true
-                    window.location.replace("userhome.html");
+                    login=true;
+                    setTimeout(logIn,3000);
+                    successAlertBox("You will be redirected in 3 seconds","warning")
+                    function logIn(){
+                        window.location.replace("userhome.html")
+                    }
                     break;
                 }
 
             }
-            if (!login) {
-                errorAlertBox("Login Failed", "danger");
+            if(!login){
+                errorAlertBox("UserName or password is incorect, Try Again! ","danger")
             }
+            
         }
-
     }
+   
 }
 
 $(document).ready(function () {
     var givenName = document.getElementById('uname').value;
-    $("#uname").on("click keypress blur", function () {
+    $("#uname").on("click keypress keyup keydown", function () {
         const xmlParser = new XMLHttpRequest();
         givenName = document.getElementById('uname').value;
         console.log(givenName);

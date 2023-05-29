@@ -41,6 +41,7 @@ body {
 .navbar,
 .about {
   font-family: tdfont;
+  font-weight: bolder;
 }
 
 .col-6 img {
@@ -164,7 +165,7 @@ body {
   text-align: center;
   font-size: 30px !important;
   color: rgb(60, 236, 7);
-  background-color: #3c99dc;
+  background-color: #202020;
 }
 
 .modal h3 {
@@ -173,21 +174,32 @@ body {
   color: rgb(85, 233, 0);
   font-weight: 600;
 }
+#signUpModel .modal-title ion-icon{
+  align-items: center;
+  font-size: 50px;
+  padding-top: 10px;
+  padding-left: 100px;
+}
+.modal-header .btn-close{
+  background-color: #e8dfe9;
+}
 
-.modal-header {
-  background-color: #3c99dc;
+.modal-header,.modal-title {
+  background-color:#202020;
   font-family: tdfont;
   border-top-left-radius: 0px !important;
   border-top-right-radius: 0px !important;
 }
 
 .modal-body {
-  background-image: url();
-  color: rgb(30, 18, 100);
+  background-image: url(../img/80042.jpg);
+  background-position: center;
+  background-size: cover;
+  color: limegreen;
 }
 
 .modal-footer {
-  background-color: #2565ae;
+  background-color: #202020;
 }
 
 .col-4 {
@@ -207,7 +219,7 @@ body {
 
 .marketNews {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 10px;
   color: rgb(43, 226, 150);
 }
 

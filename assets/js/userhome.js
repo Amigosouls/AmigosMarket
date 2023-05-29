@@ -1,4 +1,5 @@
 
+
 // alert boxes
 const successAlert = document.getElementById("successAlertBox");
 const successAlertBox = (message, type) => {
@@ -65,8 +66,8 @@ function showProducts() {
                 tdata += `<td><button type=button class="btn btn-warning"  onclick="buyProducts(${object["id"]},'new')"><ion-icon name="checkmark-circle-outline" size="normal"></ion-icon>Get</button></td>`
                 tdata += '</tr>'
             }
-            if(tdata==''){
-                tdata="<td colspan='5'><tr>No Products are available</td></tr>";
+            if (tdata == '') {
+                tdata = "<td colspan='5'><tr>No Products are available</td></tr>";
             }
 
         }
@@ -77,7 +78,7 @@ function showProducts() {
 
 showProducts();
 
-function buyProducts(pro_id,type) {
+function buyProducts(...args) {
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("GET", "http://localhost:3000/Users");
     xmlParser.send();
@@ -87,19 +88,19 @@ function buyProducts(pro_id,type) {
             for (const value of jsonData) {
                 if (value['logged'] == 1) {
                     const xmlObj = new XMLHttpRequest();
-                    xmlObj.open("GET", `http://localhost:3000/Market_Products/${pro_id}`);
+                    xmlObj.open("GET", `http://localhost:3000/Market_Products/${args[0]}`);
                     xmlObj.send();
                     xmlObj.onreadystatechange = function () {
                         if (this.readyState == 4 && this.status == 200) {
                             const product = JSON.parse(this.responseText);
+                            console.log('hi')
                             const xmlHttp = new XMLHttpRequest();
                             xmlHttp.open("POST", "http://localhost:3000/User_products");
                             xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
                             xmlHttp.send(
                                 JSON.stringify(
                                     {
-                                        user_id: value['id'],
-                                        user_name: value['uname'],
+                                        user_id: args[2],
                                         pro_id: product['id'],
                                         product_name: product['product_name'],
                                         product_type: product['product_type'],
@@ -107,11 +108,10 @@ function buyProducts(pro_id,type) {
                                     }
                                 )
                             );
-                            if(type=='new')
-                            {
+                            if (args[1] == 'new') {
                                 updateAmount(value['id'], product['id'], '-')
                             }
-                           
+
                             tradingTable();
                         }
 
@@ -212,9 +212,7 @@ function tradingTable() {
                             if (tdata == '') {
                                 tdata = '<td colspan=5>No items Available</td>'
                             }
-                            else {
-                                document.getElementById('myprod_list').innerHTML = tdata;
-                            }
+                            document.getElementById('myprod_list').innerHTML = tdata;
                         }
                     }
                     break;
@@ -246,17 +244,17 @@ function showRequest() {
                             for (const product of productData) {
                                 if (values['id'] == product['request_to_user']) {
                                     requestString += `<tr>
-                                    <td>${product['user_name']}</td>
+                                    
                                     <td>${product['product_name']}</td>
                                     <td>${product['product_type']}</td>
                                     <td>${product['product_price']}</td>
-                                    <td><button class="btn btn-success" onclick="acceptRequest(${product['pro_id']},'${product['product_name']}',${product['product_price']})">Accept</button></td>
-                                    <td><button class="btn btn-danger" onclick="declineRequest(${product['id']},'${product['username']}')">Decline</button></td>
+                                    <td><button class="btn btn-success" onclick="acceptRequest(${product['pro_id']},'${product['product_name']}',${product['product_price']},${product['id']})">Accept</button></td>
+                                    <td><button class="btn btn-danger" onclick="declineRequest(${product['pro_id']},${product['id']},${product['request_user_id']})">Decline</button></td>
                                     </tr>`
                                 }
                             }
                             if (requestString == "") {
-                                requestString = `<tr><td colspan=6>No request Available</td></tr>`
+                                requestString = `<tr><td colspan=5>No request Available</td></tr>`
                             }
                             document.getElementById('request_list').innerHTML = requestString;
                             break;
@@ -269,35 +267,33 @@ function showRequest() {
     }
 }
 
-function declineRequest(pro_id,u_name) {
-    buyProducts(pro_id,'old')
+function declineRequest(pro_id,req_id,req_uid) {
+    buyProducts(pro_id, 'old',req_uid)
     const xmlParser = new XMLHttpRequest();
-    xmlParser.open("DELETE", `http://localhost:3000/Request/${pro_id}`);
+    xmlParser.open("DELETE", `http://localhost:3000/Request/${req_id}`);
     xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlParser.send(
         JSON.stringify(
             {
-                id: pro_id
-
+                id: req_id
             })
     )
-    successAlertBox(`Delined request of User:${u_name}`,"danger")
+    successAlertBox(`Delined request of User:${req_uid}`, "danger")
     showRequest();
 }
-
-function acceptRequest(pro_id, pro_name, price) {
-    buyProducts(pro_id,"old");
+function acceptRequest(pro_id, pro_name, price, req_id) {
     const xmlParser = new XMLHttpRequest();
-    xmlParser.open("DELETE", `http://localhost:3000/Request/${pro_id}`);
+    xmlParser.open("DELETE", `http://localhost:3000/Request/${req_id}`);
     xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlParser.send(
         JSON.stringify(
             {
-                id: pro_id
-
+                id: req_id
             }
         )
     )
+
+    buyProducts(pro_id, 'new');
     successAlertBox(`Product Bought!  Name:${pro_name} Price:${price}`, 'success');
     showRequest();
 }
@@ -349,11 +345,11 @@ function sendRequest(pro_id, user_id) {
                     }
                 )
             );
-            successAlertBox(`Request Send to User ID:${productData['user_id']}`,'success')
+            successAlertBox(`Request Send to User ID:${user_id}`, 'success')
         }
-        
+
     }
-   
+
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("DELETE", `http://localhost:3000/User_products/${pro_id}`);
     xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -394,9 +390,11 @@ function userLogout(user_id) {
                     }
                 )
             );
-            window.location.replace("index.html")
         }
     }
-
-
+    setTimeout(logOut, 3000);
+    successAlertBox("You will be redirected in 3 seconds", "warning")
+    function logOut() {
+        window.location.replace("index.html")
+    }
 }

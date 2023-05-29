@@ -65,9 +65,9 @@
         <div class="row">
             <div class="col-lg-4 col-md-2 col-sm-1 offset-2 mt-5 pt-5">
                 <h2>The Best</h2>
-                <h3>REAL ESTATE ANALYSIS</h3>
-                <h3 class="mb-5">SOFTWARE IN NORTH AMERICA</h3>
-                <button>START NOW</button>
+                <h3>STOCK MARKET</h3>
+                <h3 class="mb-5">SOFTWARE</h3>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#loginModel">START NOW</button>
             </div>
             <div class="col-6 align-self-end mt-5 pt-5 ms-n5">
 
@@ -170,8 +170,8 @@
                 <div class="modal-content">
                     <h1 class="modal-title fs-5" id="mod_title2">AmigosMarket</h1>
                     <div class="modal-header">
-                        <h3 class="modal-title fs-5" id="mod_title">Login/SignUp</h3>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h3 class="modal-title fs-5" id="mod_title">Login/SignUp <ion-icon name="log-in-outline"></ion-icon></h3>
+                        <button type="button" class="btn-close btn-warning" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div id="errorAlertBox"></div>
                     <form name="loginForm" id="loginForm" action="" class="was-validated needs-validation"
@@ -224,12 +224,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modelSignUp">Sign Up</h1>
+                    <h1 class="modal-title fs-5" id="modelSignUp">Sign Up <ion-icon name="person-circle-outline"></ion-icon></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form name="signUpForm" id="signUpForm" action="" class="was-validated needs-validation"
-                        onsubmit="signUpUser()">
+                        onsubmit="signUpUser(); return false ">
                         <div class="modal-body">
                             <div class="form-floating  mb-2">
                                 <input list="computerType" class="form-control" placeholder="First Name"
