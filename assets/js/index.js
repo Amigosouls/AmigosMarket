@@ -107,9 +107,6 @@ function userLogin() {
                     login=true;
                     setTimeout(logIn,3000);
                     successAlertBox("You will be redirected in 3 seconds","warning")
-                    function logIn(){
-                        window.location.replace("userhome.html")
-                    }
                     break;
                 }
 
@@ -121,6 +118,9 @@ function userLogin() {
         }
     }
    
+}
+function logIn(){
+    window.location.replace("userhome.html")
 }
 
 $(document).ready(function () {

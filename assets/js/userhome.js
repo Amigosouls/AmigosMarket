@@ -29,8 +29,8 @@ $(document).ready(function () {
                         <div class='dropdown'>
                         <button class="dropbtn"><ion-icon name="person-add-outline"></ion-icon>${value['uname']}</button>
                         <div class="dropdown-content">
-                        <button class='btn' id="notification" ><ion-icon name="mail-unread-outline"></ion-icon>Notification</button>
-                        <button class='btn'><ion-icon name="people-circle-outline"></ion-icon> Edit Profile</button>
+                        <button class='btn position-relative mt-3' onclick="showNotification()" id="noti"><ion-icon name="mail-unread-outline"></ion-icon>Notification<span class="position-absolute top-0 start-80  translate-middle badge rounded-pill bg-danger">99+<span class="visually-hidden">unread messages</span</span></button>
+                        <button class='btn' data-bs-toggle="modal" data-bs-target="#editModal" onclick="editProfile(${value['id']})"><ion-icon name="people-circle-outline"></ion-icon> Edit Profile</button>
                         <button class="btn" onclick="userLogout(${value['id']})"><ion-icon name="walk-outline"></ion-icon>Logout</button>
                         </div>
                         </div>
@@ -45,6 +45,71 @@ $(document).ready(function () {
 
 })
 
+//function edits the user profile  
+function editProfile(id) {
+    const xmlObj = new XMLHttpRequest();
+    xmlObj.open("GET", `http://localhost:3000/Users/${id}`);
+    xmlObj.send();
+    xmlObj.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const jsonData = JSON.parse(this.responseText);
+            document.getElementById('uid').value = jsonData['id'];
+            document.getElementById('fname').value = jsonData['fname'];
+            document.getElementById('lname').value = jsonData['lname'];
+            document.getElementById('uname').value = jsonData['uname'];
+            document.getElementById('asset').value = jsonData['asset'];
+        }
+    }
+}
+$(document).ready(function () {
+    var givenName = document.getElementById('uname').value;
+    $("#uname").on("click keypress keyup keydown", function () {
+        const xmlParser = new XMLHttpRequest();
+        givenName = document.getElementById('uname').value;
+        console.log(givenName);
+        xmlParser.open("GET", "http://localhost:3000/Users");
+        xmlParser.send();
+        xmlParser.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                const jsonData = JSON.parse(this.responseText);
+                for (let value of jsonData) {
+                    if (givenName == value['uname'] || givenName == "") {
+                        $("#unameFeedback").text("UserName is Already Occupied");
+                        break;
+                    }
+                    else {
+                        $("#unameFeedback").text("UserName is Unique");
+                    }
+                }
+            }
+        }
+    })
+});
+
+function editConfirm(id, asset) {
+
+    const xmlParser = new XMLHttpRequest();
+    xmlParser.open("PUT", `http://localhost:3000/Users/${id}`);
+    xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    const firstName = document.getElementById('fname').value;
+    const lastName = document.getElementById('lname').value;
+    const userName = document.getElementById('uname').value;
+    const password = document.getElementById('cpass').value;
+    xmlParser.send(
+        JSON.stringify(
+            {
+                fname: firstName,
+                lname: lastName,
+                uname: userName,
+                password: password,
+                logged: 1,
+                asset: asset
+            }
+        )
+    );
+    successAlertBox("Profile Edited Successfully", "success");
+}
+
 //features tab
 // $('#notification').click(function () {
 //     console.log("hi");
@@ -55,13 +120,31 @@ $(document).ready(function () {
 //     console.log("hi");
 //     $('#myTab').toggle();
 // })
-$(document).ready(function(){
-    $("#notification").click(function(){
-      $("#home").toggle(function(){
-        $("#home-tab").text("notification")
-      });
+var data = " ";
+data = $("#home").html()
+function showNotification() {
+    $(document).ready(function () {
+
+        $("#home").toggle(function () {
+            if ($("#home-tab").text() == 'Go to market') {
+                $("#home-tab").text("Notification")
+                $("#home").html("<h1>Hi<h1>");
+                $('#noti').text("Go to market")
+                $('#home').show();
+            }
+            else if($("#home-tab").text() == 'Notification') {
+                $('#home').html(data)
+                $('#home').show();
+                $("#home-tab").text("Go to market")
+                showProducts()
+                $('#noti').html(`<ion-icon name="mail-unread-outline"></ion-icon>Notification<span class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger">99+</span>`)
+            }
+
+        })
+
+
     });
-  });
+}
 
 
 //the following fuction updates market product values periodically

@@ -1,11 +1,12 @@
 {
   "Users": [
     {
+      "fname": "Amigo",
       "lname": "Souls",
       "uname": "amisouaru",
       "password": "amigo12",
-      "asset": 5107,
-      "logged": 0,
+      "asset": 962,
+      "logged": 1,
       "id": 7
     },
     {
@@ -65,6 +66,30 @@
       "product_type": "HouseHold",
       "product_price": 268,
       "id": 3
+    },
+    {
+      "user_id": 7,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 4
+    },
+    {
+      "user_id": 7,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 5
+    },
+    {
+      "user_id": 7,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 6
     }
   ],
   "Request": []
