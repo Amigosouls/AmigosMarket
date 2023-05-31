@@ -110,32 +110,51 @@ function editConfirm(id, asset) {
     successAlertBox("Profile Edited Successfully", "success");
 }
 
-//features tab
-// $('#notification').click(function () {
-//     console.log("hi");
-//     $('#myTab').toggle();
-// })
 
-// $('#notification').on("click keypress",function(){
-//     console.log("hi");
-//     $('#myTab').toggle();
-// })
 var data = " ";
 data = $("#home").html()
 function showNotification() {
     $(document).ready(function () {
 
+
         $("#home").toggle(function () {
-            if ($("#home-tab").text() == 'Go to market') {
+            if ($("#home-tab").text() == 'View market') {
+                const xmlObj = new XMLHttpRequest();
+                xmlObj.open("GET", `http://localhost:3000/Notifications`);
+                xmlObj.send();
+                var dataString = ""
+                xmlObj.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        const jsonData = JSON.parse(this.responseText)
+                        const xmlParser = new XMLHttpRequest();
+                        xmlParser.open("GET", "http://localhost:3000/Users");
+                        xmlParser.send();
+                        xmlParser.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                const users = JSON.parse(this.responseText);
+                                for (const value of users) {
+                                    if (value['logged'] == 1) {
+                                        for (const notification of jsonData) {
+                                            if(notification['uid']==value['id'])
+                                            {
+                                                dataString +=
+                                            }
+                                        }
+                                    }
+                                } 
+                            }
+                        }
+                    }
+                }
                 $("#home-tab").text("Notification")
                 $("#home").html("<h1>Hi<h1>");
-                $('#noti').text("Go to market")
+                $('#noti').html(`<ion-icon name="rocket-outline"></ion-icon>View market`)
                 $('#home').show();
             }
-            else if($("#home-tab").text() == 'Notification') {
+            else if ($("#home-tab").text() == 'Notification') {
                 $('#home').html(data)
                 $('#home').show();
-                $("#home-tab").text("Go to market")
+                $("#home-tab").text("View market")
                 showProducts()
                 $('#noti').html(`<ion-icon name="mail-unread-outline"></ion-icon>Notification<span class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger">99+</span>`)
             }
