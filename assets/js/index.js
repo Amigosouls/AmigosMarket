@@ -105,8 +105,9 @@ function userLogin() {
                         )
                     );
                     login=true;
+                    $(".progress").attr("hidden",false)
+                    $("#progressBar").animate({width:'100%'},2000);
                     setTimeout(logIn,3000);
-                    successAlertBox("You will be redirected in 3 seconds","warning")
                     break;
                 }
 

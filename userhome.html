@@ -10,6 +10,7 @@
   <script src="assets/js/bootstrap.min.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="assets/css/styles.css">
 
 </head>
@@ -51,6 +52,9 @@
       </div>
     </div>
   </nav>
+  <div class="progress" hidden="true">
+    <div class="progress-bar progress-bar-striped bg-success" id="progressBar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
   <div id="successAlertBox"></div>
   <!--Tabs-->
   <div class="container-fluid user-bg">
@@ -70,6 +74,11 @@
     </ul>
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active " id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div>
+          <div class="row align-item-start" id="show-noti">
+
+          </div>
+        </div>
         <div class="container products">
           <h4>Products</h4>
           <table class="table mytable " id="prodTable">
@@ -240,6 +249,7 @@
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="assets/js/userhome.js"></script>
+  
 </body>
 
 </html>

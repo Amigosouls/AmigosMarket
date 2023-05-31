@@ -13,6 +13,8 @@ const successAlertBox = (message, type) => {
     successAlert.append(wrapper);
 }
 
+
+
 //function to update the navigation menu upon login and welcome the user
 $(document).ready(function () {
     const xmlParser = new XMLHttpRequest();
@@ -29,7 +31,7 @@ $(document).ready(function () {
                         <div class='dropdown'>
                         <button class="dropbtn"><ion-icon name="person-add-outline"></ion-icon>${value['uname']}</button>
                         <div class="dropdown-content">
-                        <button class='btn position-relative mt-3' onclick="showNotification()" id="noti"><ion-icon name="mail-unread-outline"></ion-icon>Notification<span class="position-absolute top-0 start-80  translate-middle badge rounded-pill bg-danger">99+<span class="visually-hidden">unread messages</span</span></button>
+                        <button class='btn position-relative mt-3' onclick="showNotification()" id="noti"><ion-icon name="mail-unread-outline"></ion-icon>Notification<span  id="notiCount" class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger"><span class="visually-hidden">unread messages</span</span></button>
                         <button class='btn' data-bs-toggle="modal" data-bs-target="#editModal" onclick="editProfile(${value['id']})"><ion-icon name="people-circle-outline"></ion-icon> Edit Profile</button>
                         <button class="btn" onclick="userLogout(${value['id']})"><ion-icon name="walk-outline"></ion-icon>Logout</button>
                         </div>
@@ -38,9 +40,7 @@ $(document).ready(function () {
                     successAlertBox(`Login Success....! User Logged in as ${value["uname"]}`, "success");
                 }
             }
-
         }
-
     }
 
 })
@@ -112,59 +112,77 @@ function editConfirm(id, asset) {
 
 
 var data = " ";
+var count=0
 data = $("#home").html()
 function showNotification() {
     $(document).ready(function () {
-
-
-        $("#home").toggle(function () {
-            if ($("#home-tab").text() == 'View market') {
-                const xmlObj = new XMLHttpRequest();
-                xmlObj.open("GET", `http://localhost:3000/Notifications`);
-                xmlObj.send();
-                var dataString = ""
-                xmlObj.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        const jsonData = JSON.parse(this.responseText)
-                        const xmlParser = new XMLHttpRequest();
-                        xmlParser.open("GET", "http://localhost:3000/Users");
-                        xmlParser.send();
-                        xmlParser.onreadystatechange = function () {
-                            if (this.readyState == 4 && this.status == 200) {
-                                const users = JSON.parse(this.responseText);
-                                for (const value of users) {
-                                    if (value['logged'] == 1) {
-                                        for (const notification of jsonData) {
-                                            if(notification['uid']==value['id'])
-                                            {
-                                                dataString +=
-                                            }
+        if ($("#home-tab").text() == 'View market') {
+            const xmlObj = new XMLHttpRequest();
+            xmlObj.open("GET", `http://localhost:3000/Notifications`);
+            xmlObj.send();
+            var noti = ""
+            //console.log("hi")
+            xmlObj.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    const jsonData = JSON.parse(this.responseText)
+                    const xmlParser = new XMLHttpRequest();
+                    xmlParser.open("GET", "http://localhost:3000/Users");
+                    xmlParser.send();
+                    xmlParser.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            const users = JSON.parse(this.responseText);
+                            for (const value of users) {
+                                if (value['logged'] == 1) {
+                                    count=0
+                                    for (const notification of jsonData) {
+                                        if (notification['uid'] == value['id']) {
+                                            count++
+                                            noti += `<div class="col-lg-6 col-md-6 col-sm-6 mt-3"><div class="alert alert-${notification['type']} alert-dismissible" role="alert">
+                                                 <div>${notification['message']}</div>
+                                                <button type="button" class="btn-close" onclick="clearNotification(${notification['id']})" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div> </div>`
                                         }
                                     }
-                                } 
+                                    $("#show-noti").html(noti);
+                                }
+                                break;
                             }
                         }
                     }
+
                 }
-                $("#home-tab").text("Notification")
-                $("#home").html("<h1>Hi<h1>");
-                $('#noti').html(`<ion-icon name="rocket-outline"></ion-icon>View market`)
-                $('#home').show();
             }
-            else if ($("#home-tab").text() == 'Notification') {
-                $('#home').html(data)
-                $('#home').show();
-                $("#home-tab").text("View market")
-                showProducts()
-                $('#noti').html(`<ion-icon name="mail-unread-outline"></ion-icon>Notification<span class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger">99+</span>`)
-            }
+            $('.products').hide();
+            $('#noti').html(`<ion-icon name="rocket-outline"></ion-icon>View market`)
+            $('#home').show()
+            $("#home-tab").text("Notification")
 
-        })
-
-
+        }
+        else //if ($("#home-tab").text() == 'Notification')
+         {
+            $('#home').show();
+            $('#home').html(data)
+            $("#home-tab").text("View market")
+            showProducts()
+            $('#noti').html(`<ion-icon name="mail-unread-outline"></ion-icon>Notification<span id="notiCount" class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger">${count>10 ? "10+":count}</span>`)
+        }
     });
 }
 
+function createNotification(message, type, uid) {
+    const xmlParser = new XMLHttpRequest();
+    xmlParser.open("POST", `http://localhost:3000/Notifications`);
+    xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlParser.send(
+        JSON.stringify(
+            {
+                message: message,
+                type: type,
+                uid: uid
+            }
+        )
+    );
+}
 
 //the following fuction updates market product values periodically
 
@@ -201,6 +219,21 @@ function updateProductPrice(pro_id) {
         }
     }
 
+}
+
+//clear notifications in user notification tab
+function clearNotification(req_id) {
+    const xmlParser = new XMLHttpRequest();
+    xmlParser.open("DELETE", `http://localhost:3000/Notifications/${req_id}`);
+    xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlParser.send(
+        JSON.stringify(
+            {
+                id: req_id
+            }
+        )
+    )
+    //showNotification();
 }
 
 
@@ -251,12 +284,14 @@ function buyProducts(...args) {
                     xmlObj.onreadystatechange = function () {
                         if (this.readyState == 4 && this.status == 200) {
                             const product = JSON.parse(this.responseText);
+                            const date = new Date();
                             if (args[1] == 'new') {
                                 if (value['asset'] < product['product_price']) {
                                     successAlertBox(`Insufficient Trading balance, Available:${value['asset']}`, 'danger');
                                     return (0);
                                 }
                                 updateAmount(value['id'], product['id'], '-')
+                                createNotification(`Date:${date.toLocaleDateString()}-${date.toLocaleTimeString()} <br>Bought ${product['product_name']} for ${product['product_price']}`, "success", value['id'])
                             }
 
                             const xmlHttp = new XMLHttpRequest();
@@ -302,6 +337,7 @@ function updateAmount(user_id, pro_id, oper) {
                 if (this.readyState == 4 && this.status == 200) {
                     const productData = JSON.parse(this.responseText);
                     const userXmlObj = new XMLHttpRequest();
+                    const date = new Date();
                     userXmlObj.open("PUT", `http://localhost:3000/Users/${user_id}`);
                     userXmlObj.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
                     if (oper == "+") {
@@ -317,6 +353,7 @@ function updateAmount(user_id, pro_id, oper) {
                                 }
                             )
                         );
+                        createNotification(`Date:${date.toLocaleDateString()}-${date.toLocaleTimeString()} <br> Acount credited for $ ${productData['product_price']}`, "success", user_id);
                         $('#showAmount').text(`Trading Amount:${jsonData['asset'] + productData['product_price']}`);
                     }
                     else if (oper == "-") {
@@ -332,6 +369,7 @@ function updateAmount(user_id, pro_id, oper) {
                                 }
                             )
                         );
+                        createNotification(`Date:${date.toLocaleDateString()}-${date.toLocaleTimeString()}<br> Acount debited for $ ${productData['product_price']}`, "warning", user_id);
                         $('#showAmount').text(`Trading Amount:${jsonData['asset'] - productData['product_price']}`);
                     }
                 }
@@ -456,7 +494,7 @@ function acceptRequest(pro_id, req_id, req_to_uid) {
             }
         )
     )
-
+    createNotification(`Accepted request ID:${req_id}`, 'primary', req_to_uid)
     buyProducts(pro_id, 'new', '');
     updateAmount(req_to_uid, pro_id, '+')
     showRequest();
@@ -510,6 +548,8 @@ function sendRequest(pro_id, user_id) {
                     }
                 )
             );
+            const date = new Date()
+            createNotification(`Date:${date.toLocaleDateString()}-${date.toLocaleTimeString()} <br> Requested to sell ${productData['product_name']} send to User:${productData['user_name']}`, "success", productData['request_user_id'])
             successAlertBox(`Request Send to User ID:${user_id}`, 'success')
         }
 
@@ -558,8 +598,18 @@ function userLogout(user_id) {
         }
     }
     setTimeout(logOut, 3000);
-    successAlertBox("You will be redirected in 3 seconds", "warning")
+    $(".progress").attr("hidden",false)
+    $("#progressBar").animate({width:'100%'},2000);
     function logOut() {
         window.location.replace("index.html")
     }
 }
+
+var string = "hello world"
+var key ="61236217JAGSJHAhsh"
+
+var encryptedAES = CryptoJS.AES.encrypt(string,key);
+console.log(encryptedAES.toString());
+var decryptedBytes = CryptoJS.AES.decrypt(encryptedAES, key);
+var plaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
+console.log(plaintext);

@@ -456,3 +456,7 @@ ion-icon {
 .main-footer .col-md-6{
   border-right: 2px solid limegreen;
 }
+
+#show-noti .alert{
+  text-align: left;
+}
