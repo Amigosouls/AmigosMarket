@@ -280,18 +280,18 @@
                         <div class="modal-body">
                             <div class="form-floating  mb-2">
                                 <input list="computerType" class="form-control" placeholder="First Name"
-                                    aria-label="Username" id='fname' required minlength="5" maxlength="12">
+                                    aria-label="Username" id='fname' required minlength="5" maxlength="12" pattern="^[a-zA-Z]+(-_ [a-zA-Z])*">
                                 <label for="fname">First Name</label>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Provide A First Name!
+                                    Provide A First Name! Format- only A-Z,a-z,.
                                 </div>
                             </div>
                             <div class="form-floating  mb-2">
                                 <input type="text" class="form-control" placeholder="Last Name" aria-label="Last Name"
-                                    aria-describedby="footer-form" id='lname' required>
+                                    aria-describedby="footer-form" id='lname' required pattern="^[a-zA-Z]+(-_ [a-zA-Z]+)*">
                                 <label>Last Name</label>
                                 <div class="valid-feedback">
                                     Looks good!
@@ -314,7 +314,7 @@
                             </div>
                             <div class="form-floating  mb-2">
                                 <input type="text" class="form-control" placeholder="Password" aria-label="Password"
-                                    aria-describedby="footer-form" id='pass' required>
+                                    aria-describedby="footer-form" id='pass' required pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$" minlength="6" maxlength="16">
                                 <label>Pasword</label>
                                 <div class="valid-feedback">
                                     Looks good!
@@ -325,7 +325,7 @@
                             </div>
                             <div class="form-floating  mb-2">
                                 <input type="text" class="form-control" placeholder="Confirm Password"
-                                    aria-label="Confirm Password" aria-describedby="footer-form" id='cpass' required>
+                                    aria-label="Confirm Password" aria-describedby="footer-form" id='cpass' required pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$" minlength="6" maxlength="16">
                                 <label>Confirm Pasword</label>
                                 <div class="valid-feedback">
                                     Looks good!
@@ -383,11 +383,11 @@
                                     class="fa-brands fa-facebook"> </i>FACEBOOK</a>
 
                         </div>
-                        <div class="col-md-6 ">
+                        <div class="col-md-6 col-sm-6 ">
                             <h6>We like to hear from You!</h6>
                             <form class="form-footer my-3">
                                 <input type="text" placeholder="FeedBack" name="search">
-                                <button type="submit" class="btn btn-primary mt-5">Send</button>
+                                <button type="submit" class="btn btn-primary">Send</button>
                             </form>
                         </div>
                     </div>

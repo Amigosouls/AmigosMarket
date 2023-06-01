@@ -128,7 +128,10 @@ function logIn(){
 $(document).ready(function () {
     var givenName = document.getElementById('uname').value;
     $("#fname").on("click keypress keyup keydown", function (){
-        $('#uname').val(document.getElementById('fname').value);
+        $('#uname').val(document.getElementById('fname').value+document.getElementById('lname').value);
+    })
+    $("#lname").on("click keypress keyup keydown", function (){
+        $('#uname').val(document.getElementById('fname').value+document.getElementById('lname').value);
     })
     $("#uname").on("click keypress keyup keydown", function () {
         const xmlParser = new XMLHttpRequest();

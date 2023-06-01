@@ -1,4 +1,4 @@
-var key ="abczxy123098AmigoMarket"
+var key = "abczxy123098AmigoMarket"
 // alert boxes
 const successAlert = document.getElementById("successAlertBox");
 const successAlertBox = (message, type) => {
@@ -29,7 +29,7 @@ $(document).ready(function () {
                     $("#loginMenu").html(`
                         <h5 id="showAmount">Trading Balance : $ ${value['asset']}</h5>
                         <div class='dropdown'>
-                        <button class="dropbtn"><ion-icon name="person-add-outline"></ion-icon>${value['uname']}</button>
+                        <button class="dropbtn dropdown-toggle"><ion-icon name="person-add-outline"></ion-icon>${value['uname']}</button>
                         <div class="dropdown-content">
                         <button class='btn position-relative mt-3' onclick="showNotification()" id="noti"><ion-icon name="mail-unread-outline"></ion-icon>Notification<span  id="notiCount" class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger"><span class="visually-hidden">unread messages</span</span></button>
                         <button class='btn' data-bs-toggle="modal" data-bs-target="#editModal" onclick="editProfile(${value['id']})"><ion-icon name="people-circle-outline"></ion-icon> Edit Profile</button>
@@ -101,7 +101,7 @@ function editConfirm(id, asset) {
                 fname: firstName,
                 lname: lastName,
                 uname: userName,
-                password:  `${CryptoJS.AES.encrypt(password,key)}`,
+                password: `${CryptoJS.AES.encrypt(password, key)}`,
                 logged: 1,
                 asset: asset
             }
@@ -112,7 +112,7 @@ function editConfirm(id, asset) {
 
 
 var data = " ";
-var count=0
+var count = 0
 data = $("#home").html()
 function showNotification() {
     $(document).ready(function () {
@@ -121,29 +121,30 @@ function showNotification() {
             xmlObj.open("GET", `http://localhost:3000/Notifications`);
             xmlObj.send();
             var noti = ""
-            //console.log("hi")
             xmlObj.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     const jsonData = JSON.parse(this.responseText)
                     const xmlParser = new XMLHttpRequest();
                     xmlParser.open("GET", "http://localhost:3000/Users");
                     xmlParser.send();
-                    
                     xmlParser.onreadystatechange = function () {
                         if (this.readyState == 4 && this.status == 200) {
                             const users = JSON.parse(this.responseText);
                             for (const value of users) {
-                                console.log("hi")
                                 if (value['logged'] == 1) {
-                                    count=0
+                                    count = 0
                                     for (const notification of jsonData) {
                                         if (notification['uid'] == value['id']) {
                                             count++
-                                            noti += `<div class="col-lg-6 col-md-6 col-sm-6 mt-3"><div class="alert alert-${notification['type']} alert-dismissible" role="alert">
+                                            noti += `<div class="col-lg-6 col-md-6 col-sm-6 mt-3">
+                                            <div class="alert alert-${notification['type']} alert-dismissible" role="alert">
                                                  <div>${notification['message']}</div>
                                                 <button type="button" class="btn-close" onclick="clearNotification(${notification['id']})" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </div> </div>`
                                         }
+                                    }
+                                    if (noti == "") {
+                                        noti = "<h5>No notifications Available</h5>"
                                     }
                                     $("#show-noti").html(noti);
                                     break;
@@ -160,17 +161,36 @@ function showNotification() {
             $("#home-tab").text("Notification")
 
         }
-        else //if ($("#home-tab").text() == 'Notification')
-         {
+        else {
             $('#home').show();
-            console.log(data)
             $('#home').html(data)
             $("#home-tab").text("View market")
             showProducts()
-            $('#noti').html(`<ion-icon name="mail-unread-outline"></ion-icon>Notification<span id="notiCount" class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger">${count>10 ? "10+":count}</span>`)
+            $('#noti').html(`<ion-icon name="mail-unread-outline"></ion-icon>Notification<span id="notiCount" class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger">${count > 10 ? "10+" : count}</span>`)
         }
     });
 }
+
+$(document).ready(function () {
+    $('#profile-tab').click(function () {
+        $('#show-noti').hide();
+        $('.products').hide();
+    })
+})
+$(document).ready(function () {
+    $('#contact-tab').click(function () {
+        $('#show-noti').hide();
+        $('.products').hide();
+    })
+})
+$(document).ready(function () {
+    $('#home-tab').click(function () {
+        $('#show-noti').show();
+        if ($("#home-tab").text() == 'View market') {
+            $(".products").show();
+        }
+    })
+})
 
 function createNotification(message, type, uid) {
     const xmlParser = new XMLHttpRequest();
@@ -201,28 +221,28 @@ function createNotification(message, type, uid) {
 // }, 5000)
 
 //update market products price
-function updateProductPrice(pro_id) {
-    const xmlObj = new XMLHttpRequest();
-    xmlObj.open("GET", `http://localhost:3000/Market_Products/${pro_id}`);
-    xmlObj.send();
-    xmlObj.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            const jsonData = JSON.parse(this.responseText);
-            const xmlParser = new XMLHttpRequest();
-            xmlParser.open("PUT", `http://localhost:3000/Market_products/${pro_id}`)
-            xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-            xmlParser.send(
-                JSON.stringify(
-                    {
-                        product_name: jsonData['product_name'],
-                        product_type: jsonData['product_type'],
-                        product_price: parseInt(Math.random() * 1500)
-                    })
-            )
-        }
-    }
+// function updateProductPrice(pro_id) {
+//     const xmlObj = new XMLHttpRequest();
+//     xmlObj.open("GET", `http://localhost:3000/Market_Products/${pro_id}`);
+//     xmlObj.send();
+//     xmlObj.onreadystatechange = function () {
+//         if (this.readyState == 4 && this.status == 200) {
+//             const jsonData = JSON.parse(this.responseText);
+//             const xmlParser = new XMLHttpRequest();
+//             xmlParser.open("PUT", `http://localhost:3000/Market_products/${pro_id}`)
+//             xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+//             xmlParser.send(
+//                 JSON.stringify(
+//                     {
+//                         product_name: jsonData['product_name'],
+//                         product_type: jsonData['product_type'],
+//                         product_price: parseInt(Math.random() * 1500)
+//                     })
+//             )
+//         }
+//     }
 
-}
+// }
 
 //clear notifications in user notification tab
 function clearNotification(req_id) {
@@ -236,7 +256,6 @@ function clearNotification(req_id) {
             }
         )
     )
-    //showNotification();
 }
 
 
@@ -290,7 +309,7 @@ function buyProducts(...args) {
                             const date = new Date();
                             if (args[1] == 'new') {
                                 if (value['asset'] < product['product_price']) {
-                                    successAlertBox(`Insufficient Trading balance, Available:${value['asset']}`, 'danger');
+                                    successAlertBox(`Insufficient Trading balance, Available:${value['asset']} <br><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loanModal" onclick=loanEligiblity()>Get Loan</button>`, 'danger');
                                     return (0);
                                 }
                                 updateAmount(value['id'], product['id'], '-')
@@ -305,6 +324,7 @@ function buyProducts(...args) {
                                     {
                                         user_id: args[2] == '' ? value['id'] : args[2],
                                         pro_id: product['id'],
+                                        user_name: value['user_name'],
                                         product_name: product['product_name'],
                                         product_type: product['product_type'],
                                         product_price: product['product_price']
@@ -550,7 +570,7 @@ function sendRequest(pro_id, user_id) {
                 )
             );
             const date = new Date()
-            createNotification(`Date:${date.toLocaleDateString()}-${date.toLocaleTimeString()} <br> Requested to sell ${productData['product_name']} send to User:${productData['user_name']}`, "success", productData['request_user_id'])
+            createNotification(`Date:${date.toLocaleDateString()}-${date.toLocaleTimeString()} <br> Requested to sell ${productData['product_name']} send to UserID:${user_id}`, "success", productData['user_id'])
             successAlertBox(`Request Send to User ID:${user_id}`, 'success')
         }
 
@@ -572,8 +592,11 @@ function sendRequest(pro_id, user_id) {
 
 }
 
-//function to logout the user from the session and redirect to home
 
+
+
+
+//function to logout the user from the session and redirect to home
 function userLogout(user_id) {
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("GET", `http://localhost:3000/Users/${user_id}`);
@@ -599,9 +622,93 @@ function userLogout(user_id) {
         }
     }
     setTimeout(logOut, 3000);
-    $(".progress").attr("hidden",false)
-    $("#progressBar").animate({width:'100%'},2000);
+    $(".progress").attr("hidden", false)
+    $("#progressBar").animate({ width: '100%' }, 2000);
     function logOut() {
         window.location.replace("index.html")
     }
 }
+
+var user_total = 0;
+function loanEligiblity() {
+    $(document).ready(function () {
+        const xmlParser = new XMLHttpRequest();
+        xmlParser.open("GET", "http://localhost:3000/Users");
+        xmlParser.send();
+        xmlParser.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                const jsonData = JSON.parse(this.responseText);
+                for (const value of jsonData) {
+                    if (value['logged'] == 1) {
+                        const xmlHttp = new XMLHttpRequest();
+                        xmlHttp.open("GET", `http://localhost:3000/User_products`);
+                        xmlHttp.send();
+                        xmlHttp.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                user_total = 0;
+                                const productData = JSON.parse(this.responseText);
+                                for (const product of productData) {
+                                    if (product['user_id'] == value['id']) {
+                                        user_total += parseInt(product['product_price']);
+                                    }
+                                }
+                                if (user_total == 0) {
+                                    console.log("hi")
+                                    $('#LoanForm').remove(".modal-body")
+                                    $("#LoanForm").html(`<div class="modal-body">
+                                    </div><h5>Sorry! We can't provide you loan</h5>
+                                    <h3>Your Total Asset: ${user_total}</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>`)
+                                }
+                                else {
+                                    var today = new Date();
+                                    var deadline = new Date()
+                                    $("#duration").on("click", function () {
+                                        if ($("#duration").val() == 10) {
+                                            $("#int_amt").val("0.5")
+                                            deadline.setDate(today.getDate() + 10)
+                                           $("#deadline").val(`${deadline.toLocaleDateString()}`)
+                                        }
+                                        else if ($("#duration").val() == 15) {
+                                            $("#int_amt").val("1")
+                                            deadline.setDate(today.getDate() + 15)
+                                            $("#deadline").val(`${deadline.toLocaleDateString()}`)
+                                        }
+                                        else if ($("#duration").val() == 25) {
+                                            $("#int_amt").val("1.5")
+                                            deadline.setDate(today.getDate() + 25)
+                                            $("#deadline").val(`${deadline.toLocaleDateString()}`)
+                                        }
+                                        else if ($("#duration").val() == 30) {
+                                            $("#int_amt").val("2")
+                                            deadline.setDate(today.getDate() + 30)
+                                            $("#deadline").val(`${deadline.toLocaleDateString()}`)
+                                        }
+                                    })
+                                    $("#loan-desc").text(`You are eligible for Loan Amount:${user_total / 2}`);
+                                    $("#total_loan").prop("max", `${user_total / 2}`)
+                                    $("#total_loan").val(user_total/2);
+                                    $("#total_loan").on("click keypress blur",function(){
+                                        var amount = user_total/2;
+                                        var rate =$("#int_amt").val();
+                                        var day = $("#duration").val();
+                                        var simp_interest = amount*day*(rate/100)*(1/365);
+                                        $("#tot-int").val(simp_interest);
+                                    })
+                                   // var simp_interest =
+                                }
+                            }
+                        }
+                        break;
+                    }
+
+                }
+            }
+        }
+    }
+    )
+}
+
+console.log()

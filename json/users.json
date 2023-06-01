@@ -5,8 +5,8 @@
       "lname": "Manikkam",
       "uname": "BellariRaja",
       "password": "U2FsdGVkX1/du1zWCpsIiqEBy9cWoKjPOsLYYT9f12E=",
-      "asset": 5000,
-      "logged": 0,
+      "asset": 14,
+      "logged": 1,
       "id": 9
     },
     {
@@ -51,7 +51,212 @@
       "id": 5
     }
   ],
-  "User_products": [],
-  "Request": [],
-  "Notifications": []
+  "User_products": [
+    {
+      "user_id": 9,
+      "pro_id": 3,
+      "product_name": "Mobile",
+      "product_type": "Entertainment",
+      "product_price": 24,
+      "id": 1
+    }
+  ],
+  "Request": [
+    {
+      "request_to_user": 10,
+      "request_user_id": 9,
+      "pro_id": 3,
+      "product_name": "Mobile",
+      "product_type": "Entertainment",
+      "product_price": 24,
+      "id": 1
+    },
+    {
+      "request_to_user": 10,
+      "request_user_id": 9,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 2
+    },
+    {
+      "request_to_user": 10,
+      "request_user_id": 9,
+      "pro_id": 3,
+      "product_name": "Mobile",
+      "product_type": "Entertainment",
+      "product_price": 24,
+      "id": 3
+    }
+  ],
+  "Notifications": [
+    {
+      "message": "Date:6/1/2023-9:44:29 AM<br> Acount debited for $ 24",
+      "type": "warning",
+      "uid": 9,
+      "id": 2
+    },
+    {
+      "message": "Date:6/1/2023-9:44:56 AM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 9,
+      "id": 4
+    },
+    {
+      "message": "Date:6/1/2023-9:50:32 AM <br> Requested to sell Mobile send to User:undefined",
+      "type": "success",
+      "id": 5
+    },
+    {
+      "message": "Date:6/1/2023-10:02:40 AM <br> Requested to sell Car send to User:undefined",
+      "type": "success",
+      "uid": 9,
+      "id": 6
+    },
+    {
+      "message": "Date:6/1/2023-10:05:28 AM <br>Bought Mobile for 24",
+      "type": "success",
+      "uid": 9,
+      "id": 7
+    },
+    {
+      "message": "Date:6/1/2023-10:05:28 AM<br> Acount debited for $ 24",
+      "type": "warning",
+      "uid": 9,
+      "id": 8
+    },
+    {
+      "message": "Date:6/1/2023-10:07:55 AM <br>Bought Fridge for 260",
+      "type": "success",
+      "uid": 9,
+      "id": 9
+    },
+    {
+      "message": "Date:6/1/2023-10:07:56 AM<br> Acount debited for $ 260",
+      "type": "warning",
+      "uid": 9,
+      "id": 10
+    },
+    {
+      "message": "Date:6/1/2023-10:09:04 AM <br>Bought Mobile for 24",
+      "type": "success",
+      "uid": 9,
+      "id": 11
+    },
+    {
+      "message": "Date:6/1/2023-10:09:22 AM <br>Bought Fridge for 260",
+      "type": "success",
+      "uid": 9,
+      "id": 12
+    },
+    {
+      "message": "Date:6/1/2023-10:09:22 AM<br> Acount debited for $ 260",
+      "type": "warning",
+      "uid": 9,
+      "id": 13
+    },
+    {
+      "message": "Date:6/1/2023-10:18:48 AM <br>Bought Mobile for 24",
+      "type": "success",
+      "uid": 9,
+      "id": 14
+    },
+    {
+      "message": "Date:6/1/2023-10:18:48 AM<br> Acount debited for $ 24",
+      "type": "warning",
+      "uid": 9,
+      "id": 15
+    },
+    {
+      "message": "Date:6/1/2023-10:19:45 AM <br> Requested to sell Mobile send to User:undefined",
+      "type": "success",
+      "uid": 9,
+      "id": 16
+    },
+    {
+      "message": "Date:6/1/2023-10:21:38 AM <br>Bought Fridge for 260",
+      "type": "success",
+      "uid": 9,
+      "id": 17
+    },
+    {
+      "message": "Date:6/1/2023-10:21:38 AM<br> Acount debited for $ 260",
+      "type": "warning",
+      "uid": 9,
+      "id": 18
+    },
+    {
+      "message": "Date:6/1/2023-10:52:35 AM <br>Bought Car for 1346",
+      "type": "success",
+      "uid": 9,
+      "id": 19
+    },
+    {
+      "message": "Date:6/1/2023-10:52:36 AM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 9,
+      "id": 20
+    },
+    {
+      "message": "Date:6/1/2023-10:52:42 AM <br>Bought Car for 1346",
+      "type": "success",
+      "uid": 9,
+      "id": 21
+    },
+    {
+      "message": "Date:6/1/2023-10:52:42 AM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 9,
+      "id": 22
+    },
+    {
+      "message": "Date:6/1/2023-11:35:40 AM <br>Bought Mobile for 24",
+      "type": "success",
+      "uid": 9,
+      "id": 23
+    },
+    {
+      "message": "Date:6/1/2023-11:35:41 AM<br> Acount debited for $ 24",
+      "type": "warning",
+      "uid": 9,
+      "id": 24
+    },
+    {
+      "message": "Date:6/1/2023-2:45:25 PM <br>Bought Mobile for 24",
+      "type": "success",
+      "uid": 9,
+      "id": 25
+    },
+    {
+      "message": "Date:6/1/2023-2:45:26 PM<br> Acount debited for $ 24",
+      "type": "warning",
+      "uid": 9,
+      "id": 26
+    },
+    {
+      "message": "Date:6/1/2023-2:47:38 PM <br>Bought Mobile for 24",
+      "type": "success",
+      "uid": 9,
+      "id": 27
+    },
+    {
+      "message": "Date:6/1/2023-2:47:38 PM<br> Acount debited for $ 24",
+      "type": "warning",
+      "uid": 9,
+      "id": 28
+    },
+    {
+      "message": "Date:6/1/2023-2:58:53 PM <br>Bought Mobile for 24",
+      "type": "success",
+      "uid": 9,
+      "id": 29
+    },
+    {
+      "message": "Date:6/1/2023-2:58:54 PM<br> Acount debited for $ 24",
+      "type": "warning",
+      "uid": 9,
+      "id": 30
+    }
+  ]
 }

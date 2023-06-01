@@ -1,6 +1,9 @@
 body {
   background-color: #202020;
   color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background-image: url(../img/bg-main.jpg);
 }
 
@@ -222,7 +225,7 @@ body {
   border-top-right-radius: 0px !important;
 }
 
-.modal-body {
+.modal-body,form{
   background-image: url(../img/80042.jpg);
   background-position: center;
   background-size: cover;
@@ -433,6 +436,7 @@ ion-icon {
   color: #fff;
   font-weight: bold;
   font-family:Quicksand ;
+  margin-top: auto;
 }
 
 .main-footer h6{
@@ -459,4 +463,5 @@ ion-icon {
 
 #show-noti .alert{
   text-align: left;
+  
 }
