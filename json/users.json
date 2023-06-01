@@ -1,21 +1,22 @@
 {
   "Users": [
     {
+      "fname": "Rajaa",
+      "lname": "Manikkam",
+      "uname": "BellariRaja",
+      "password": "U2FsdGVkX1/du1zWCpsIiqEBy9cWoKjPOsLYYT9f12E=",
+      "asset": 5000,
+      "logged": 0,
+      "id": 9
+    },
+    {
       "fname": "Amigo",
       "lname": "Souls",
       "uname": "amisouaru",
-      "password": "amigo12",
-      "asset": 4090,
+      "password": "U2FsdGVkX1968uOWzEAdTlDUANiVuYTsn3uPPKQsbP4=",
+      "asset": 5000,
       "logged": 0,
-      "id": 7
-    },
-    {
-      "lname": "Priya",
-      "uname": "RamyaRam",
-      "password": "remrem",
-      "asset": 2976,
-      "logged": 0,
-      "id": 8
+      "id": 10
     }
   ],
   "Market_Products": [
@@ -50,239 +51,7 @@
       "id": 5
     }
   ],
-  "User_products": [
-    {
-      "user_id": 8,
-      "pro_id": 4,
-      "product_name": "Fridge",
-      "product_type": "HouseHold",
-      "product_price": 268,
-      "id": 3
-    },
-    {
-      "user_id": 8,
-      "pro_id": 5,
-      "product_name": "Car",
-      "product_type": "Asset",
-      "product_price": 1346,
-      "id": 7
-    },
-    {
-      "user_id": 7,
-      "pro_id": 1,
-      "product_name": "Books",
-      "product_type": "Stationary",
-      "product_price": 102,
-      "id": 8
-    },
-    {
-      "user_id": 7,
-      "pro_id": 3,
-      "product_name": "Mobile",
-      "product_type": "Entertainment",
-      "product_price": 24,
-      "id": 10
-    },
-    {
-      "user_id": 8,
-      "pro_id": 3,
-      "product_name": "Mobile",
-      "product_type": "Entertainment",
-      "product_price": 24,
-      "id": 11
-    },
-    {
-      "user_id": 8,
-      "pro_id": 1,
-      "product_name": "Books",
-      "product_type": "Stationary",
-      "product_price": 102,
-      "id": 12
-    },
-    {
-      "user_id": 8,
-      "pro_id": 4,
-      "product_name": "Fridge",
-      "product_type": "HouseHold",
-      "product_price": 260,
-      "id": 13
-    }
-  ],
-  "Request": [
-    {
-      "request_to_user": 8,
-      "request_user_id": 7,
-      "pro_id": 4,
-      "product_name": "Fridge",
-      "product_type": "HouseHold",
-      "product_price": 260,
-      "id": 1
-    },
-    {
-      "request_to_user": 8,
-      "request_user_id": 7,
-      "pro_id": 5,
-      "product_name": "Car",
-      "product_type": "Asset",
-      "product_price": 161,
-      "id": 2
-    },
-    {
-      "request_to_user": 8,
-      "request_user_id": 7,
-      "pro_id": 2,
-      "product_name": "TV",
-      "product_type": "Electronics",
-      "product_price": 844,
-      "id": 4
-    },
-    {
-      "request_to_user": 8,
-      "request_user_id": 7,
-      "pro_id": 5,
-      "product_name": "Car",
-      "product_type": "Asset",
-      "product_price": 1346,
-      "id": 6
-    },
-    {
-      "request_to_user": 8,
-      "request_user_id": 7,
-      "pro_id": 5,
-      "product_name": "Car",
-      "product_type": "Asset",
-      "product_price": 1346,
-      "id": 7
-    },
-    {
-      "request_to_user": 8,
-      "request_user_id": 7,
-      "pro_id": 5,
-      "product_name": "Car",
-      "product_type": "Asset",
-      "product_price": 1346,
-      "id": 8
-    },
-    {
-      "request_to_user": 7,
-      "request_user_id": 7,
-      "pro_id": 2,
-      "product_name": "TV",
-      "product_type": "Electronics",
-      "product_price": 844,
-      "id": 9
-    },
-    {
-      "request_to_user": 7,
-      "request_user_id": 7,
-      "pro_id": 4,
-      "product_name": "Fridge",
-      "product_type": "HouseHold",
-      "product_price": 260,
-      "id": 10
-    }
-  ],
-  "Notifications": [
-    {
-      "message": "Date:5/31/2023-11:52:45 AM<br> Acount debited for $ 24",
-      "type": "warning",
-      "uid": 8,
-      "id": 12
-    },
-    {
-      "message": "Date:5/31/2023-11:55:05 AM <br> User Declined request of product:Car",
-      "type": "danger",
-      "uid": 7,
-      "id": 14
-    },
-    {
-      "message": "Date:5/31/2023-2:51:44 PM <br> User Declined request of product:Books",
-      "type": "danger",
-      "uid": 7,
-      "id": 19
-    },
-    {
-      "message": "Date:5/31/2023-2:52:05 PM <br>Bought Fridge for 260",
-      "type": "success",
-      "uid": 7,
-      "id": 20
-    },
-    {
-      "message": "Date:5/31/2023-2:52:05 PM<br> Acount debited for $ 260",
-      "type": "warning",
-      "uid": 7,
-      "id": 22
-    },
-    {
-      "message": "Date:5/31/2023-2:52:08 PM <br>Bought Mobile for 24",
-      "type": "success",
-      "uid": 7,
-      "id": 23
-    },
-    {
-      "message": "Date:5/31/2023-2:56:00 PM <br> Request to sell Fridge send to User:undefined",
-      "type": "success",
-      "id": 26
-    },
-    {
-      "message": "Date:5/31/2023-3:07:39 PM <br>Bought Mobile for 24",
-      "type": "success",
-      "uid": 8,
-      "id": 27
-    },
-    {
-      "message": "Date:5/31/2023-3:07:39 PM <br> User Declined request of product:Mobile",
-      "type": "danger",
-      "uid": 8,
-      "id": 28
-    },
-    {
-      "message": "Date:5/31/2023-3:07:39 PM<br> Acount debited for $ 24",
-      "type": "warning",
-      "uid": 8,
-      "id": 29
-    },
-    {
-      "message": "Date:5/31/2023-3:07:43 PM <br>Bought Books for 102",
-      "type": "success",
-      "uid": 8,
-      "id": 30
-    },
-    {
-      "message": "Date:5/31/2023-3:07:43 PM <br> User Declined request of product:Books",
-      "type": "danger",
-      "uid": 8,
-      "id": 31
-    },
-    {
-      "message": "Date:5/31/2023-3:07:43 PM<br> Acount debited for $ 102",
-      "type": "warning",
-      "uid": 8,
-      "id": 32
-    },
-    {
-      "message": "Date:5/31/2023-3:07:45 PM <br>Bought Fridge for 260",
-      "type": "success",
-      "uid": 8,
-      "id": 33
-    },
-    {
-      "message": "Date:5/31/2023-3:07:45 PM <br> User Declined request of product:Fridge",
-      "type": "danger",
-      "uid": 8,
-      "id": 34
-    },
-    {
-      "message": "Date:5/31/2023-3:07:45 PM <br> User Declined request of product:Fridge",
-      "type": "danger",
-      "uid": 8,
-      "id": 35
-    },
-    {
-      "message": "Date:5/31/2023-3:07:46 PM<br> Acount debited for $ 260",
-      "type": "warning",
-      "uid": 8,
-      "id": 36
-    }
-  ]
+  "User_products": [],
+  "Request": [],
+  "Notifications": []
 }

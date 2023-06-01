@@ -1,4 +1,4 @@
-
+var key ="abczxy123098AmigoMarket"
 // alert boxes
 const successAlert = document.getElementById("successAlertBox");
 const successAlertBox = (message, type) => {
@@ -101,7 +101,7 @@ function editConfirm(id, asset) {
                 fname: firstName,
                 lname: lastName,
                 uname: userName,
-                password: password,
+                password:  `${CryptoJS.AES.encrypt(password,key)}`,
                 logged: 1,
                 asset: asset
             }
@@ -128,10 +128,12 @@ function showNotification() {
                     const xmlParser = new XMLHttpRequest();
                     xmlParser.open("GET", "http://localhost:3000/Users");
                     xmlParser.send();
+                    
                     xmlParser.onreadystatechange = function () {
                         if (this.readyState == 4 && this.status == 200) {
                             const users = JSON.parse(this.responseText);
                             for (const value of users) {
+                                console.log("hi")
                                 if (value['logged'] == 1) {
                                     count=0
                                     for (const notification of jsonData) {
@@ -144,8 +146,8 @@ function showNotification() {
                                         }
                                     }
                                     $("#show-noti").html(noti);
+                                    break;
                                 }
-                                break;
                             }
                         }
                     }
@@ -161,6 +163,7 @@ function showNotification() {
         else //if ($("#home-tab").text() == 'Notification')
          {
             $('#home').show();
+            console.log(data)
             $('#home').html(data)
             $("#home-tab").text("View market")
             showProducts()
@@ -292,8 +295,8 @@ function buyProducts(...args) {
                                 }
                                 updateAmount(value['id'], product['id'], '-')
                                 createNotification(`Date:${date.toLocaleDateString()}-${date.toLocaleTimeString()} <br>Bought ${product['product_name']} for ${product['product_price']}`, "success", value['id'])
+                                successAlertBox(`Brought product:${product['product_name']} for price:${product['product_price']} `, 'success')
                             }
-
                             const xmlHttp = new XMLHttpRequest();
                             xmlHttp.open("POST", "http://localhost:3000/User_products");
                             xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -308,8 +311,6 @@ function buyProducts(...args) {
                                     }
                                 )
                             );
-                            successAlertBox(`Brought product:${product['product_name']} for price:${product['product_price']} `, 'success')
-
                             tradingTable();
                         }
                     }
@@ -604,12 +605,3 @@ function userLogout(user_id) {
         window.location.replace("index.html")
     }
 }
-
-var string = "hello world"
-var key ="61236217JAGSJHAhsh"
-
-var encryptedAES = CryptoJS.AES.encrypt(string,key);
-console.log(encryptedAES.toString());
-var decryptedBytes = CryptoJS.AES.decrypt(encryptedAES, key);
-var plaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
-console.log(plaintext);

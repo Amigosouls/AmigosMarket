@@ -1,4 +1,4 @@
-
+var key ="abczxy123098AmigoMarket"
 //function shows alert box for successful actions
 const successAlert = document.getElementById("successAlertBox");
 const successAlertBox = (message, type) => {
@@ -67,7 +67,7 @@ function signUpUser() {
                 fname: firstName,
                 lname: lastName,
                 uname: userName,
-                password: password,
+                password: `${CryptoJS.AES.encrypt(password,key)}`,
                 logged: 0,
                 asset: 5000
             }
@@ -88,7 +88,8 @@ function userLogin() {
         if (this.readyState == 4 && this.status == 200) {
             const jsonData = JSON.parse(this.responseText);
             for (let values of jsonData) {
-                if (userName == values['uname'] && userpass == values['password']) {
+                var decryptPass = CryptoJS.AES.decrypt(values['password'], key)
+                if (userName == values['uname'] && userpass == decryptPass.toString(CryptoJS.enc.Utf8)) {
                     const userXmlObj = new XMLHttpRequest();
                     userXmlObj.open("PUT", `http://localhost:3000/Users/${values['id']}`);
                     userXmlObj.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -126,10 +127,12 @@ function logIn(){
 
 $(document).ready(function () {
     var givenName = document.getElementById('uname').value;
+    $("#fname").on("click keypress keyup keydown", function (){
+        $('#uname').val(document.getElementById('fname').value);
+    })
     $("#uname").on("click keypress keyup keydown", function () {
         const xmlParser = new XMLHttpRequest();
         givenName = document.getElementById('uname').value;
-        console.log(givenName);
         xmlParser.open("GET", "http://localhost:3000/Users");
         xmlParser.send();
         xmlParser.onreadystatechange = function () {
