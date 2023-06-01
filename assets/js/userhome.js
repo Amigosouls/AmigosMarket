@@ -667,28 +667,28 @@ function loanEligiblity() {
                                     var deadline = new Date()
                                     $("#duration").on("click", function () {
                                         if ($("#duration").val() == 10) {
-                                            $("#int_amt").val("0.5")
+                                            $("#int_amt").val("5")
                                             deadline.setDate(today.getDate() + 10)
                                            $("#deadline").val(`${deadline.toLocaleDateString()}`)
                                         }
                                         else if ($("#duration").val() == 15) {
-                                            $("#int_amt").val("1")
+                                            $("#int_amt").val("8")
                                             deadline.setDate(today.getDate() + 15)
                                             $("#deadline").val(`${deadline.toLocaleDateString()}`)
                                         }
                                         else if ($("#duration").val() == 25) {
-                                            $("#int_amt").val("1.5")
+                                            $("#int_amt").val("12")
                                             deadline.setDate(today.getDate() + 25)
                                             $("#deadline").val(`${deadline.toLocaleDateString()}`)
                                         }
                                         else if ($("#duration").val() == 30) {
-                                            $("#int_amt").val("2")
+                                            $("#int_amt").val("15")
                                             deadline.setDate(today.getDate() + 30)
                                             $("#deadline").val(`${deadline.toLocaleDateString()}`)
                                         }
                                     })
                                     $("#loan-desc").text(`You are eligible for Loan Amount:${user_total / 2}`);
-                                    $("#total_loan").prop("max", `${user_total / 2}`)
+                                    $("#total_loan").prop("max", `${user_total/2}`)
                                     $("#total_loan").val(user_total/2);
                                     $("#total_loan").on("click keypress blur",function(){
                                         var amount = user_total/2;
@@ -696,9 +696,11 @@ function loanEligiblity() {
                                         var day = $("#duration").val();
                                         var simp_interest = amount*day*(rate/100)*(1/365);
                                         $("#tot-int").val(simp_interest);
+                                        $("#total-loan").text(`You have to pay back ${parseInt(amount+simp_interest)} by ${deadline.toLocaleDateString()}`)
                                     })
                                    // var simp_interest =
                                 }
+                                
                             }
                         }
                         break;

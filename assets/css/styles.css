@@ -225,8 +225,14 @@ body {
   border-top-right-radius: 0px !important;
 }
 
-.modal-body,form{
+.modal-body{
   background-image: url(../img/80042.jpg);
+  background-position: center;
+  background-size: cover;
+  color: limegreen;
+}
+
+form{
   background-position: center;
   background-size: cover;
   color: limegreen;

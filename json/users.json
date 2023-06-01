@@ -5,7 +5,7 @@
       "lname": "Manikkam",
       "uname": "BellariRaja",
       "password": "U2FsdGVkX1/du1zWCpsIiqEBy9cWoKjPOsLYYT9f12E=",
-      "asset": 14,
+      "asset": 600,
       "logged": 1,
       "id": 9
     },
@@ -59,6 +59,54 @@
       "product_type": "Entertainment",
       "product_price": 24,
       "id": 1
+    },
+    {
+      "user_id": 9,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 2
+    },
+    {
+      "user_id": 9,
+      "pro_id": 4,
+      "product_name": "Fridge",
+      "product_type": "HouseHold",
+      "product_price": 260,
+      "id": 3
+    },
+    {
+      "user_id": 9,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 4
+    },
+    {
+      "user_id": 9,
+      "pro_id": 2,
+      "product_name": "TV",
+      "product_type": "Electronics",
+      "product_price": 844,
+      "id": 5
+    },
+    {
+      "user_id": 9,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 6
+    },
+    {
+      "user_id": 9,
+      "pro_id": 1,
+      "product_name": "Books",
+      "product_type": "Stationary",
+      "product_price": 102,
+      "id": 7
     }
   ],
   "Request": [
@@ -257,6 +305,78 @@
       "type": "warning",
       "uid": 9,
       "id": 30
+    },
+    {
+      "message": "Date:1/6/2023-10:42:53 pm <br>Bought Car for 1346",
+      "type": "success",
+      "uid": 9,
+      "id": 31
+    },
+    {
+      "message": "Date:1/6/2023-10:42:54 pm<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 9,
+      "id": 32
+    },
+    {
+      "message": "Date:1/6/2023-10:42:55 pm <br>Bought Fridge for 260",
+      "type": "success",
+      "uid": 9,
+      "id": 33
+    },
+    {
+      "message": "Date:1/6/2023-10:42:55 pm<br> Acount debited for $ 260",
+      "type": "warning",
+      "uid": 9,
+      "id": 34
+    },
+    {
+      "message": "Date:1/6/2023-10:43:01 pm <br>Bought Car for 1346",
+      "type": "success",
+      "uid": 9,
+      "id": 35
+    },
+    {
+      "message": "Date:1/6/2023-10:43:01 pm<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 9,
+      "id": 36
+    },
+    {
+      "message": "Date:1/6/2023-10:43:06 pm <br>Bought TV for 844",
+      "type": "success",
+      "uid": 9,
+      "id": 37
+    },
+    {
+      "message": "Date:1/6/2023-10:44:23 pm <br>Bought TV for 844",
+      "type": "success",
+      "uid": 9,
+      "id": 38
+    },
+    {
+      "message": "Date:1/6/2023-10:44:26 pm <br>Bought Car for 1346",
+      "type": "success",
+      "uid": 9,
+      "id": 39
+    },
+    {
+      "message": "Date:1/6/2023-10:44:27 pm<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 9,
+      "id": 40
+    },
+    {
+      "message": "Date:1/6/2023-10:56:17 pm <br>Bought Books for 102",
+      "type": "success",
+      "uid": 9,
+      "id": 41
+    },
+    {
+      "message": "Date:1/6/2023-10:56:17 pm<br> Acount debited for $ 102",
+      "type": "warning",
+      "uid": 9,
+      "id": 42
     }
   ]
 }
