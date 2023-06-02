@@ -101,6 +101,7 @@ function userLogin() {
                                 uname: values['uname'],
                                 password: values['password'],
                                 asset: values['asset'],
+                                loanApplied:0,
                                 logged: 1
                             }
                         )

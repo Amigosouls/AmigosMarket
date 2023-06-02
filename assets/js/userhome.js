@@ -26,6 +26,8 @@ $(document).ready(function () {
             for (const value of jsonData) {
                 if (value['logged'] == 1) {
                     $("#loginMenu").empty();
+                    $("#loan-a").empty();
+                    $("#loan-a").text("View Loan")
                     $("#loginMenu").html(`
                         <h5 id="showAmount">Trading Balance : $ ${value['asset']}</h5>
                         <div class='dropdown'>
@@ -58,6 +60,7 @@ function editProfile(id) {
             document.getElementById('lname').value = jsonData['lname'];
             document.getElementById('uname').value = jsonData['uname'];
             document.getElementById('asset').value = jsonData['asset'];
+            document.getElementById('loan').value = jsonData['loanApplied']
         }
     }
 }
@@ -95,22 +98,22 @@ function editConfirm(id, asset) {
     const lastName = document.getElementById('lname').value;
     const userName = document.getElementById('uname').value;
     const password = document.getElementById('cpass').value;
+    const loan = document.getElementById('loan').value;
     xmlParser.send(
         JSON.stringify(
             {
-                fname: firstName,
-                lname: lastName,
-                uname: userName,
-                password: `${CryptoJS.AES.encrypt(password, key)}`,
-                logged: 1,
+                fname : firstName,
+                lname : lastName,
+                uname : userName,
+                password : `${CryptoJS.AES.encrypt(password, key)}`,
+                logged : 1,
+                loanApplied : loan,
                 asset: asset
             }
         )
     );
     successAlertBox("Profile Edited Successfully", "success");
 }
-
-
 var data = " ";
 var count = 0
 data = $("#home").html()
@@ -370,6 +373,7 @@ function updateAmount(user_id, pro_id, oper) {
                                     uname: jsonData['uname'],
                                     password: jsonData['password'],
                                     asset: jsonData['asset'] + productData['product_price'],
+                                    loanApplied:jsonData['loanApplied'],
                                     logged: 1
                                 }
                             )
@@ -386,6 +390,7 @@ function updateAmount(user_id, pro_id, oper) {
                                     uname: jsonData['uname'],
                                     password: jsonData['password'],
                                     asset: jsonData['asset'] - productData['product_price'],
+                                    loanApplied:jsonData['loanApplied'],
                                     logged: 1
                                 }
                             )
@@ -569,8 +574,8 @@ function sendRequest(pro_id, user_id) {
                     }
                 )
             );
-            const date = new Date()
-            createNotification(`Date:${date.toLocaleDateString()}-${date.toLocaleTimeString()} <br> Requested to sell ${productData['product_name']} send to UserID:${user_id}`, "success", productData['user_id'])
+            const date = new Date();
+            createNotification(`Date:${date.toLocaleDateString()}} <br> Requested to sell ${productData['product_name']} send to UserID:${user_id}`, "success", productData['user_id'])
             successAlertBox(`Request Send to User ID:${user_id}`, 'success')
         }
 
@@ -592,10 +597,6 @@ function sendRequest(pro_id, user_id) {
 
 }
 
-
-
-
-
 //function to logout the user from the session and redirect to home
 function userLogout(user_id) {
     const xmlParser = new XMLHttpRequest();
@@ -615,6 +616,7 @@ function userLogout(user_id) {
                         uname: values['uname'],
                         password: values['password'],
                         asset: values['asset'],
+                        loanApplied : values['loanApplied'], 
                         logged: 0
                     }
                 )
@@ -652,8 +654,8 @@ function loanEligiblity() {
                                         user_total += parseInt(product['product_price']);
                                     }
                                 }
-                                if (user_total == 0) {
-                                    console.log("hi")
+                                if (user_total == 0 || value['loanApplied']==1) {
+                                   if(user_total==0){
                                     $('#LoanForm').remove(".modal-body")
                                     $("#LoanForm").html(`<div class="modal-body">
                                     </div><h5>Sorry! We can't provide you loan</h5>
@@ -661,6 +663,16 @@ function loanEligiblity() {
                                     </div>
                                     <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>`)
+                                   }
+                                   else{
+                                    $('#LoanForm').remove(".modal-body")
+                                    $("#LoanForm").html(`<div class="modal-body">
+                                    </div><h5>Sorry! We can't provide you loan</h5>
+                                    <h3>You have an Existing loan to be Paid</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>`)
+                                   }
                                 }
                                 else {
                                     var today = new Date();
@@ -669,7 +681,7 @@ function loanEligiblity() {
                                         if ($("#duration").val() == 10) {
                                             $("#int_amt").val("5")
                                             deadline.setDate(today.getDate() + 10)
-                                           $("#deadline").val(`${deadline.toLocaleDateString()}`)
+                                            $("#deadline").val(`${deadline.toLocaleDateString()}`)
                                         }
                                         else if ($("#duration").val() == 15) {
                                             $("#int_amt").val("8")
@@ -688,19 +700,20 @@ function loanEligiblity() {
                                         }
                                     })
                                     $("#loan-desc").text(`You are eligible for Loan Amount:${user_total / 2}`);
-                                    $("#total_loan").prop("max", `${user_total/2}`)
-                                    $("#total_loan").val(user_total/2);
-                                    $("#total_loan").on("click keypress blur",function(){
-                                        var amount = user_total/2;
-                                        var rate =$("#int_amt").val();
+                                    $("#total_loan").prop("max", `${user_total / 2}`)
+                                    $("#total_loan").val(user_total / 2);
+                                    $("#total_loan").on("click mouseup keypress blur", function () {
+                                        var amount = $("#total_loan").val();
+                                        var rate = $("#int_amt").val();
                                         var day = $("#duration").val();
-                                        var simp_interest = amount*day*(rate/100)*(1/365);
+                                        var simp_interest = amount * day * (rate / 100) * (1 / 365);
                                         $("#tot-int").val(simp_interest);
-                                        $("#total-loan").text(`You have to pay back ${parseInt(amount+simp_interest)} by ${deadline.toLocaleDateString()}`)
+                                        $("#tot-debt").val(parseInt(amount) + parseInt(simp_interest))
+                                        $("#total-loan").text(`You have to pay back ${parseInt(amount) + parseInt(simp_interest)} by ${deadline.toLocaleDateString()}`)
                                     })
-                                   // var simp_interest =
+                                    // var simp_interest =
                                 }
-                                
+
                             }
                         }
                         break;
@@ -713,4 +726,60 @@ function loanEligiblity() {
     )
 }
 
-console.log()
+function getLoan() {
+    const interestRate = parseInt(document.getElementById("int_amt").value);
+    const totalLoan = parseInt(document.getElementById("total_loan").value);
+    const deadline = document.getElementById("deadline").value;
+    const totalInterest = parseInt(document.getElementById("tot-int").value);
+    const totalDebt = parseInt(document.getElementById("tot-debt").value);
+    const xmlParser = new XMLHttpRequest();
+    xmlParser.open("GET", "http://localhost:3000/Users");
+    xmlParser.send();
+    xmlParser.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const jsonData = JSON.parse(this.responseText);
+            for (const value of jsonData) {
+                if (value['logged'] == 1) {
+                    const requestXmlObj = new XMLHttpRequest();
+                    requestXmlObj.open("POST", `http://localhost:3000/Loan`);
+                    requestXmlObj.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                    requestXmlObj.send(
+                        JSON.stringify(
+                            {
+                                user_id: value['id'],
+                                user_name: value['uname'],
+                                interestRate: interestRate,
+                                totalLoan: totalLoan,
+                                deadline: deadline,
+                                totalInterest: totalInterest,
+                                totalDebt: totalDebt
+                            }
+                        )
+                    );
+                    const userXmlObj = new XMLHttpRequest();
+                    userXmlObj.open("PUT", `http://localhost:3000/Users/${value['id']}`);
+                    userXmlObj.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                    userXmlObj.send(
+                        JSON.stringify(
+                            {
+                                fname: value['fname'],
+                                lname: value['lname'],
+                                uname: value['uname'],
+                                password: value['password'],
+                                asset: value['asset'] + parseInt(totalLoan),
+                                logged: 1
+                            }
+                        )
+                    );
+                    const date = new Date();
+                    successAlertBox(`Got loan for ${totalLoan}`, "success");
+                    createNotification(`Date:${date.toLocaleDateString()} <br> Acount credited for $ ${totalLoan}`, "success", value['id']);
+                    $('#showAmount').text(`Trading Amount:${value['asset'] + parseInt(totalLoan)}`);
+                    createNotification(`Date:${date.toLocaleDateString()} <br> Got Loan for $ ${totalLoan}`, "success", value['id']);
+                    break;
+                }
+            }
+
+        }
+    }
+}

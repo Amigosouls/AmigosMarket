@@ -31,7 +31,7 @@
             <a class="nav-link active" aria-current="page" href="index.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">Features</a>
+            <a class="nav-link active" id="loan-a" href="#">Features</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="#">Pricing</a>
@@ -53,6 +53,10 @@
       </div>
     </div>
   </nav>
+  <!--Loan Details Container-->
+  <div class="container" id="loanContent">
+    
+  </div>
   <div class="progress" hidden="true">
     <div class="progress-bar progress-bar-striped bg-success" id="progressBar" role="progressbar" style="width: 0%"
       aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -236,6 +240,7 @@
                   Required Field!
                 </div>
               </div>
+              <input type="text" hidden="true" id="loan">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -259,12 +264,14 @@
             <button type="button" class="btn-close btn-warning" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div id="errorAlertBox"></div>
-          <form id="LoanForm" action="" class="was-validated needs-validation">
+          <form id="LoanForm" action="" onsubmit="getLoan(); return false" class="was-validated needs-validation">
             <div class="modal-body">
               <h3 id="loan-desc"></h3>
               <div class="form-floating  mb-2">
-                <input type="text" class="form-control" placeholder="Interest" aria-label="Interest Amt" id='int_amt'>
+                <input type="text" readonly class="form-control" placeholder="Interest" aria-label="Interest Amt" id='int_amt'>
                 <label for="int_amt">Interest Rate</label>
+              </div>
+              <div class="form-floating  mb-2">
                 <select class="form-select" id="duration" aria-label="Interest Duration">
                   <option selected>Select Your Duration</option>
                   <option value="10">10</option>
@@ -272,7 +279,9 @@
                   <option value="25">25</option>
                   <option value="30">30</option>
                 </select>
+                <label for="duration">Duration</label>
               </div>
+             
               <div class="form-floating  mb-2">
                 <input type="number" class="form-control" placeholder="" aria-label="LoanAmount"
                   aria-describedby="footer-form" id='total_loan' name="total_loan" >
@@ -288,14 +297,19 @@
                   aria-describedby="footer-form" id='tot-int' name="total-int" >
                 <label>Total Interest</label>
               </div>
+              <div class="form-floating  mb-2">
+                <input readonly type="text" class="form-control" placeholder="" aria-label="Total Debt"
+                  aria-describedby="footer-form" id='tot-debt' name="tot-debt" >
+                <label>Amount Returnable</label>
+              </div>
               <h3 id="total-loan"></h3>
 
             </div>
 
             <div class="modal-footer">
 
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Login</button>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Get Loan</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Decline</button>
             </div>
           </form>
         </div>
@@ -352,6 +366,7 @@
     </div>
   </footer>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/e8d7cbddf5.js" crossorigin="anonymous"></script>
   <script src="assets/js/userhome.js"></script>
 
 </body>
