@@ -1,3 +1,4 @@
+
 var key = "abczxy123098AmigoMarket"
 // alert boxes
 const successAlert = document.getElementById("successAlertBox");
@@ -60,7 +61,6 @@ function editProfile(id) {
             document.getElementById('lname').value = jsonData['lname'];
             document.getElementById('uname').value = jsonData['uname'];
             document.getElementById('asset').value = jsonData['asset'];
-            document.getElementById('loan').value = jsonData['loanApplied']
         }
     }
 }
@@ -98,16 +98,14 @@ function editConfirm(id, asset) {
     const lastName = document.getElementById('lname').value;
     const userName = document.getElementById('uname').value;
     const password = document.getElementById('cpass').value;
-    const loan = document.getElementById('loan').value;
     xmlParser.send(
         JSON.stringify(
             {
-                fname : firstName,
-                lname : lastName,
-                uname : userName,
-                password : `${CryptoJS.AES.encrypt(password, key)}`,
-                logged : 1,
-                loanApplied : loan,
+                fname: firstName,
+                lname: lastName,
+                uname: userName,
+                password: `${CryptoJS.AES.encrypt(password, key)}`,
+                logged: 1,
                 asset: asset
             }
         )
@@ -373,7 +371,6 @@ function updateAmount(user_id, pro_id, oper) {
                                     uname: jsonData['uname'],
                                     password: jsonData['password'],
                                     asset: jsonData['asset'] + productData['product_price'],
-                                    loanApplied:jsonData['loanApplied'],
                                     logged: 1
                                 }
                             )
@@ -390,7 +387,6 @@ function updateAmount(user_id, pro_id, oper) {
                                     uname: jsonData['uname'],
                                     password: jsonData['password'],
                                     asset: jsonData['asset'] - productData['product_price'],
-                                    loanApplied:jsonData['loanApplied'],
                                     logged: 1
                                 }
                             )
@@ -616,7 +612,6 @@ function userLogout(user_id) {
                         uname: values['uname'],
                         password: values['password'],
                         asset: values['asset'],
-                        loanApplied : values['loanApplied'], 
                         logged: 0
                     }
                 )
@@ -654,25 +649,39 @@ function loanEligiblity() {
                                         user_total += parseInt(product['product_price']);
                                     }
                                 }
-                                if (user_total == 0 || value['loanApplied']==1) {
-                                   if(user_total==0){
-                                    $('#LoanForm').remove(".modal-body")
-                                    $("#LoanForm").html(`<div class="modal-body">
+                                var isPaid = true
+                                const xmlObj = new XMLHttpRequest();
+                                xmlObj.open("GET", "http://localhost:3000/Loan");
+                                xmlObj.send();
+                                xmlObj.onreadystatechange = function () {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        const loanData = JSON.parse(this.responseText);
+                                        for (const loan of loanData) {
+                                            if (loan['loanPaid'] == 0) {
+                                                isPaid = false;
+                                            }
+                                        }
+                                    }
+                                }
+                                if (user_total == 0 || value['loanApplied'] == 1) {
+                                    if (user_total == 0) {
+                                        $('#LoanForm').remove(".modal-body")
+                                        $("#LoanForm").html(`<div class="modal-body">
                                     </div><h5>Sorry! We can't provide you loan</h5>
                                     <h3>Your Total Asset: ${user_total}</h3>
                                     </div>
                                     <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>`)
-                                   }
-                                   else{
-                                    $('#LoanForm').remove(".modal-body")
-                                    $("#LoanForm").html(`<div class="modal-body">
+                                    }
+                                    else {
+                                        $('#LoanForm').remove(".modal-body")
+                                        $("#LoanForm").html(`<div class="modal-body">
                                     </div><h5>Sorry! We can't provide you loan</h5>
                                     <h3>You have an Existing loan to be Paid</h3>
                                     </div>
                                     <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>`)
-                                   }
+                                    }
                                 }
                                 else {
                                     var today = new Date();
@@ -752,7 +761,8 @@ function getLoan() {
                                 totalLoan: totalLoan,
                                 deadline: deadline,
                                 totalInterest: totalInterest,
-                                totalDebt: totalDebt
+                                totalDebt: totalDebt,
+                                loanPaid:0
                             }
                         )
                     );
@@ -771,6 +781,7 @@ function getLoan() {
                             }
                         )
                     );
+                    
                     const date = new Date();
                     successAlertBox(`Got loan for ${totalLoan}`, "success");
                     createNotification(`Date:${date.toLocaleDateString()} <br> Acount credited for $ ${totalLoan}`, "success", value['id']);
@@ -782,4 +793,62 @@ function getLoan() {
 
         }
     }
+}
+
+function updateLoan() {
+    $(document).ready(function () {
+        const xmlParser = new XMLHttpRequest();
+        xmlParser.open("GET", "http://localhost:3000/Users");
+        xmlParser.send();
+        xmlParser.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                const jsonData = JSON.parse(this.responseText);
+                for (const value of jsonData) {
+                    if (value['logged'] == 1) {
+                        const xmlObj = new XMLHttpRequest();
+                        xmlObj.open("GET", "http://localhost:3000/Loan");
+                        xmlObj.send();
+                        const date = new Date();
+                        const n = new Date(date.toLocaleDateString())
+                        xmlObj.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                var loanInfoString = ""
+                                const loanData = JSON.parse(this.responseText);
+                                for (const loan of loanData) {
+                                    if (value['id'] == loan['user_id']) {
+                                       const d = new Date(loan['deadline']);
+                                        diff = Math.abs(d-n);
+                                        daydiff = Math.ceil(diff/ 1000/60/60/24)
+                                        loanInfoString += `<div class="col-md-3 col-sm-3 col-lg-3">
+                                    <div class="card mb-5 mt-5" style="width: 18rem;">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Loan Status:${loan['loanPaid']==1 ? "Paid":"Unpaid"}</h5>
+                                      <p class="card-text">
+                                      <h6>Total Loan: ${loan['totalLoan']}</h6>
+                                      <h6>Loan Deadline: ${loan['deadline']}</h6>
+                                      <h6>Total Interest: ${loan['totalInterest']}</h6>
+                                      <h6>Pay Total: ${loan['totalDebt']}</h6>
+                                      ${loan['loanPaid']==1 ? "":"<h6>Days Remaining:<mark>"+daydiff+"</mark></h6>"}
+                                      </p>
+                                      ${loan['loanPaid']==1 ? "":"<a href='#' class='btn btn-primary'>Pay Now</a>"}
+                                    </div>
+                                  </div>
+                                    </div>`
+                                    }
+                                }
+                                document.getElementById("loanContent").innerHTML = loanInfoString;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    })
+}
+
+updateLoan()
+
+function viewLoan() {
+    $("#loanContainer").slideToggle();
 }

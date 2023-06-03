@@ -5,7 +5,7 @@
       "lname": "Manikkam",
       "uname": "BellariRaja",
       "password": "U2FsdGVkX1/du1zWCpsIiqEBy9cWoKjPOsLYYT9f12E=",
-      "asset": 803,
+      "asset": 655,
       "logged": 1,
       "id": 9
     },
@@ -16,7 +16,6 @@
       "password": "U2FsdGVkX1968uOWzEAdTlDUANiVuYTsn3uPPKQsbP4=",
       "asset": 5000,
       "logged": 0,
-      "loanApplied": 1,
       "id": 10
     }
   ],
@@ -132,6 +131,38 @@
       "product_type": "Asset",
       "product_price": 1346,
       "id": 11
+    },
+    {
+      "user_id": 9,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 12
+    },
+    {
+      "user_id": 9,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 13
+    },
+    {
+      "user_id": 9,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 14
+    },
+    {
+      "user_id": 9,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 15
     }
   ],
   "Request": [
@@ -357,19 +388,81 @@
       "type": "warning",
       "uid": 9,
       "id": 38
+    },
+    {
+      "message": "Date:6/3/2023 <br> Acount credited for $ 3119",
+      "type": "success",
+      "uid": 9,
+      "id": 39
+    },
+    {
+      "message": "Date:6/3/2023 <br> Got Loan for $ 3119",
+      "type": "success",
+      "uid": 9,
+      "id": 40
+    },
+    {
+      "message": "Date:6/3/2023-9:24:24 AM <br>Bought Car for 1346",
+      "type": "success",
+      "uid": 9,
+      "id": 41
+    },
+    {
+      "message": "Date:6/3/2023-9:24:25 AM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 9,
+      "id": 42
+    },
+    {
+      "message": "Date:6/3/2023-9:24:28 AM <br>Bought Car for 1346",
+      "type": "success",
+      "uid": 9,
+      "id": 43
+    },
+    {
+      "message": "Date:6/3/2023-9:24:46 AM <br>Bought Car for 1346",
+      "type": "success",
+      "uid": 9,
+      "id": 44
+    },
+    {
+      "message": "Date:6/3/2023-9:25:40 AM <br>Bought Car for 1346",
+      "type": "success",
+      "uid": 9,
+      "id": 45
+    },
+    {
+      "message": "Date:6/3/2023-9:25:40 AM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 9,
+      "id": 46
+    },
+    {
+      "message": "Date:6/3/2023 <br> Acount credited for $ 5811",
+      "type": "success",
+      "uid": 9,
+      "id": 47
+    },
+    {
+      "message": "Date:6/3/2023 <br> Got Loan for $ 5811",
+      "type": "success",
+      "uid": 9,
+      "id": 48
+    },
+    {
+      "message": "Date:6/3/2023 <br> Acount credited for $ 5811",
+      "type": "success",
+      "uid": 9,
+      "id": 49
+    },
+    {
+      "message": "Date:6/3/2023 <br> Got Loan for $ 5811",
+      "type": "success",
+      "uid": 9,
+      "id": 50
     }
   ],
   "Loan": [
-    {
-      "user_id": 9,
-      "user_name": "BellariRaja",
-      "interestRate": 12,
-      "totalLoan": 2068,
-      "deadline": 6,
-      "totalInterest": 16,
-      "totalDebt": 2084,
-      "id": 1
-    },
     {
       "user_id": 9,
       "user_name": "BellariRaja",
@@ -378,7 +471,41 @@
       "deadline": "6/27/2023",
       "totalInterest": 16,
       "totalDebt": 2016,
-      "id": 2
+      "id": 2,
+      "loanPaid":0
+    },
+    {
+      "user_id": 9,
+      "user_name": "BellariRaja",
+      "interestRate": 8,
+      "totalLoan": 3119,
+      "deadline": "6/18/2023",
+      "totalInterest": 10,
+      "totalDebt": 3129,
+      "id": 3,
+      "loanPaid":0
+    },
+    {
+      "user_id": 9,
+      "user_name": "BellariRaja",
+      "interestRate": 12,
+      "totalLoan": 5811,
+      "deadline": "6/28/2023",
+      "totalInterest": 47,
+      "totalDebt": 5858,
+      "id": 4,
+      "loanPaid":0
+    },
+    {
+      "user_id": 9,
+      "user_name": "BellariRaja",
+      "interestRate": 12,
+      "totalLoan": 5811,
+      "deadline": "6/28/2023",
+      "totalInterest": 47,
+      "totalDebt": 5858,
+      "id": 5,
+      "loanPaid":1
     }
   ]
 }

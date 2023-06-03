@@ -471,3 +471,17 @@ ion-icon {
   text-align: left;
   
 }
+
+#loanContainer{
+  display: none;
+}
+
+/*Loan Cards */
+
+.card-body{
+  color: #202020;
+}
+.card-body mark{
+  background-color: yellow;
+  color: #202020;
+}

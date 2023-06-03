@@ -31,7 +31,7 @@
             <a class="nav-link active" aria-current="page" href="index.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" id="loan-a" href="#">Features</a>
+            <a class="nav-link active" id="loan-a" href="#" onclick="viewLoan()">Features</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="#">Pricing</a>
@@ -53,15 +53,18 @@
       </div>
     </div>
   </nav>
-  <!--Loan Details Container-->
-  <div class="container" id="loanContent">
-    
-  </div>
   <div class="progress" hidden="true">
     <div class="progress-bar progress-bar-striped bg-success" id="progressBar" role="progressbar" style="width: 0%"
       aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
   </div>
   <div id="successAlertBox"></div>
+  <!--Loan Details Container-->
+  <div class="container" id="loanContainer">
+    <h2>Loan Details</h2>
+    <div class="row mt-5 mb-5" id="loanContent">
+    </div>
+  </div>
+ 
   <!--Tabs-->
   <div class="container-fluid user-bg">
     <ul class="nav nav-tabs justify-content-center flex-column flex-sm-row" id="myTab" role="tablist">

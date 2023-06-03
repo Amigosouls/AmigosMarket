@@ -69,6 +69,7 @@ function signUpUser() {
                 uname: userName,
                 password: `${CryptoJS.AES.encrypt(password,key)}`,
                 logged: 0,
+                loanApplied : 0,
                 asset: 5000
             }
         )
@@ -101,7 +102,6 @@ function userLogin() {
                                 uname: values['uname'],
                                 password: values['password'],
                                 asset: values['asset'],
-                                loanApplied:0,
                                 logged: 1
                             }
                         )
