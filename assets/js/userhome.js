@@ -371,7 +371,7 @@ function updateAmount(user_id, pro_id, oper) {
                                     uname: jsonData['uname'],
                                     password: jsonData['password'],
                                     asset: jsonData['asset'] + productData['product_price'],
-                                    logged: 1
+                                    logged: jsonData['logged']
                                 }
                             )
                         );
@@ -387,7 +387,7 @@ function updateAmount(user_id, pro_id, oper) {
                                     uname: jsonData['uname'],
                                     password: jsonData['password'],
                                     asset: jsonData['asset'] - productData['product_price'],
-                                    logged: 1
+                                    logged: jsonData['logged']
                                 }
                             )
                         );
@@ -471,7 +471,7 @@ function showRequest() {
                                     <td>${product['product_name']}</td>
                                     <td>${product['product_type']}</td>
                                     <td>${product['product_price']}</td>
-                                    <td><button class="btn btn-success" onclick="acceptRequest(${product['pro_id']},${product['id']},${product['request_user_id']})">Accept</button></td>
+                                    <td><button class="btn btn-success" onclick="acceptRequest(${product['pro_id']},${product['id']},${product['request_user_id']},${product['request_to_user']})">Accept</button></td>
                                     <td><button class="btn btn-danger" onclick="declineRequest(${product['pro_id']},${product['id']},${product['request_user_id']})">Decline</button></td>
                                     </tr>`
                                 }
@@ -505,7 +505,7 @@ function declineRequest(pro_id, req_id, req_uid) {
     successAlertBox(`Delined request of User:${req_uid}`, "danger")
     showRequest();
 }
-function acceptRequest(pro_id, req_id, req_to_uid) {
+function acceptRequest(pro_id, req_id, req_to_uid, seller_id) {
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("DELETE", `http://localhost:3000/Request/${req_id}`);
     xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -518,7 +518,7 @@ function acceptRequest(pro_id, req_id, req_to_uid) {
     )
     createNotification(`Accepted request ID:${req_id}`, 'primary', req_to_uid)
     buyProducts(pro_id, 'new', '');
-    updateAmount(req_to_uid, pro_id, '+')
+    updateAmount(seller_id, pro_id, '+')
     showRequest();
     tradingTable();
 }
@@ -571,7 +571,7 @@ function sendRequest(pro_id, user_id) {
                 )
             );
             const date = new Date();
-            createNotification(`Date:${date.toLocaleDateString()}} <br> Requested to sell ${productData['product_name']} send to UserID:${user_id}`, "success", productData['user_id'])
+            createNotification(`Date:${date.toLocaleDateString()}-${date.toLocaleTimeString()} <br> Requested to sell ${productData['product_name']} send to UserID:${user_id}`, "success", productData['user_id'])
             successAlertBox(`Request Send to User ID:${user_id}`, 'success')
         }
 
@@ -659,11 +659,12 @@ function loanEligiblity() {
                                         for (const loan of loanData) {
                                             if (loan['loanPaid'] == 0) {
                                                 isPaid = false;
+                                                break;
                                             }
                                         }
                                     }
                                 }
-                                if (user_total == 0 || value['loanApplied'] == 1) {
+                                if (user_total == 0 || isPaid == false) {
                                     if (user_total == 0) {
                                         $('#LoanForm').remove(".modal-body")
                                         $("#LoanForm").html(`<div class="modal-body">
@@ -762,7 +763,7 @@ function getLoan() {
                                 deadline: deadline,
                                 totalInterest: totalInterest,
                                 totalDebt: totalDebt,
-                                loanPaid:0
+                                loanPaid: 0
                             }
                         )
                     );
@@ -781,12 +782,12 @@ function getLoan() {
                             }
                         )
                     );
-                    
+
                     const date = new Date();
                     successAlertBox(`Got loan for ${totalLoan}`, "success");
-                    createNotification(`Date:${date.toLocaleDateString()} <br> Acount credited for $ ${totalLoan}`, "success", value['id']);
+                    createNotification(`Date:${date.toLocaleDateString()}-${date.toLocaleTimeString()} <br> Acount credited for $ ${totalLoan}`, "success", value['id']);
                     $('#showAmount').text(`Trading Amount:${value['asset'] + parseInt(totalLoan)}`);
-                    createNotification(`Date:${date.toLocaleDateString()} <br> Got Loan for $ ${totalLoan}`, "success", value['id']);
+                    createNotification(`Date:${date.toLocaleDateString()}-${date.toLocaleTimeString()} <br> Got Loan for $ ${totalLoan}`, "success", value['id']);
                     break;
                 }
             }
@@ -816,21 +817,21 @@ function updateLoan() {
                                 const loanData = JSON.parse(this.responseText);
                                 for (const loan of loanData) {
                                     if (value['id'] == loan['user_id']) {
-                                       const d = new Date(loan['deadline']);
-                                        diff = Math.abs(d-n);
-                                        daydiff = Math.ceil(diff/ 1000/60/60/24)
+                                        const d = new Date(loan['deadline']);
+                                        diff = Math.abs(d - n);
+                                        daydiff = Math.ceil(diff / 1000 / 60 / 60 / 24)
                                         loanInfoString += `<div class="col-md-3 col-sm-3 col-lg-3">
                                     <div class="card mb-5 mt-5" style="width: 18rem;">
                                     <div class="card-body">
-                                      <h5 class="card-title">Loan Status:${loan['loanPaid']==1 ? "Paid":"Unpaid"}</h5>
+                                      <h5 class="card-title">Loan Status:${loan['loanPaid'] == 1 ? "Paid" : "Unpaid"}</h5>
                                       <p class="card-text">
                                       <h6>Total Loan: ${loan['totalLoan']}</h6>
                                       <h6>Loan Deadline: ${loan['deadline']}</h6>
                                       <h6>Total Interest: ${loan['totalInterest']}</h6>
                                       <h6>Pay Total: ${loan['totalDebt']}</h6>
-                                      ${loan['loanPaid']==1 ? "":"<h6>Days Remaining:<mark>"+daydiff+"</mark></h6>"}
+                                      ${loan['loanPaid'] == 1 ? "" : "<h6>Days Remaining:<mark>" + daydiff + "</mark></h6>"}
                                       </p>
-                                      ${loan['loanPaid']==1 ? "":"<a href='#' class='btn btn-primary'>Pay Now</a>"}
+                                      ${loan['loanPaid'] == 1 ? "" : "<a href='#' class='btn btn-primary'>Pay Now</a>"}
                                     </div>
                                   </div>
                                     </div>`
@@ -852,3 +853,51 @@ updateLoan()
 function viewLoan() {
     $("#loanContainer").slideToggle();
 }
+
+// collect user feedBacks
+function collectFeedbacks() {
+    const user_name = document.getElementById("cust_name").value;
+    const message = document.getElementById("cust_feedback").value;
+    const requestXmlObj = new XMLHttpRequest();
+    requestXmlObj.open("POST", `http://localhost:3000/Feedbacks`);
+    requestXmlObj.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    requestXmlObj.send(
+        JSON.stringify(
+            {
+                user_name: user_name,
+                message: message,
+                user_img: "https://xsgames.co/randomusers/avatar.php?g=pixel"
+            }
+        )
+    );
+    showReviews();
+}
+
+function showReviews(){
+    $(document).ready(function () {
+        const xmlObj = new XMLHttpRequest();
+        xmlObj.open("GET", "http://localhost:3000/Feedbacks");
+        xmlObj.send();
+        xmlObj.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var reviewString = ""
+                const user_review = JSON.parse(this.responseText);
+                for (const review of user_review) {
+                    reviewString +=`<div class="card ms-5" style="width: 18rem;">
+                    <img src="${review['user_img']}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5>${review['user_name']}</h5>
+                      <p class="card-text">${review['message']}</p>
+                    </div>
+                  </div>`
+                }
+                $("#customer_feedbacks").html(reviewString);
+            }
+        }
+    })
+}
+showReviews()
+
+$("#reviewbtn").click(function(){
+    $("#userReviews").slideToggle();
+})

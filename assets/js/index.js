@@ -188,3 +188,49 @@ function getStockValue(comp_name) {
 
 }
 
+function collectFeedbacks() {
+    const user_name = document.getElementById("cust_name").value;
+    const message = document.getElementById("cust_feedback").value;
+    const requestXmlObj = new XMLHttpRequest();
+    requestXmlObj.open("POST", `http://localhost:3000/Feedbacks`);
+    requestXmlObj.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    requestXmlObj.send(
+        JSON.stringify(
+            {
+                user_name: user_name,
+                message: message,
+                user_img: "https://xsgames.co/randomusers/avatar.php?g=pixel"
+            }
+        )
+    );
+    showReviews();
+}
+
+function showReviews(){
+    $(document).ready(function () {
+        const xmlObj = new XMLHttpRequest();
+        xmlObj.open("GET", "http://localhost:3000/Feedbacks");
+        xmlObj.send();
+        xmlObj.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var reviewString = ""
+                const user_review = JSON.parse(this.responseText);
+                for (const review of user_review) {
+                    reviewString +=`<div class="card" style="width: 18rem;">
+                    <img src="${review['user_img']}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5>${review['user_name']}</h5>
+                      <p class="card-text">${review['message']}</p>
+                    </div>
+                  </div>`
+                }
+                $("#customer_feedbacks").html(reviewString);
+            }
+        }
+    })
+}
+showReviews()
+
+$("#reviewbtn").click(function(){
+    $("#userReviews").slideToggle();
+})

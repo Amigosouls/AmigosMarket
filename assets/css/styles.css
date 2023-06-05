@@ -17,13 +17,20 @@ body {
   border-width: 10px;
   padding: 20px;
 }
-
-.navbar .container-fluid img {
+@media screen and (max-width: 990px)  {
+  .navbar-nav{
+    background-color: #404142;
+  }
+}
+.navbar img{
   height: 80px;
-  width: 150px;
-  margin-top: 10px;
 }
 
+/* @media screen and (max-width: 768px)  {
+  .navbar-nav{
+    background-color: #404142;
+  }
+} */
 .navbar .container-fluid {
   height: 70px;
 }
@@ -459,7 +466,6 @@ ion-icon {
 .main-footer input{
   border: 2px solid limegreen;
   border-radius: 10px;
-  color: #202020;
   font-weight: bold;
 }
 
@@ -472,7 +478,7 @@ ion-icon {
   
 }
 
-#loanContainer{
+#loanContainer,#userReviews{
   display: none;
 }
 
@@ -485,3 +491,20 @@ ion-icon {
   background-color: yellow;
   color: #202020;
 }
+
+.star {
+  visibility:hidden;
+  font-size:30px;
+  cursor:pointer;
+  color: #e8dfe9;
+}
+.star:before {
+ content: "\2605";
+ visibility:visible;
+}
+.star:checked:before {
+ content: "\2606";
+}
+
+
+/*piggy bank */
