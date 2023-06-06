@@ -419,6 +419,12 @@ ion-icon {
   justify-content: center;
   margin-left: 30%;
 }
+#showLessBalance .alert{
+  max-width: 70%;
+  text-align: center;
+  justify-content: center;
+  margin-left: 10%;
+}
 
 .table {
   background-image: url(../img/myProduct-bg.png);

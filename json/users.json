@@ -5,7 +5,7 @@
       "lname": "Manikkam",
       "uname": "BellariRaja",
       "password": "U2FsdGVkX1/du1zWCpsIiqEBy9cWoKjPOsLYYT9f12E=",
-      "asset": 3347,
+      "asset": 1024,
       "logged": 1,
       "id": 9
     },
@@ -14,7 +14,7 @@
       "lname": "Souls",
       "uname": "amisouaru",
       "password": "U2FsdGVkX1968uOWzEAdTlDUANiVuYTsn3uPPKQsbP4=",
-      "asset": 986,
+      "asset": 2332,
       "logged": 0,
       "id": 10
     }
@@ -163,27 +163,60 @@
       "product_type": "Entertainment",
       "product_price": 24,
       "id": 20
-    }
-  ],
-  "Request": [
+    },
     {
-      "request_to_user": 10,
-      "request_user_id": 9,
+      "user_id": 9,
       "pro_id": 5,
       "product_name": "Car",
       "product_type": "Asset",
       "product_price": 1346,
-      "id": 5
-    }
-  ],
-  "Notifications": [
-    {
-      "message": "Date:6/1/2023-9:50:32 AM <br> Requested to sell Mobile send to User:undefined",
-      "type": "success",
-      "id": 5
+      "id": 21
     },
     {
-      "message": "Date:6/1/2023-10:07:55 AM <br>Bought Fridge for 260",
+      "user_id": 9,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 22
+    },
+    {
+      "user_id": 10,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 23
+    },
+    {
+      "user_id": 10,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 24
+    },
+    {
+      "user_id": 10,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 25
+    },
+    {
+      "user_id": 10,
+      "pro_id": 5,
+      "product_name": "Car",
+      "product_type": "Asset",
+      "product_price": 1346,
+      "id": 26
+    }
+  ],
+  "Request": [],
+  "Notifications": [
+    {
+      "message": "Date:6/1/2023-10:07:55 AM \n Bought Fridge for 260",
       "type": "success",
       "uid": 9,
       "id": 9
@@ -349,6 +382,210 @@
       "type": "success",
       "uid": 10,
       "id": 41
+    },
+    {
+      "message": "Date:6/6/2023-9:07:49 AM <br>Bought Car for 1346",
+      "type": "success",
+      "uid": 9,
+      "id": 42
+    },
+    {
+      "message": "Date:6/6/2023-9:07:50 AM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 9,
+      "id": 43
+    },
+    {
+      "message": "Date:6/6/2023-9:07:56 AM <br>Bought Car for 1346",
+      "type": "success",
+      "uid": 9,
+      "id": 44
+    },
+    {
+      "message": "Date:6/6/2023-9:07:56 AM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 9,
+      "id": 45
+    },
+    {
+      "message": "Date:6/6/2023-9:55:41 AM <br>Bought Fridge for 260",
+      "type": "success",
+      "uid": 9,
+      "id": 46
+    },
+    {
+      "message": "Date:6/6/2023-9:55:41 AM<br> Acount debited for $ 260",
+      "type": "warning",
+      "uid": 9,
+      "id": 47
+    },
+    {
+      "message": "Date:6/6/2023-12:41:08 PM <br> Requested to sell Fridge send to UserID:10",
+      "type": "success",
+      "uid": 9,
+      "id": 48
+    },
+    {
+      "message": "Accepted request ID:5",
+      "type": "primary",
+      "uid": 9,
+      "id": 49
+    },
+    {
+      "message": "Date:6/6/2023-12:42:18 PM <br> Acount credited for $ 1346",
+      "type": "success",
+      "uid": 10,
+      "id": 50
+    },
+    {
+      "message": "Accepted request ID:5",
+      "type": "primary",
+      "uid": 9,
+      "id": 51
+    },
+    {
+      "message": "Date:6/6/2023-12:43:53 PM <br>Bought Car for 1346",
+      "type": "success",
+      "uid": 10,
+      "id": 52
+    },
+    {
+      "message": "Date:6/6/2023-12:43:53 PM <br> Acount credited for $ 1346",
+      "type": "success",
+      "uid": 10,
+      "id": 53
+    },
+    {
+      "message": "Date:6/6/2023-12:43:54 PM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 10,
+      "id": 54
+    },
+    {
+      "message": "Date:6/6/2023-12:43:54 PM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 10,
+      "id": 55
+    },
+    {
+      "message": "Accepted request ID:5",
+      "type": "primary",
+      "uid": 9,
+      "id": 56
+    },
+    {
+      "message": "Date:6/6/2023-12:44:39 PM <br>Bought Car for 1346",
+      "type": "success",
+      "uid": 10,
+      "id": 57
+    },
+    {
+      "message": "Date:6/6/2023-12:44:39 PM <br> Acount credited for $ 1346",
+      "type": "success",
+      "uid": 10,
+      "id": 58
+    },
+    {
+      "message": "Date:6/6/2023-12:44:40 PM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 10,
+      "id": 59
+    },
+    {
+      "message": "Accepted request ID:5",
+      "type": "primary",
+      "uid": 9,
+      "id": 60
+    },
+    {
+      "message": "Date:6/6/2023-12:47:27 PM <br>Bought Car for 1346",
+      "type": "success",
+      "uid": 10,
+      "id": 61
+    },
+    {
+      "message": "Date:6/6/2023-12:47:27 PM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 10,
+      "id": 62
+    },
+    {
+      "message": "Date:6/6/2023-12:47:27 PM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 10,
+      "id": 63
+    },
+    {
+      "message": "Date:6/6/2023-12:47:27 PM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 10,
+      "id": 64
+    },
+    {
+      "message": "Accepted request ID:5",
+      "type": "primary",
+      "uid": 9,
+      "id": 65
+    },
+    {
+      "message": "Date:6/6/2023-12:50:10 PM <br>Bought Car for 1346",
+      "type": "success",
+      "uid": 10,
+      "id": 66
+    },
+    {
+      "message": "Date:6/6/2023-12:50:11 PM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 10,
+      "id": 67
+    },
+    {
+      "message": "Accepted request ID:2",
+      "type": "primary",
+      "uid": 10,
+      "id": 68
+    },
+    {
+      "message": "Date:6/6/2023-12:57:02 PM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 9,
+      "id": 69
+    },
+    {
+      "message": "Accepted request ID:2",
+      "type": "primary",
+      "uid": 10,
+      "id": 70
+    },
+    {
+      "message": "Date:6/6/2023-12:57:48 PM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 9,
+      "id": 71
+    },
+    {
+      "message": "Accepted request ID:2",
+      "type": "primary",
+      "uid": 10,
+      "id": 72
+    },
+    {
+      "message": "Date:6/6/2023-1:00:20 PM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 9,
+      "id": 73
+    },
+    {
+      "message": "Accepted request ID:2",
+      "type": "primary",
+      "uid": 10,
+      "id": 74
+    },
+    {
+      "message": "Date:6/6/2023-1:01:29 PM<br> Acount debited for $ 1346",
+      "type": "warning",
+      "uid": 9,
+      "id": 75
     }
   ],
   "Loan": [
@@ -405,16 +642,16 @@
       "id": 2
     },
     {
-      "user_name": "Srikanth",
-      "message": "This website is not so good",
-      "user_img": "https://xsgames.co/randomusers/avatar.php?g=pixel",
-      "id": 4
+      "user_name": "Hemanth",
+      "message": "So far So good!..",
+      "user_img": "https://api.multiavatar.com/Dancer.svg",
+      "id": 8
     },
     {
-      "user_name": "Darshan",
-      "message": "Nice UI",
-      "user_img": "https://xsgames.co/randomusers/avatar.php?g=pixel",
-      "id": 5
+      "user_name": "Srikanth",
+      "message": "This website is not so good",
+      "user_img": "https://api.multiavatar.com/Chill.svg",
+      "id": 9
     }
   ]
 }

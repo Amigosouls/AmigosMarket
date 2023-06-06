@@ -187,6 +187,19 @@ function getStockValue(comp_name) {
         })
 
 }
+const feedbackAlert = document.getElementById("feedback-box");
+const feedbackBox = (message, type) => {
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+    ].join('')
+
+    feedbackAlert.append(wrapper);
+}
+
 
 function collectFeedbacks() {
     const user_name = document.getElementById("cust_name").value;
@@ -203,6 +216,7 @@ function collectFeedbacks() {
             }
         )
     );
+    feedbackBox("Thank you for your Feedback","success");
     showReviews();
 }
 
@@ -216,13 +230,13 @@ function showReviews(){
                 var reviewString = ""
                 const user_review = JSON.parse(this.responseText);
                 for (const review of user_review) {
-                    reviewString +=`<div class="card" style="width: 18rem;">
+                    reviewString +=`<div class="col-md-3 col-lg-3 col-sm-3" ><div class="card ms-5 mb-5" style="width: 18rem;">
                     <img src="${review['user_img']}" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5>${review['user_name']}</h5>
                       <p class="card-text">${review['message']}</p>
                     </div>
-                  </div>`
+                  </div></div>`
                 }
                 $("#customer_feedbacks").html(reviewString);
             }

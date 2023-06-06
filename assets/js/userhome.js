@@ -14,6 +14,31 @@ const successAlertBox = (message, type) => {
     successAlert.append(wrapper);
 }
 
+const feedbackAlert = document.getElementById("feedback-box");
+const feedbackBox = (message, type) => {
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+    ].join('')
+
+    feedbackAlert.append(wrapper);
+}
+
+const errorAlert = document.getElementById("showLessBalance");
+const errorAlertBox = (message, type) => {
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+    ].join('')
+
+    errorAlert.append(wrapper);
+}
 
 
 //function to update the navigation menu upon login and welcome the user
@@ -119,7 +144,7 @@ function showNotification() {
     $(document).ready(function () {
         if ($("#home-tab").text() == 'View market') {
             const xmlObj = new XMLHttpRequest();
-            xmlObj.open("GET", `http://localhost:3000/Notifications`);
+            xmlObj.open("GET", `http://localhost:5000/Notifications`);
             xmlObj.send();
             var noti = ""
             xmlObj.onreadystatechange = function () {
@@ -195,7 +220,7 @@ $(document).ready(function () {
 
 function createNotification(message, type, uid) {
     const xmlParser = new XMLHttpRequest();
-    xmlParser.open("POST", `http://localhost:3000/Notifications`);
+    xmlParser.open("POST", `http://localhost:5000/Notifications`);
     xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlParser.send(
         JSON.stringify(
@@ -208,47 +233,10 @@ function createNotification(message, type, uid) {
     );
 }
 
-//the following fuction updates market product values periodically
-
-// var count = 0;
-// setInterval(function () {
-//     const pro_id = [1, 2, 3, 4, 5];
-//     updateProductPrice(pro_id[count])
-//     if (count == 4) {
-//         count = 0;
-//     }
-//     count++;
-//     showProducts();
-// }, 5000)
-
-//update market products price
-// function updateProductPrice(pro_id) {
-//     const xmlObj = new XMLHttpRequest();
-//     xmlObj.open("GET", `http://localhost:3000/Market_Products/${pro_id}`);
-//     xmlObj.send();
-//     xmlObj.onreadystatechange = function () {
-//         if (this.readyState == 4 && this.status == 200) {
-//             const jsonData = JSON.parse(this.responseText);
-//             const xmlParser = new XMLHttpRequest();
-//             xmlParser.open("PUT", `http://localhost:3000/Market_products/${pro_id}`)
-//             xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-//             xmlParser.send(
-//                 JSON.stringify(
-//                     {
-//                         product_name: jsonData['product_name'],
-//                         product_type: jsonData['product_type'],
-//                         product_price: parseInt(Math.random() * 1500)
-//                     })
-//             )
-//         }
-//     }
-
-// }
-
 //clear notifications in user notification tab
 function clearNotification(req_id) {
     const xmlParser = new XMLHttpRequest();
-    xmlParser.open("DELETE", `http://localhost:3000/Notifications/${req_id}`);
+    xmlParser.open("DELETE", `http://localhost:5000/Notifications/${req_id}`);
     xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlParser.send(
         JSON.stringify(
@@ -264,7 +252,7 @@ function clearNotification(req_id) {
 
 function showProducts() {
     const xmlParser = new XMLHttpRequest();
-    xmlParser.open("GET", "http://localhost:3000/Market_Products");
+    xmlParser.open("GET", "http://localhost:5000/Market_Products");
     xmlParser.send();
     xmlParser.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -302,7 +290,7 @@ function buyProducts(...args) {
             for (const value of jsonData) {
                 if (value['logged'] == 1) {
                     const xmlObj = new XMLHttpRequest();
-                    xmlObj.open("GET", `http://localhost:3000/Market_Products/${args[0]}`);
+                    xmlObj.open("GET", `http://localhost:5000/Market_Products/${args[0]}`);
                     xmlObj.send();
                     xmlObj.onreadystatechange = function () {
                         if (this.readyState == 4 && this.status == 200) {
@@ -311,14 +299,14 @@ function buyProducts(...args) {
                             if (args[1] == 'new') {
                                 if (value['asset'] < product['product_price']) {
                                     successAlertBox(`Insufficient Trading balance, Available:${value['asset']} <br><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loanModal" onclick=loanEligiblity()>Get Loan</button>`, 'danger');
+                                    updateAmount(value['id'], product['id'], '-')
+                                    createNotification(`Date:${date.toLocaleDateString()}-${date.toLocaleTimeString()} <br>Bought ${product['product_name']} for ${product['product_price']}`, "success", value['id'])
+                                    successAlertBox(`Brought product:${product['product_name']} for price:${product['product_price']} `, 'success')
                                     return (0);
                                 }
-                                updateAmount(value['id'], product['id'], '-')
-                                createNotification(`Date:${date.toLocaleDateString()}-${date.toLocaleTimeString()} <br>Bought ${product['product_name']} for ${product['product_price']}`, "success", value['id'])
-                                successAlertBox(`Brought product:${product['product_name']} for price:${product['product_price']} `, 'success')
                             }
                             const xmlHttp = new XMLHttpRequest();
-                            xmlHttp.open("POST", "http://localhost:3000/User_products");
+                            xmlHttp.open("POST", "http://localhost:5000/User_products");
                             xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
                             xmlHttp.send(
                                 JSON.stringify(
@@ -335,6 +323,7 @@ function buyProducts(...args) {
                             tradingTable();
                         }
                     }
+                    break;
                 }
             }
 
@@ -353,7 +342,7 @@ function updateAmount(user_id, pro_id, oper) {
         if (this.readyState == 4 && this.status == 200) {
             const jsonData = JSON.parse(this.responseText);
             const xmlHttp = new XMLHttpRequest();
-            xmlHttp.open("GET", `http://localhost:3000/Market_Products/${pro_id}`);
+            xmlHttp.open("GET", `http://localhost:5000/Market_Products/${pro_id}`);
             xmlHttp.send();
             xmlHttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
@@ -413,7 +402,7 @@ function tradingTable() {
             for (const value of jsonData) {
                 if (value['logged'] == 1) {
                     const xmlHttp = new XMLHttpRequest();
-                    xmlHttp.open("GET", `http://localhost:3000/User_products`);
+                    xmlHttp.open("GET", `http://localhost:5000/User_products`);
                     xmlHttp.send();
                     xmlHttp.onreadystatechange = function () {
                         if (this.readyState == 4 && this.status == 200) {
@@ -492,7 +481,6 @@ function showRequest() {
 
 function declineRequest(pro_id, req_id, req_uid) {
     buyProducts(pro_id, 'old', req_uid)
-    updateAmount(req_id, pro_id, "+")
     const xmlParser = new XMLHttpRequest();
     xmlParser.open("DELETE", `http://localhost:3000/Request/${req_id}`);
     xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -518,7 +506,7 @@ function acceptRequest(pro_id, req_id, req_to_uid, seller_id) {
     )
     createNotification(`Accepted request ID:${req_id}`, 'primary', req_to_uid)
     buyProducts(pro_id, 'new', '');
-    updateAmount(seller_id, pro_id, '+')
+    updateAmount(seller_id, pro_id, '-')
     showRequest();
     tradingTable();
 }
@@ -548,7 +536,7 @@ function generateUsers(pro_id) {
 
 function sendRequest(pro_id, user_id) {
     const xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", `http://localhost:3000/User_products/${pro_id}`);
+    xmlHttp.open("GET", `http://localhost:5000/User_products/${pro_id}`);
     xmlHttp.send();
     xmlHttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -578,7 +566,7 @@ function sendRequest(pro_id, user_id) {
     }
 
     const xmlParser = new XMLHttpRequest();
-    xmlParser.open("DELETE", `http://localhost:3000/User_products/${pro_id}`);
+    xmlParser.open("DELETE", `http://localhost:5000/User_products/${pro_id}`);
     xmlParser.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlParser.send(
         JSON.stringify(
@@ -627,6 +615,8 @@ function userLogout(user_id) {
 }
 
 var user_total = 0;
+var isPaid = true;
+
 function loanEligiblity() {
     $(document).ready(function () {
         const xmlParser = new XMLHttpRequest();
@@ -638,7 +628,7 @@ function loanEligiblity() {
                 for (const value of jsonData) {
                     if (value['logged'] == 1) {
                         const xmlHttp = new XMLHttpRequest();
-                        xmlHttp.open("GET", `http://localhost:3000/User_products`);
+                        xmlHttp.open("GET", `http://localhost:5000/User_products`);
                         xmlHttp.send();
                         xmlHttp.onreadystatechange = function () {
                             if (this.readyState == 4 && this.status == 200) {
@@ -649,7 +639,7 @@ function loanEligiblity() {
                                         user_total += parseInt(product['product_price']);
                                     }
                                 }
-                                var isPaid = true
+
                                 const xmlObj = new XMLHttpRequest();
                                 xmlObj.open("GET", "http://localhost:3000/Loan");
                                 xmlObj.send();
@@ -657,84 +647,86 @@ function loanEligiblity() {
                                     if (this.readyState == 4 && this.status == 200) {
                                         const loanData = JSON.parse(this.responseText);
                                         for (const loan of loanData) {
-                                            if (loan['loanPaid'] == 0) {
-                                                isPaid = false;
-                                                break;
+                                            if (value['id'] == loan['user_id']) {
+                                                if (loan['loanPaid'] == 0) {
+                                                    isPaid = false;
+                                                    break;
+                                                }
                                             }
                                         }
-                                    }
-                                }
-                                if (user_total == 0 || isPaid == false) {
-                                    if (user_total == 0) {
-                                        $('#LoanForm').remove(".modal-body")
-                                        $("#LoanForm").html(`<div class="modal-body">
-                                    </div><h5>Sorry! We can't provide you loan</h5>
-                                    <h3>Your Total Asset: ${user_total}</h3>
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>`)
-                                    }
-                                    else {
-                                        $('#LoanForm').remove(".modal-body")
-                                        $("#LoanForm").html(`<div class="modal-body">
-                                    </div><h5>Sorry! We can't provide you loan</h5>
-                                    <h3>You have an Existing loan to be Paid</h3>
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>`)
-                                    }
-                                }
-                                else {
-                                    var today = new Date();
-                                    var deadline = new Date()
-                                    $("#duration").on("click", function () {
-                                        if ($("#duration").val() == 10) {
-                                            $("#int_amt").val("5")
-                                            deadline.setDate(today.getDate() + 10)
-                                            $("#deadline").val(`${deadline.toLocaleDateString()}`)
-                                        }
-                                        else if ($("#duration").val() == 15) {
-                                            $("#int_amt").val("8")
-                                            deadline.setDate(today.getDate() + 15)
-                                            $("#deadline").val(`${deadline.toLocaleDateString()}`)
-                                        }
-                                        else if ($("#duration").val() == 25) {
-                                            $("#int_amt").val("12")
-                                            deadline.setDate(today.getDate() + 25)
-                                            $("#deadline").val(`${deadline.toLocaleDateString()}`)
-                                        }
-                                        else if ($("#duration").val() == 30) {
-                                            $("#int_amt").val("15")
-                                            deadline.setDate(today.getDate() + 30)
-                                            $("#deadline").val(`${deadline.toLocaleDateString()}`)
-                                        }
-                                    })
-                                    $("#loan-desc").text(`You are eligible for Loan Amount:${user_total / 2}`);
-                                    $("#total_loan").prop("max", `${user_total / 2}`)
-                                    $("#total_loan").val(user_total / 2);
-                                    $("#total_loan").on("click mouseup keypress blur", function () {
-                                        var amount = $("#total_loan").val();
-                                        var rate = $("#int_amt").val();
-                                        var day = $("#duration").val();
-                                        var simp_interest = amount * day * (rate / 100) * (1 / 365);
-                                        $("#tot-int").val(simp_interest);
-                                        $("#tot-debt").val(parseInt(amount) + parseInt(simp_interest))
-                                        $("#total-loan").text(`You have to pay back ${parseInt(amount) + parseInt(simp_interest)} by ${deadline.toLocaleDateString()}`)
-                                    })
-                                    // var simp_interest =
-                                }
 
+                                        // Move the logic that depends on isPaid here
+                                        if (user_total == 0 || isPaid == false) {
+                                            if (user_total == 0) {
+                                                $('#LoanForm').remove(".modal-body")
+                                                $("#LoanForm").html(`<div class="modal-body">
+                                                            </div><h5>Sorry! We can't provide you loan</h5>
+                                                            <h3>Your Total Asset: ${user_total}</h3>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>`)
+                                            }
+                                            else {
+                                                $('#LoanForm').remove(".modal-body")
+                                                $("#LoanForm").html(`<div class="modal-body">
+                                                            </div><h5>Sorry! We can't provide you loan</h5>
+                                                            <h3>You have an Existing loan to be Paid</h3>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>`)
+                                            }
+                                        }
+                                        else {
+                                            var today = new Date();
+                                            var deadline = new Date()
+                                            $("#duration").on("click", function () {
+                                                if ($("#duration").val() == 10) {
+                                                    $("#int_amt").val("5")
+                                                    deadline.setDate(today.getDate() + 10)
+                                                    $("#deadline").val(`${deadline.toLocaleDateString()}`)
+                                                }
+                                                else if ($("#duration").val() == 15) {
+                                                    $("#int_amt").val("8")
+                                                    deadline.setDate(today.getDate() + 15)
+                                                    $("#deadline").val(`${deadline.toLocaleDateString()}`)
+                                                }
+                                                else if ($("#duration").val() == 25) {
+                                                    $("#int_amt").val("12")
+                                                    deadline.setDate(today.getDate() + 25)
+                                                    $("#deadline").val(`${deadline.toLocaleDateString()}`)
+                                                }
+                                                else if ($("#duration").val() == 30) {
+                                                    $("#int_amt").val("15")
+                                                    deadline.setDate(today.getDate() + 30)
+                                                    $("#deadline").val(`${deadline.toLocaleDateString()}`)
+                                                }
+                                            })
+                                            $("#loan-desc").text(`You are eligible for Loan Amount:${user_total / 2}`);
+                                            $("#total_loan").prop("max", `${user_total / 2}`)
+                                            $("#total_loan").val(user_total / 2);
+                                            $("#total_loan").on("click mouseup keypress blur", function () {
+                                                var amount = $("#total_loan").val();
+                                                var rate = $("#int_amt").val();
+                                                var day = $("#duration").val();
+                                                var simp_interest = amount * day * (rate / 100) * (1 / 365);
+                                                $("#tot-int").val(simp_interest);
+                                                $("#tot-debt").val(parseInt(amount) + parseInt(simp_interest))
+                                                $("#total-loan").text(`You have to pay back ${parseInt(amount) + parseInt(simp_interest)} by ${deadline.toLocaleDateString()}`)
+                                            })
+                                            // var simp_interest =
+                                        }
+                                    }
+                                };
                             }
-                        }
+                        };
                         break;
                     }
-
                 }
             }
-        }
-    }
-    )
+        };
+    });
 }
+
 
 function getLoan() {
     const interestRate = parseInt(document.getElementById("int_amt").value);
@@ -831,7 +823,7 @@ function updateLoan() {
                                       <h6>Pay Total: ${loan['totalDebt']}</h6>
                                       ${loan['loanPaid'] == 1 ? "" : "<h6>Days Remaining:<mark>" + daydiff + "</mark></h6>"}
                                       </p>
-                                      ${loan['loanPaid'] == 1 ? "" : "<a href='#' class='btn btn-primary'>Pay Now</a>"}
+                                      ${loan['loanPaid'] == 1 ? "" : "<a href='#' class='btn btn-primary' onclick='showPayLoan(" + loan['id'] + ")' data-bs-toggle='modal' data-bs-target='#payLoanModal'>Pay Now</a>"}
                                     </div>
                                   </div>
                                     </div>`
@@ -861,19 +853,21 @@ function collectFeedbacks() {
     const requestXmlObj = new XMLHttpRequest();
     requestXmlObj.open("POST", `http://localhost:3000/Feedbacks`);
     requestXmlObj.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    var avatars = ["Cool", "Funny", "Angry", "Romeo", "Cute", "Gentle", "Dude", "Chill", "Rock", "Dancer", "Developer"]
     requestXmlObj.send(
         JSON.stringify(
             {
                 user_name: user_name,
                 message: message,
-                user_img: "https://xsgames.co/randomusers/avatar.php?g=pixel"
+                user_img: `https://api.multiavatar.com/${avatars[parseInt(Math.random() * 10)]}.svg`
             }
         )
     );
+    feedbackBox("Thank you for your Feedback", "success");
     showReviews();
 }
 
-function showReviews(){
+function showReviews() {
     $(document).ready(function () {
         const xmlObj = new XMLHttpRequest();
         xmlObj.open("GET", "http://localhost:3000/Feedbacks");
@@ -883,13 +877,13 @@ function showReviews(){
                 var reviewString = ""
                 const user_review = JSON.parse(this.responseText);
                 for (const review of user_review) {
-                    reviewString +=`<div class="card ms-5" style="width: 18rem;">
+                    reviewString += `<div class="col-md-4 col-lg-4 col-sm-4" ><div class="card " style="width: 15rem;">
                     <img src="${review['user_img']}" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5>${review['user_name']}</h5>
                       <p class="card-text">${review['message']}</p>
                     </div>
-                  </div>`
+                  </div></div>`
                 }
                 $("#customer_feedbacks").html(reviewString);
             }
@@ -898,6 +892,63 @@ function showReviews(){
 }
 showReviews()
 
-$("#reviewbtn").click(function(){
+$("#reviewbtn").click(function () {
     $("#userReviews").slideToggle();
 })
+
+function showPayLoan(loan_id) {
+    const xmlObj = new XMLHttpRequest();
+    xmlObj.open("GET", `http://localhost:5000/Loan/${loan_id}`);
+    xmlObj.send();
+    xmlObj.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            loanObj = JSON.parse(this.responseText);
+            document.getElementById("pint_amt").value = loanObj['interestRate'];
+            document.getElementById("ptotal_loan").value = loanObj['totalLoan'];
+            document.getElementById("ptot-int").value = loanObj['totalInterest'];
+            document.getElementById("ptot-debt").value = loanObj['totalDebt'];
+            const xmlParser = new XMLHttpRequest();
+            xmlParser.open("GET", "http://localhost:3000/Users");
+            xmlParser.send();
+            xmlParser.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    const jsonData = JSON.parse(this.responseText);
+                    for (const value of jsonData) {
+                        if (value['logged'] == 1) {
+                            if (value['asset'] < loanObj['totalDebt']) {
+                                errorAlertBox("Looks Like you don't have enough money to pay <br> Consider selling some Asset!", "danger")
+                                $("#payLoanForm").prepend(`<table class="table table-dark
+                                table-bordered table-striped">
+                               <thead><tr>
+                                   <th>Product Name</th>
+                                   <th>Product Price</th>
+                                   <th>Sell</th>
+                                 </tr></thead>
+                               <tbody id="showProducts"></tbody></table>`)
+                                const xmlParser = new XMLHttpRequest();
+                                xmlParser.open("GET", "http://localhost:5000/User_products");
+                                xmlParser.send();
+                                xmlParser.onreadystatechange = function () {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        const products = JSON.parse(this.responseText);
+                                        var prod_list = ""
+                                        for (const product of products) {
+                                            prod_list += `<tr>
+                                            <td>${product['product_name']}</td>
+                                            <td>${product['product_price']}</td>
+                                            <td><button class="btn btn-warning" onclick="updateAmount(${product['user_id']},${product['pro_id']},'+')">Sell</button></td>
+                                            </tr>`
+                                        }
+                                        console.log(prod_list)
+                                        $('#showProducts').html(prod_list);
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
